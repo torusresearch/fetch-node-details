@@ -1,0 +1,30 @@
+{
+  "extends": ["standard", "prettier", "prettier/standard"],
+  "plugins": ["prettier", "standard", "mocha"],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "max-len": [2, { "code": 150, "ignoreComments": true }],
+    "prettier/prettier": ["error", { "printWidth": 150 }],
+    "flowtype/require-valid-file-annotation": "off",
+    "import/named": "off",
+    "camelcase": "off",
+    "import/no-extraneous-dependencies": [2, { "devDependencies": ["**/*.js"] }]
+  },
+  "globals": {
+    "document": true,
+    "fetch": true,
+    "jest": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "describe": true,
+    "expect": true
+  }
+}
