@@ -11,8 +11,15 @@ interface EpochInfo {
 interface NodeInfo {
     declaredIp: String;
     position: String;
+    pubKx: String;
+    pubKy: String;
     tmP2PListenAddress: String;
     p2pListenAddress: String;
+}
+
+interface TorusNodePub {
+    X: String;
+    Y: String;
 }
 
 interface NodeDetails {
@@ -20,6 +27,7 @@ interface NodeDetails {
     nodeListAddress: String;
     torusNodeEndpoints: String[];
     torusIndexes: Number[];
+    torusNodePub: TorusNodePub[];
     updated: Boolean;
 }
 
