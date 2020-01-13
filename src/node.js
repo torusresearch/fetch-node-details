@@ -14,6 +14,28 @@ const nodeDetails = {
     "https://torus-main-13.torusnode.com/jrpc",
     "https://etc-main-13.torusnode.com/jrpc"
   ],
+  torusNodePub: [
+    {
+      X: "57950111761191552097724757179303771667822761128880477488391496396179717539890",
+      Y: "74393301957880371258837374004285808472861444745937163848782001554220591867873"
+    },
+    {
+      X: "110370179800685867651497013605449859866049852314955093481972892310438566618563",
+      Y: "87468834072421735791258187150311839702365940964147928759165987527582925389829"
+    },
+    {
+      X: "7545660098956801290037601316552639716104428134250064436201208478654091494541",
+      Y: "13450332664811079770773409184136555964428902874670120523449266646930941123225"
+    },
+    {
+      X: "11997376490391531226016453830943820521378269751826233298351115247528023754998",
+      Y: "66294947611826564474935633246675366812551918389958104434032262879263911009451"
+    },
+    {
+      X: "70286887677368680618746965874482632194823771335116228622050520165411276154791",
+      Y: "107872914143417912160510274747999612735843562429421664781783714364842029049012"
+    }
+  ],
   torusIndexes: [1, 2, 3, 4, 5],
   updated: false
 };
@@ -51,16 +73,20 @@ function getNodeDetails(skip = false) {
         return Promise.all(nodeEndpointRequests);
       })
       .then(nodeEndPoints => {
-        const updatedNodeEndpoints = nodeEndPoints.map(x => {
-          return `https://${x.declaredIp.split(":")[0]}/jrpc`;
-        });
-        nodeDetails.torusNodeEndpoints = updatedNodeEndpoints;
+        const updatedEndpoints = [];
+        const updatedNodePub = [];
+        for (let index = 0; index < nodeEndPoints.length; index++) {
+          const endPointElement = nodeEndPoints[index];
+          const endpoint = `https://${endPointElement.declaredIp.split(":")[0]}/jrpc`;
+          updatedEndpoints.push(endpoint);
+          updatedNodePub.push({ X: endPointElement.pubKx, Y: endPointElement.pubKy });
+        }
+        nodeDetails.torusNodeEndpoints = updatedEndpoints;
+        nodeDetails.torusNodePub = updatedNodePub;
         nodeDetails.updated = true;
         resolve(nodeDetails);
       })
-      .catch(_ => {
-        resolve(nodeDetails);
-      });
+      .catch(_ => resolve(nodeDetails));
   });
 }
 

@@ -87,6 +87,16 @@ const nodeListABI = [
         type: "uint256"
       },
       {
+        internalType: "uint256",
+        name: "pubKx",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "pubKy",
+        type: "uint256"
+      },
+      {
         internalType: "string",
         name: "tmP2PListenAddress",
         type: "string"
@@ -104,7 +114,7 @@ const nodeListABI = [
 ];
 
 const config = {
-  MAINNET_JRPC_URL: "https://mainnet.infura.io/metamask",
+  MAINNET_JRPC_URL: "https://api.infura.io/v1/jsonrpc/mainnet",
   nodeListABI: nodeListABI,
   proxyAddress: "0x638646503746d5456209e33a2ff5e3226d698bea"
 };
