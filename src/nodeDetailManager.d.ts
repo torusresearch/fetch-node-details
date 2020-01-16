@@ -31,14 +31,15 @@ interface NodeDetails {
     updated: Boolean;
 }
 
-declare function getNodeDetails(skip?: Boolean): Promise<NodeDetails>;
-declare function getNodeEndpoint(nodeEthAddress: String): Promise<NodeInfo>;
-declare function getEpochInfo(epoch: Number): Promise<EpochInfo>;
-declare function getCurrentEpoch(): Promise<String>;
+interface NodeDetailManagerCtorArgs {
+    network?: String;
+    proxyAddress?: String;
+}
 
-export {
-    getNodeDetails,
-    getNodeEndpoint,
-    getEpochInfo,
-    getCurrentEpoch
-};
+export default class NodeDetailManager {
+    constructor(args: NodeDetailManagerCtorArgs);
+    getNodeDetails(skip?: Boolean): Promise<NodeDetails>;
+    getNodeEndpoint(nodeEthAddress: String): Promise<NodeInfo>;
+    getEpochInfo(epoch: Number): Promise<EpochInfo>;
+    getCurrentEpoch(): Promise<String>;
+}

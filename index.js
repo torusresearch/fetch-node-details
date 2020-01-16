@@ -1,3 +1,3 @@
-const node = require("./src/node");
+const NodeDetailManager = require("./dist/nodeDetailManager");
 
-module.exports = node;
+module.exports = NodeDetailManager;

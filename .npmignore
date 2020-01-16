@@ -36,3 +36,7 @@ server.js
 .prettierignore
 .prettierrc.yaml
 example/
+src/
+test/
+.mocharc.yaml
+toruslabs-fetch-node-details*
