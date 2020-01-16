@@ -1,1 +1,3 @@
-export * from "./src/node"
+import NodeDetailManager from './dist/nodeDetailManager'
+
+export default NodeDetailManager
