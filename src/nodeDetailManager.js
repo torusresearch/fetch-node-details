@@ -4,40 +4,33 @@ import { toHex } from "web3-utils";
 import { abi } from "./abi.json";
 
 class NodeDetailManager {
-  _currentEpoch = "13";
+  _currentEpoch = "18";
 
   _torusNodeEndpoints = [
-    "https://binance-main-13.torusnode.com/jrpc",
-    "https://waseda-main-13.torusnode.com/jrpc",
-    "https://vgr-main-13.torusnode.com/jrpc",
-    "https://torus-main-13.torusnode.com/jrpc",
-    "https://etc-main-13.torusnode.com/jrpc",
+    "https://torus-18.torusnode.com/jrpc",
+    "https://torus.ont.io/jrpc",
+    "https://torus.binancex.dev/jrpc",
+    "https://torus.matic.network/jrpc",
+    "https://torusnode.zilliqa.network/jrpc",
+    "https://torus.ens.domains/jrpc",
+    "https://torus-node.skalelabs.com/jrpc",
+    "https://torus.cosmos.network/jrpc",
+    "https://torus.etherscan.com/jrpc",
   ];
 
   _torusNodePub = [
-    {
-      X: "801e99d5c6befe4286de6f22b086508c02ae5730afabf15f316242238fa8c832",
-      Y: "a4791de3ebd17197d09d7a52d417994e7fdab17f8de002fc139c90dfdebfe7e1",
-    },
-    {
-      X: "f4034ed9b11a3573d496b09823f69efed1213bc903f0b520652cb1b80f72e5c3",
-      Y: "c1619b0d594db4bb289b2ec18c029e777b1e04aa0493f7318d14a68e89ff0005",
-    },
-    {
-      X: "10aeb138801ef2e189e21a016e913fc2c2d40463e90e09687c6cef011e64048d",
-      Y: "1dbc9e567db833376cac16ad07b402d44458befb26125e98446270d41e759a99",
-    },
-    {
-      X: "1a864642b3e612615c0db4999cc89e123b7ab6bafe58b1692d46b64ba27508f6",
-      Y: "92919c5269b22818a9e62d246df282b7847782e46f94d775d8d20fe967fb5cab",
-    },
-    {
-      X: "9b64f7f8db105bb5a9301ac7ab20958e6d71f4a231f0d29b431712dd61d767a7",
-      Y: "ee7de7de555aea2e586c9b40e68fab778742c0a8871e8b8f88a97063822764b4",
-    },
+    { X: "ecbe4a29e02bb9c077433191051ba74d2458a7ebce95a3183a4201338376539f", Y: "114018f97e6576f3fe1c247fc6802de3ff219507589a90544e6921ea9608adcf" },
+    { X: "c1d31f5b0ba633ad5dec80c35df7209ffe282392831f5d3a386d3c5c0c6b4c2b", Y: "2490a3e69ac1d5a6c3170b5dc4947f038bf37a738cc279d75c18b6a85c90bc71" },
+    { X: "a6d83cc23847dec596d19e93801a0d67ee85f4b1e5f44f267a7118a0c01381ef", Y: "f4b16a19ba44766d53cfaa8fe5858d87c842c7ec0c7b6ecdf11056e6afbeb726" },
+    { X: "79242c54fcfda56c914a28ae89b038dcae8ef2e9dd295171d5562f01d396fbb", Y: "519c655678bf9f6091aa17d0bc13443b69fe8b10ba9336c7cc966a2164eec9e4" },
+    { X: "24b3f3582397f4f4274510e94d8e95fa1a17d57fab2e581d4da1dd2ba61c47d2", Y: "fa15e5cd538992c74cbca5fc1c654ab4d79fb40e2cf5ec58190c35252d81bb6" },
+    { X: "a08620e79b5c006f261b5221e0fae75d379fd0fcd16c66ced105b3fe5282ed64", Y: "e589aa09a7ac28a74d4f4cf7f52718dd9c3cca0541070eec36c66e62a748b17" },
+    { X: "17b5b8402eb27b520eaf4697c7ca3e4818bc79c6cedb6c39490da18602cd84a9", Y: "f18768b68383b8fa9a91caa55768fd7bdec64c8c01cc2fa88963fc6fe92775a6" },
+    { X: "47953df2031bf785f95158a1753a65735fecc93a0248620c4afd7b08ddf239e2", Y: "8058bf6928e7d49179d08cc354d3d735dd08be2f0aa6023d8a7298bb892cf65" },
+    { X: "e53c29bd04eb211d911d78ebcd36d3645872d8f8a18af4fb1937fb2a1f049078", Y: "91ace383afb055ce304ccc5ee811fd8e7407c93e8e0d63d993fc08affc646045" },
   ];
 
-  _torusIndexes = [1, 2, 3, 4, 5];
+  _torusIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   constructor({ network = "mainnet", proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" } = {}) {
     let url;
