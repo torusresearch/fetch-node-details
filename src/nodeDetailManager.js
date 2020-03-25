@@ -74,8 +74,8 @@ class NodeDetailManager {
   }
 
   getNodeDetails(skip = false) {
-    if (skip) return this._nodeDetails;
-    if (this.updated) return this._nodeDetails;
+    if (skip) return Promise.resolve(this._nodeDetails);
+    if (this.updated) return Promise.resolve(this._nodeDetails);
     return this.getCurrentEpoch()
       .then((latestEpoch) => {
         this._currentEpoch = latestEpoch;
