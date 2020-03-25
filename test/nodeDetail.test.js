@@ -1,6 +1,7 @@
 import { deepStrictEqual } from "assert";
+
 import NodeDetailManager from "../src/nodeDetailManager";
-import { nodeDetailsResponse, nodeDetailsStatic, nodeDetailsRopsten } from "./config";
+import { nodeDetailsResponse, nodeDetailsRopsten, nodeDetailsStatic } from "./config";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values when not skipping - mainnet", async function () {
