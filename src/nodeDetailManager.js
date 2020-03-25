@@ -73,39 +73,33 @@ class NodeDetailManager {
     return this.nodeListContract.methods.getNodeDetails(nodeEthAddress).call();
   }
 
-  getNodeDetails(skip = false) {
-    if (skip) return Promise.resolve(this._nodeDetails);
-    if (this.updated) return Promise.resolve(this._nodeDetails);
-    return this.getCurrentEpoch()
-      .then((latestEpoch) => {
-        this._currentEpoch = latestEpoch;
-        return this.getEpochInfo(latestEpoch);
-      })
-      .then((latestEpochInfo) => {
-        const nodeEndpointRequests = [];
-        const indexes = latestEpochInfo.nodeList.map((_, pos) => {
-          return pos + 1;
-        });
-        this._torusIndexes = indexes;
-        // eslint-disable-next-line promise/no-nesting
-        latestEpochInfo.nodeList.map((nodeEthAddress) => nodeEndpointRequests.push(this.getNodeEndpoint(nodeEthAddress).catch((_) => {})));
-        return Promise.all(nodeEndpointRequests);
-      })
-      .then((nodeEndPoints) => {
-        const updatedEndpoints = [];
-        const updatedNodePub = [];
-        for (let index = 0; index < nodeEndPoints.length; index += 1) {
-          const endPointElement = nodeEndPoints[index];
-          const endpoint = `https://${endPointElement.declaredIp.split(":")[0]}/jrpc`;
-          updatedEndpoints.push(endpoint);
-          updatedNodePub.push({ X: toHex(endPointElement.pubKx).replace("0x", ""), Y: toHex(endPointElement.pubKy).replace("0x", "") });
-        }
-        this._torusNodeEndpoints = updatedEndpoints;
-        this._torusNodePub = updatedNodePub;
-        this.updated = true;
-        return this._nodeDetails;
-      })
-      .catch((_) => this._nodeDetails);
+  async getNodeDetails(skip = false) {
+    try {
+      if (skip) return this._nodeDetails;
+      if (this.updated) return this._nodeDetails;
+      const latestEpoch = await this.getCurrentEpoch();
+      this._currentEpoch = latestEpoch;
+      const latestEpochInfo = await this.getEpochInfo(latestEpoch);
+      const nodeEndpointRequests = [];
+      const indexes = latestEpochInfo.nodeList.map((_, pos) => pos + 1);
+      this._torusIndexes = indexes;
+      latestEpochInfo.nodeList.map((nodeEthAddress) => nodeEndpointRequests.push(this.getNodeEndpoint(nodeEthAddress).catch((_) => {})));
+      const nodeEndPoints = await Promise.all(nodeEndpointRequests);
+      const updatedEndpoints = [];
+      const updatedNodePub = [];
+      for (let index = 0; index < nodeEndPoints.length; index += 1) {
+        const endPointElement = nodeEndPoints[index];
+        const endpoint = `https://${endPointElement.declaredIp.split(":")[0]}/jrpc`;
+        updatedEndpoints.push(endpoint);
+        updatedNodePub.push({ X: toHex(endPointElement.pubKx).replace("0x", ""), Y: toHex(endPointElement.pubKy).replace("0x", "") });
+      }
+      this._torusNodeEndpoints = updatedEndpoints;
+      this._torusNodePub = updatedNodePub;
+      this.updated = true;
+      return this._nodeDetails;
+    } catch (_) {
+      return this._nodeDetails;
+    }
   }
 }
 
