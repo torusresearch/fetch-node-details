@@ -11,30 +11,30 @@ class NodeDetailManager {
     "https://waseda-main-13.torusnode.com/jrpc",
     "https://vgr-main-13.torusnode.com/jrpc",
     "https://torus-main-13.torusnode.com/jrpc",
-    "https://etc-main-13.torusnode.com/jrpc"
+    "https://etc-main-13.torusnode.com/jrpc",
   ];
 
   _torusNodePub = [
     {
       X: "801e99d5c6befe4286de6f22b086508c02ae5730afabf15f316242238fa8c832",
-      Y: "a4791de3ebd17197d09d7a52d417994e7fdab17f8de002fc139c90dfdebfe7e1"
+      Y: "a4791de3ebd17197d09d7a52d417994e7fdab17f8de002fc139c90dfdebfe7e1",
     },
     {
       X: "f4034ed9b11a3573d496b09823f69efed1213bc903f0b520652cb1b80f72e5c3",
-      Y: "c1619b0d594db4bb289b2ec18c029e777b1e04aa0493f7318d14a68e89ff0005"
+      Y: "c1619b0d594db4bb289b2ec18c029e777b1e04aa0493f7318d14a68e89ff0005",
     },
     {
       X: "10aeb138801ef2e189e21a016e913fc2c2d40463e90e09687c6cef011e64048d",
-      Y: "1dbc9e567db833376cac16ad07b402d44458befb26125e98446270d41e759a99"
+      Y: "1dbc9e567db833376cac16ad07b402d44458befb26125e98446270d41e759a99",
     },
     {
       X: "1a864642b3e612615c0db4999cc89e123b7ab6bafe58b1692d46b64ba27508f6",
-      Y: "92919c5269b22818a9e62d246df282b7847782e46f94d775d8d20fe967fb5cab"
+      Y: "92919c5269b22818a9e62d246df282b7847782e46f94d775d8d20fe967fb5cab",
     },
     {
       X: "9b64f7f8db105bb5a9301ac7ab20958e6d71f4a231f0d29b431712dd61d767a7",
-      Y: "ee7de7de555aea2e586c9b40e68fab778742c0a8871e8b8f88a97063822764b4"
-    }
+      Y: "ee7de7de555aea2e586c9b40e68fab778742c0a8871e8b8f88a97063822764b4",
+    },
   ];
 
   _torusIndexes = [1, 2, 3, 4, 5];
@@ -64,7 +64,7 @@ class NodeDetailManager {
       torusNodeEndpoints: this._torusNodeEndpoints,
       torusNodePub: this._torusNodePub,
       torusIndexes: this._torusIndexes,
-      updated: this.updated
+      updated: this.updated,
     };
   }
 
@@ -85,22 +85,22 @@ class NodeDetailManager {
       if (skip) return resolve(this._nodeDetails);
       if (this.updated) return resolve(this._nodeDetails);
       this.getCurrentEpoch()
-        .then(latestEpoch => {
+        .then((latestEpoch) => {
           this._currentEpoch = latestEpoch;
           return this.getEpochInfo(latestEpoch);
         })
-        .then(latestEpochInfo => {
+        .then((latestEpochInfo) => {
           const nodeEndpointRequests = [];
           const indexes = latestEpochInfo.nodeList.map((_, pos) => {
             return pos + 1;
           });
           this._torusIndexes = indexes;
-          latestEpochInfo.nodeList.map(nodeEthAddress => {
-            nodeEndpointRequests.push(this.getNodeEndpoint(nodeEthAddress).catch(_ => {}));
+          latestEpochInfo.nodeList.map((nodeEthAddress) => {
+            nodeEndpointRequests.push(this.getNodeEndpoint(nodeEthAddress).catch((_) => {}));
           });
           return Promise.all(nodeEndpointRequests);
         })
-        .then(nodeEndPoints => {
+        .then((nodeEndPoints) => {
           const updatedEndpoints = [];
           const updatedNodePub = [];
           for (let index = 0; index < nodeEndPoints.length; index++) {
@@ -114,7 +114,7 @@ class NodeDetailManager {
           this.updated = true;
           resolve(this._nodeDetails);
         })
-        .catch(_ => resolve(this._nodeDetails));
+        .catch((_) => resolve(this._nodeDetails));
     });
   }
 }
