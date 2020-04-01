@@ -57,7 +57,7 @@ export default [
     ],
     plugins: [
       json(),
-      babel({ runtimeHelpers: true }),
+      babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] }),
       nodebns(),
       nodeglob({ baseDir: false, dirname: false, filename: false, global: false, process: false }),
       terser({ include: "*.min.*" }),
