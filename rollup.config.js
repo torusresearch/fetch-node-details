@@ -84,7 +84,7 @@ export default [
       json(),
       babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] }),
       nodebns(),
-      nodeglob({ baseDir: false, dirname: false, filename: false, global: false, process: false }),
+      nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
       terser({ include: "*.min.*" }),
     ],
   },
