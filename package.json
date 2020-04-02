@@ -16,7 +16,7 @@
     "build": "rimraf dist/ && rollup -c",
     "prepack": "npm run build",
     "test": "mocha",
-    "lint:js": "eslint --fix '**/*.js'"
+    "lint:js": "eslint --fix 'src/**/*.js'"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "~7.9.2",
@@ -65,11 +65,12 @@
     }
   },
   "lint-staged": {
-    "*.{js,css,json,md}": [
-      "prettier --write"
+    "*.{js}": [
+      "npm run lint:js --",
+      "prettier --write 'src/**/*.js'"
     ],
-    "*.js": [
-      "eslint --fix"
+    "*.{json, md}": [
+      "prettier --write"
     ]
   },
   "repository": {
