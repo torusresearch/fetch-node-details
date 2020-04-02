@@ -1,3 +1,3 @@
-const NodeDetailManager = require("./dist/nodeDetailManager");
+import NodeDetailManager from "./src/nodeDetailManager";
 
-module.exports = NodeDetailManager;
+export default NodeDetailManager;

@@ -2,16 +2,24 @@
   "name": "@toruslabs/fetch-node-details",
   "version": "2.0.4",
   "description": "Fetches the node details from torus nodelist smart contract",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/fetchNodeDetails.cjs.js",
+  "module": "dist/fetchNodeDetails.esm.js",
+  "browser": "dist/fetchNodeDetails.umd.js",
+  "unpkg": "dist/fetchNodeDetails.umd.min.js",
+  "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
+  "types": "types/nodeDetailManager.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
-    "build": "babel ./src --out-dir dist/ && cp ./src/nodeDetailManager.d.ts ./dist/nodeDetailManager.d.ts && cp ./src/abi.json ./dist/abi.json",
+    "build": "rimraf dist/ && rollup -c",
     "prepack": "npm run build",
-    "pretest": "npm run build",
     "test": "mocha",
     "lint:js": "eslint --fix '**/*.js'"
   },
   "dependencies": {
+    "@babel/runtime-corejs3": "~7.9.2",
     "web3-eth-contract": "^1.2.6",
     "web3-utils": "^1.2.6"
   },
@@ -23,6 +31,9 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/register": "^7.9.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
@@ -30,17 +41,23 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-flowtype": "^4.7.0",
-    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^5.0.2",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
-    "lint-staged": "^10.0.9",
+    "lint-staged": "^10.1.1",
     "mocha": "^7.1.1",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.3.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-terser": "^5.3.0"
   },
   "husky": {
     "hooks": {

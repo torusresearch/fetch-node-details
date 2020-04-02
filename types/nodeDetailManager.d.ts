@@ -36,10 +36,14 @@ interface NodeDetailManagerCtorArgs {
     proxyAddress?: String;
 }
 
-export default class NodeDetailManager {
+declare class NodeDetailManager {
     constructor(args: NodeDetailManagerCtorArgs);
     getNodeDetails(skip?: Boolean): Promise<NodeDetails>;
     getNodeEndpoint(nodeEthAddress: String): Promise<NodeInfo>;
     getEpochInfo(epoch: Number): Promise<EpochInfo>;
     getCurrentEpoch(): Promise<String>;
 }
+
+export as namespace fetchNodeDetails;
+
+export = NodeDetailManager;
