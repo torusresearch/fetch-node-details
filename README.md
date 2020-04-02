@@ -2,7 +2,6 @@
 
 [![npm version](https://badge.fury.io/js/%40toruslabs%2Ffetch-node-details.svg)](https://badge.fury.io/js/%40toruslabs%2Ffetch-node-details)
 ![npm](https://img.shields.io/npm/dw/@toruslabs/fetch-node-details)
-[![](https://data.jsdelivr.com/v1/package/npm/@toruslabs/fetch-node-details/badge)](https://www.jsdelivr.com/package/npm/@toruslabs/fetch-node-details)
 
 ## Introduction
 
@@ -53,7 +52,7 @@ jsdeliver
 unpkg
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/@toruslabs/fetch-node-details"></script>
+<script src="https://unpkg.com/@toruslabs/fetch-node-details"></script>
 ```
 
 ### Tips for NUXT
