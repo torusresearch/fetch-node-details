@@ -9,7 +9,32 @@ import { terser } from "rollup-plugin-terser";
 import pkg from "./package.json";
 
 export default [
-  // browser-friendly UMD build
+  // browser-friendly UMD build - polyfilled with corejs 3
+  {
+    input: "index.js",
+    output: [
+      {
+        name: "fetchNodeDetails",
+        file: pkg.browser.replace("umd.js", "polyfill.umd.js"),
+        format: "umd",
+      },
+      {
+        name: "fetchNodeDetails",
+        file: pkg.browser.replace("umd.js", "polyfill.umd.min.js"),
+        format: "umd",
+      },
+    ],
+    plugins: [
+      nodebns(),
+      json(),
+      babel({ runtimeHelpers: true }),
+      resolve({ preferBuiltins: false, browser: true }), // so Rollup can find dependencies
+      commonjs(), // so Rollup can convert dependencies to an ES module
+      nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
+      terser({ include: "*.min.*" }),
+    ],
+  },
+  // browser-friendly UMD build - not polyfilled
   {
     input: "index.js",
     output: [
@@ -27,7 +52,7 @@ export default [
     plugins: [
       nodebns(),
       json(),
-      babel({ runtimeHelpers: true }),
+      babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] }),
       resolve({ preferBuiltins: false, browser: true }), // so Rollup can find dependencies
       commonjs(), // so Rollup can convert dependencies to an ES module
       nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
