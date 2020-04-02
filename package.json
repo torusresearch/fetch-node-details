@@ -4,7 +4,10 @@
   "description": "Fetches the node details from torus nodelist smart contract",
   "main": "dist/fetchNodeDetails.cjs.js",
   "module": "dist/fetchNodeDetails.esm.js",
-  "browser": "dist/fetchNodeDetails.umd.js",
+  "browser": {
+    "./dist/fetchNodeDetails.cjs.js": "./dist/fetchNodeDetails.umd.js",
+    "./dist/fetchNodeDetails.esm.js": "./dist/fetchNodeDetails.esm.js"
+  },
   "unpkg": "dist/fetchNodeDetails.umd.min.js",
   "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
   "types": "types/nodeDetailManager.d.ts",
