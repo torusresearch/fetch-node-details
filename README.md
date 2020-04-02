@@ -55,10 +55,6 @@ unpkg
 <script src="https://unpkg.com/@toruslabs/fetch-node-details"></script>
 ```
 
-### Tips for NUXT
-
-This is a plugin that works [only on the client side](https://nuxtjs.org/guide/plugins/#client-side-only). So please register it as a ssr-free plugin.
-
 ## Usage
 
 Add [`@toruslabs/fetch-node-details`](https://www.npmjs.com/package/@toruslabs/fetch-node-details) to your project:
