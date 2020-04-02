@@ -8,19 +8,21 @@ import { terser } from "rollup-plugin-terser";
 
 import pkg from "./package.json";
 
+const pkgName = "fetchNodeDetails";
+
 export default [
   // browser-friendly UMD build - polyfilled with corejs 3
   {
     input: "index.js",
     output: [
       {
-        name: "fetchNodeDetails",
-        file: pkg.browser.replace("umd.js", "polyfill.umd.js"),
+        name: pkgName,
+        file: `dist/${pkgName}.polyfill.umd.js`,
         format: "umd",
       },
       {
-        name: "fetchNodeDetails",
-        file: pkg.browser.replace("umd.js", "polyfill.umd.min.js"),
+        name: pkgName,
+        file: `dist/${pkgName}.polyfill.umd.min.js`,
         format: "umd",
       },
     ],
@@ -39,13 +41,13 @@ export default [
     input: "index.js",
     output: [
       {
-        name: "fetchNodeDetails",
-        file: pkg.browser,
+        name: pkgName,
+        file: `dist/${pkgName}.umd.js`,
         format: "umd",
       },
       {
-        name: "fetchNodeDetails",
-        file: pkg.browser.replace(".js", ".min.js"),
+        name: pkgName,
+        file: `dist/${pkgName}.umd.min.js`,
         format: "umd",
       },
     ],
