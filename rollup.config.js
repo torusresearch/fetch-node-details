@@ -31,7 +31,7 @@ export default [
       json(),
       babel({ runtimeHelpers: true }),
       resolve({ preferBuiltins: false, browser: true }), // so Rollup can find dependencies
-      commonjs(), // so Rollup can convert dependencies to an ES module
+      commonjs({ ignoreGlobal: true }), // so Rollup can convert dependencies to an ES module
       nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
       terser({ include: "*.min.*" }),
     ],
@@ -56,7 +56,7 @@ export default [
       json(),
       babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] }),
       resolve({ preferBuiltins: false, browser: true }), // so Rollup can find dependencies
-      commonjs(), // so Rollup can convert dependencies to an ES module
+      commonjs({ ignoreGlobal: true }), // so Rollup can convert dependencies to an ES module
       nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
       terser({ include: "*.min.*" }),
     ],
