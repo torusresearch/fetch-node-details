@@ -16,7 +16,7 @@
     "types"
   ],
   "scripts": {
-    "build": "rimraf dist/ && rollup -c",
+    "build": "rimraf dist/ && webpack",
     "prepack": "npm run build",
     "test": "mocha",
     "lint:js": "eslint --fix 'src/**/*.js'"
@@ -34,14 +34,13 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/register": "^7.9.0",
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-json": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-standard": "^14.1.1",
+    "eslint-loader": "^3.0.4",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-flowtype": "^4.7.0",
     "eslint-plugin-import": "^2.20.2",
@@ -56,11 +55,10 @@
     "mocha": "^7.1.1",
     "prettier": "^2.0.2",
     "rimraf": "^3.0.2",
-    "rollup": "^2.3.2",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-terser": "^5.3.0"
+    "terser-webpack-plugin": "^2.3.5",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-merge": "^4.2.2"
   },
   "husky": {
     "hooks": {
