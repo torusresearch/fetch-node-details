@@ -29,7 +29,7 @@ export default [
     plugins: [
       nodebns(),
       json(),
-      babel({ runtimeHelpers: true }),
+      babel({ runtimeHelpers: true, exclude: "node_modules/**" }),
       resolve({ preferBuiltins: false, browser: true }), // so Rollup can find dependencies
       commonjs({ ignoreGlobal: true }), // so Rollup can convert dependencies to an ES module
       nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
@@ -54,7 +54,7 @@ export default [
     plugins: [
       nodebns(),
       json(),
-      babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] }),
+      babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"], exclude: "node_modules/**" }),
       resolve({ preferBuiltins: false, browser: true }), // so Rollup can find dependencies
       commonjs({ ignoreGlobal: true }), // so Rollup can convert dependencies to an ES module
       nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
@@ -82,6 +82,6 @@ export default [
       { file: pkg.main, format: "cjs" },
       { file: pkg.module, format: "es" },
     ],
-    plugins: [json(), babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] })],
+    plugins: [json(), babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"], exclude: "node_modules/**" })],
   },
 ];
