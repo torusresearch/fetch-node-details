@@ -96,7 +96,7 @@ const cjsConfig = {
 
 module.exports = [umdPolyfilledConfig, umdPolyfilledConfigMinified, umdConfig, umdConfigMinified, cjsConfig];
 
-// V5
+// v5
 // experiments: {
 //   outputModule: true
 // }
