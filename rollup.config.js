@@ -82,12 +82,6 @@ export default [
       { file: pkg.main, format: "cjs" },
       { file: pkg.module, format: "es" },
     ],
-    plugins: [
-      json(),
-      babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] }),
-      nodebns(),
-      nodeglob({ baseDir: false, dirname: false, filename: false, global: true, process: false }),
-      terser({ include: "*.min.*" }),
-    ],
+    plugins: [json(), babel({ runtimeHelpers: true, plugins: ["@babel/transform-runtime"] })],
   },
 ];
