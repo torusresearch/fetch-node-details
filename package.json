@@ -17,7 +17,7 @@
     "lint:js": "eslint --fix 'src/**/*.js'"
   },
   "peerDependencies": {
-    "@babel/runtime-corejs3": "~7.9.2"
+    "@babel/runtime-corejs3": "^7.9.2"
   },
   "dependencies": {
     "web3-eth-contract": "^1.2.6",
@@ -31,7 +31,7 @@
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/register": "^7.9.0",
-    "@babel/runtime-corejs3": "~7.9.2",
+    "@babel/runtime-corejs3": "^7.9.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
