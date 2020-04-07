@@ -74,4 +74,5 @@ fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
 
 ## Requirements
 
+- This package requires a peer dependency of `@babel/runtime` or `@babel/runtime-corejs3`
 - Node 10+
