@@ -1,6 +1,7 @@
 const path = require("path");
 
 const pkgName = "fetchNodeDetails";
+const libraryName = pkgName.charAt(0).toUpperCase() + pkgName.slice(1);
 
 const baseConfig = {
   mode: "production",
@@ -8,7 +9,7 @@ const baseConfig = {
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
-    library: pkgName,
+    library: libraryName,
     libraryExport: "default",
   },
   module: {
