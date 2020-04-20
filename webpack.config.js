@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 const pkgName = "fetchNodeDetails";
 const libraryName = pkgName.charAt(0).toUpperCase() + pkgName.slice(1);
@@ -15,6 +16,30 @@ const baseConfig = {
   module: {
     rules: [],
   },
+  // experiments: {
+  //   outputModule: true,
+  // },
+  node: {
+    global: true,
+  },
+  resolve: {
+    alias: {
+      crypto: "crypto-browserify",
+      stream: "stream-browserify",
+      vm: "vm-browserify",
+      buffer: "buffer",
+      os: "os-browserify/browser.js",
+      http: "stream-http",
+      https: "https-browserify",
+      url: "url",
+    },
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: "process/browser.js",
+      Buffer: ["buffer", "Buffer"],
+    }),
+  ],
 };
 
 const eslintLoader = {
@@ -88,6 +113,7 @@ const cjsConfig = {
     ...baseConfig.output,
     filename: `${pkgName}.cjs.js`,
     libraryTarget: "commonjs2",
+    // module: true,
   },
   module: {
     rules: [eslintLoader, babelLoader],
@@ -95,7 +121,8 @@ const cjsConfig = {
   externals: [/^(@babel\/runtime)/i],
 };
 
-module.exports = [umdPolyfilledConfig, umdPolyfilledConfigMinified, umdConfig, umdConfigMinified, cjsConfig];
+// module.exports = [umdPolyfilledConfig, umdPolyfilledConfigMinified, umdConfig, umdConfigMinified, cjsConfig];
+module.exports = [cjsConfig];
 
 // v5
 // experiments: {

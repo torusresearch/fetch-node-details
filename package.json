@@ -11,7 +11,7 @@
     "types"
   ],
   "scripts": {
-    "build": "rimraf dist/ && parallel-webpack --no-stats",
+    "build": "rimraf dist/ && parallel-webpack",
     "prepack": "npm run build",
     "test": "mocha",
     "lint:js": "eslint --fix 'src/**/*.js'"
@@ -34,6 +34,8 @@
     "@babel/runtime-corejs3": "^7.9.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "buffer": "^5.6.0",
+    "crypto-browserify": "^3.12.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -48,14 +50,20 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^5.0.2",
     "eslint-plugin-standard": "^4.0.1",
+    "https-browserify": "^1.0.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
     "mocha": "^7.1.1",
+    "os-browserify": "^0.3.0",
     "parallel-webpack": "^2.5.0",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.1.0",
+    "url": "^0.11.0",
+    "vm-browserify": "^1.1.2",
+    "webpack": "^5.0.0-beta.14",
+    "webpack-cli": "^4.0.0-beta.8"
   },
   "husky": {
     "hooks": {
