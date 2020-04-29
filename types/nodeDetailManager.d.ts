@@ -44,6 +44,6 @@ declare class NodeDetailManager {
     getCurrentEpoch(): Promise<String>;
 }
 
-export as namespace fetchNodeDetails;
+export as namespace FetchNodeDetails;
 
 export = NodeDetailManager;
