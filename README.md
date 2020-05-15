@@ -24,12 +24,10 @@ assignments, and key retrievals by other dependent libraries.
 
 ### Bundling
 
-This module is distributed in 6 formats
+This module is distributed in 3 formats
 
 - `commonjs` build `dist/fetchNodeDetails.cjs.js` in es5 format
-- `umd` build `dist/fetchNodeDetails.umd.js` in es5 format without polyfilling corejs
 - `umd` build `dist/fetchNodeDetails.umd.min.js` in es5 format without polyfilling corejs minified
-- `umd` build `dist/fetchNodeDetails.polyfill.umd.js` in es5 format with polyfilling corejs
 - `umd` build `dist/fetchNodeDetails.polyfill.umd.min.js` in es5 format with polyfilling corejs minified
 
 By default, the appropriate format is used for your specified usecase
@@ -74,5 +72,5 @@ fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
 
 ## Requirements
 
-- This package requires a peer dependency of `@babel/runtime` or `@babel/runtime-corejs3`
+- This package requires a peer dependency of `@babel/runtime`
 - Node 10+
