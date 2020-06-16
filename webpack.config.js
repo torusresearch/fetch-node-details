@@ -1,4 +1,5 @@
 const path = require("path");
+const pkg = require("./package.json");
 
 const pkgName = "fetchNodeDetails";
 const libraryName = pkgName.charAt(0).toUpperCase() + pkgName.slice(1);
@@ -94,7 +95,7 @@ const nodeConfig = {
   module: {
     rules: [eslintLoader, babelLoader],
   },
-  externals: [/^(@babel\/runtime)/i],
+  externals: [...Object.keys(pkg.dependencies), /^(@babel\/runtime)/i],
   target: "node",
 };
 
