@@ -24,7 +24,7 @@ assignments, and key retrievals by other dependent libraries.
 
 ### Bundling
 
-This module is distributed in 3 formats
+This module is distributed in 4 formats
 
 - `commonjs` build `dist/fetchNodeDetails.cjs.js` in es5 format
 - `umd` build `dist/fetchNodeDetails.umd.min.js` in es5 format without polyfilling corejs minified
