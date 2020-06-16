@@ -23,6 +23,12 @@ const baseConfig = {
   },
 };
 
+const optimization = {
+  optimization: {
+    minimize: false,
+  },
+};
+
 const eslintLoader = {
   enforce: "pre",
   test: /\.js$/,
@@ -77,7 +83,22 @@ const cjsConfig = {
   externals: [/^(@babel\/runtime)/i],
 };
 
-module.exports = [umdPolyfilledConfig, umdConfig, cjsConfig];
+const nodeConfig = {
+  ...baseConfig,
+  ...optimization,
+  output: {
+    ...baseConfig.output,
+    filename: `${pkgName}-node.js`,
+    libraryTarget: "commonjs2",
+  },
+  module: {
+    rules: [eslintLoader, babelLoader],
+  },
+  externals: [/^(@babel\/runtime)/i],
+  target: "node",
+};
+
+module.exports = [umdPolyfilledConfig, umdConfig, cjsConfig, nodeConfig];
 // module.exports = [cjsConfig];
 
 // v5
