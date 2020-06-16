@@ -24,14 +24,15 @@ assignments, and key retrievals by other dependent libraries.
 
 ### Bundling
 
-This module is distributed in 3 formats
+This module is distributed in 4 formats
 
 - `commonjs` build `dist/fetchNodeDetails.cjs.js` in es5 format
 - `umd` build `dist/fetchNodeDetails.umd.min.js` in es5 format without polyfilling corejs minified
 - `umd` build `dist/fetchNodeDetails.polyfill.umd.min.js` in es5 format with polyfilling corejs minified
+- `node` build `dist/fetchNodeDetails-node.js` in es5 format
 
 By default, the appropriate format is used for your specified usecase
-You can use a different format (if you know what you're doing) by referencing the correct file
+You can use a different format (if you know what you're doing eg. node) by referencing the correct file
 
 The cjs build is not polyfilled with core-js.
 It is upto the user to polyfill based on the browserlist they target
@@ -65,6 +66,14 @@ const nodeInfo = await fetchNodeDetails.getNodeDetails();
 
 ```js
 const FetchNodeDetails = require("@toruslabs/fetch-node-details");
+
+const fetchNodeDetails = new FetchNodeDetails();
+fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
+```
+
+```js
+// For Node.js
+const FetchNodeDetails = require("@toruslabs/fetch-node-details/dist/fetchNodeDetails-node.js");
 
 const fetchNodeDetails = new FetchNodeDetails();
 fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
