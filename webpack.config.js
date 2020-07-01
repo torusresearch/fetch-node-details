@@ -82,6 +82,19 @@ const cjsConfig = {
   module: {
     rules: [eslintLoader, babelLoader],
   },
+  externals: [...Object.keys(pkg.dependencies), /^(@babel\/runtime)/i],
+};
+
+const cjsBundledConfig = {
+  ...baseConfig,
+  output: {
+    ...baseConfig.output,
+    filename: `${pkgName}-bundled.cjs.js`,
+    libraryTarget: "commonjs2",
+  },
+  module: {
+    rules: [eslintLoader, babelLoader],
+  },
   externals: [/^(@babel\/runtime)/i],
 };
 
@@ -100,7 +113,7 @@ const nodeConfig = {
   target: "node",
 };
 
-module.exports = [umdPolyfilledConfig, umdConfig, cjsConfig, nodeConfig];
+module.exports = [umdPolyfilledConfig, umdConfig, cjsConfig, cjsBundledConfig, nodeConfig];
 // module.exports = [cjsConfig];
 
 // v5

@@ -27,6 +27,7 @@ assignments, and key retrievals by other dependent libraries.
 This module is distributed in 4 formats
 
 - `commonjs` build `dist/fetchNodeDetails.cjs.js` in es5 format
+- `commonjs` build `dist/fetchNodeDetails-bundled.cjs.js` in es5 format with problematic packages bundled (benfits non-webpack users)
 - `umd` build `dist/fetchNodeDetails.umd.min.js` in es5 format without polyfilling corejs minified
 - `umd` build `dist/fetchNodeDetails.polyfill.umd.min.js` in es5 format with polyfilling corejs minified
 - `node` build `dist/fetchNodeDetails-node.js` in es5 format
