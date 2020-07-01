@@ -4,8 +4,11 @@ const pkg = require("./package.json");
 const pkgName = "fetchNodeDetails";
 const libraryName = pkgName.charAt(0).toUpperCase() + pkgName.slice(1);
 
+const { NODE_ENV = "production" } = process.env;
+
 const baseConfig = {
-  mode: "production",
+  mode: NODE_ENV,
+  devtool: NODE_ENV === "production" ? false : "source-map",
   entry: "./index.js",
   target: "web",
   output: {
