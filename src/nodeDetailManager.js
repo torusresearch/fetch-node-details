@@ -40,14 +40,10 @@ class NodeDetailManager {
     } catch (_) {
       url = `https://api.infura.io/v1/jsonrpc/${network}`;
     }
-    try {
-      Web3EthContract.setProvider(url);
-      this.nodeListContract = new Web3EthContract(abi, proxyAddress);
-      this.nodeListAddress = proxyAddress;
-      this.updated = false;
-    } catch (error) {
-      throw new Error(error);
-    }
+    Web3EthContract.setProvider(url);
+    this.nodeListContract = new Web3EthContract(abi, proxyAddress);
+    this.nodeListAddress = proxyAddress;
+    this.updated = false;
   }
 
   get _nodeDetails() {

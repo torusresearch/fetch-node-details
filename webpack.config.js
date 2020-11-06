@@ -1,4 +1,5 @@
 const path = require("path");
+const ESLintPlugin = require("eslint-webpack-plugin");
 const pkg = require("./package.json");
 
 const pkgName = "fetchNodeDetails";
@@ -34,13 +35,6 @@ const optimization = {
   },
 };
 
-const eslintLoader = {
-  enforce: "pre",
-  test: /\.js$/,
-  exclude: /node_modules/,
-  loader: "eslint-loader",
-};
-
 const babelLoaderWithPolyfills = {
   test: /\.m?js$/,
   exclude: /(node_modules|bower_components)/,
@@ -59,7 +53,7 @@ const umdPolyfilledConfig = {
     libraryTarget: "umd",
   },
   module: {
-    rules: [eslintLoader, babelLoaderWithPolyfills],
+    rules: [babelLoaderWithPolyfills],
   },
 };
 
@@ -71,7 +65,7 @@ const umdConfig = {
     libraryTarget: "umd",
   },
   module: {
-    rules: [eslintLoader, babelLoader],
+    rules: [babelLoader],
   },
 };
 
@@ -83,7 +77,7 @@ const cjsConfig = {
     libraryTarget: "commonjs2",
   },
   module: {
-    rules: [eslintLoader, babelLoader],
+    rules: [babelLoader],
   },
   externals: [...Object.keys(pkg.dependencies), /^(@babel\/runtime)/i],
 };
@@ -96,8 +90,13 @@ const cjsBundledConfig = {
     libraryTarget: "commonjs2",
   },
   module: {
-    rules: [eslintLoader, babelLoader],
+    rules: [babelLoader],
   },
+  plugins: [
+    new ESLintPlugin({
+      files: "src",
+    }),
+  ],
   externals: [/^(@babel\/runtime)/i],
 };
 
@@ -110,7 +109,7 @@ const nodeConfig = {
     libraryTarget: "commonjs2",
   },
   module: {
-    rules: [eslintLoader, babelLoader],
+    rules: [babelLoader],
   },
   externals: [...Object.keys(pkg.dependencies), /^(@babel\/runtime)/i],
   target: "node",
