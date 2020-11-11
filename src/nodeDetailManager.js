@@ -4,30 +4,57 @@ import { toHex } from "web3-utils";
 import { abi } from "./abi.json";
 
 class NodeDetailManager {
-  _currentEpoch = "18";
+  _currentEpoch = "19";
 
   _torusNodeEndpoints = [
-    "https://torus-18.torusnode.com/jrpc",
-    "https://torus.ont.io/jrpc",
-    "https://torus.binancex.dev/jrpc",
-    "https://torus.matic.network/jrpc",
-    "https://torusnode.zilliqa.network/jrpc",
-    "https://torus.ens.domains/jrpc",
-    "https://torus-node.skalelabs.com/jrpc",
-    "https://torus.cosmos.network/jrpc",
-    "https://torus.etherscan.com/jrpc",
+    "https://torus-19.torusnode.com/jrpc",
+    "https://torus-node.ens.domains/jrpc",
+    "https://torus-node.matic.network/jrpc",
+    "https://torus.zilliqa.network/jrpc",
+    "https://torus-mainnet.cosmos.network/jrpc",
+    "https://torus2.etherscan.com/jrpc",
+    "https://torus-node-v2.skalelabs.com/jrpc",
+    "https://torus-node.binancex.dev/jrpc",
+    "https://torusnode.ont.io/jrpc",
   ];
 
   _torusNodePub = [
-    { X: "ecbe4a29e02bb9c077433191051ba74d2458a7ebce95a3183a4201338376539f", Y: "114018f97e6576f3fe1c247fc6802de3ff219507589a90544e6921ea9608adcf" },
-    { X: "c1d31f5b0ba633ad5dec80c35df7209ffe282392831f5d3a386d3c5c0c6b4c2b", Y: "2490a3e69ac1d5a6c3170b5dc4947f038bf37a738cc279d75c18b6a85c90bc71" },
-    { X: "a6d83cc23847dec596d19e93801a0d67ee85f4b1e5f44f267a7118a0c01381ef", Y: "f4b16a19ba44766d53cfaa8fe5858d87c842c7ec0c7b6ecdf11056e6afbeb726" },
-    { X: "79242c54fcfda56c914a28ae89b038dcae8ef2e9dd295171d5562f01d396fbb", Y: "519c655678bf9f6091aa17d0bc13443b69fe8b10ba9336c7cc966a2164eec9e4" },
-    { X: "24b3f3582397f4f4274510e94d8e95fa1a17d57fab2e581d4da1dd2ba61c47d2", Y: "fa15e5cd538992c74cbca5fc1c654ab4d79fb40e2cf5ec58190c35252d81bb6" },
-    { X: "a08620e79b5c006f261b5221e0fae75d379fd0fcd16c66ced105b3fe5282ed64", Y: "e589aa09a7ac28a74d4f4cf7f52718dd9c3cca0541070eec36c66e62a748b17" },
-    { X: "17b5b8402eb27b520eaf4697c7ca3e4818bc79c6cedb6c39490da18602cd84a9", Y: "f18768b68383b8fa9a91caa55768fd7bdec64c8c01cc2fa88963fc6fe92775a6" },
-    { X: "47953df2031bf785f95158a1753a65735fecc93a0248620c4afd7b08ddf239e2", Y: "8058bf6928e7d49179d08cc354d3d735dd08be2f0aa6023d8a7298bb892cf65" },
-    { X: "e53c29bd04eb211d911d78ebcd36d3645872d8f8a18af4fb1937fb2a1f049078", Y: "91ace383afb055ce304ccc5ee811fd8e7407c93e8e0d63d993fc08affc646045" },
+    {
+      X: "bbe83c64177c3775550e6ba6ac2bc059f6847d644c9e4894e42c60d7974d8c2b",
+      Y: "82b49a7caf70def38cdad2740af45c1e4f969650105c5019a29bb18b21a9acb5",
+    },
+    {
+      X: "c208cac4ef9a47d386097a9c915b28e9cb89213abee8d26a17198ee261201b0d",
+      Y: "c7db2fe4631109f40833de9dc78d07e35706549ee48fa557b33e4e75e1047873",
+    },
+    {
+      X: "ca1766bb426d4ca5582818a0c5439d560ea64f5baa060793ab29dd3d0ceacfe",
+      Y: "d46c1d08c40e1306e1bca328c2287b8268166b11a1ba4b8442ea2ad0c5e32152",
+    },
+    {
+      X: "c3934dd2f6f4b3d2e1e398cc501e143c1e1a381b52feb6d1525af34d16253768",
+      Y: "71f5141a5035799099f5ea3e241e66946bc55dc857ac3bd7d6fcdb8dcd3eeeef",
+    },
+    {
+      X: "22e66f1929631d00bf026227581597f085fd94fd952fc0dca9f0833398b5c064",
+      Y: "6088b3912e10a1e9d50355a609c10db7d188f16a2e2fd7357e51bf4f6a74f0a1",
+    },
+    {
+      X: "9dc9fa410f3ce9eb70df70cdea00a49f2c4cc7a31c08c0dab5f863ed35ff5139",
+      Y: "627a291cb87a75c61da3f65d6818e1e05e360217179817ed27e8c73bca7ec122",
+    },
+    {
+      X: "118b9fc07e97b096d899b9f6658463ce6a8caa64038e37fc969df4e6023dd8c6",
+      Y: "baf9fa4e51770f4796ea165dd03a769b8606681a38954a0a92c4cbffd6609ce9",
+    },
+    {
+      X: "8a6d8b925da15a273dec3d8f8395ec35cd6878f274b2b180e4e106999db64043",
+      Y: "96f67f870c157743da0b1eb84d89bf30500d74dc84c11f501ee1cb013acc8c46",
+    },
+    {
+      X: "39cecb62e863729f572f7dfc46c24867981bf04bb405fed0df39e33984bfade5",
+      Y: "61c2364434012e68a2be2e9952805037e52629d7762fafc8e10e9fb5bad8f790",
+    },
   ];
 
   _torusIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
