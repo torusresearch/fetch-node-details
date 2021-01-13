@@ -12,7 +12,7 @@
     "plugin:mocha/recommended",
     "prettier"
   ],
-  "plugins": ["prettier", "babel", "standard", "promise", "import", "flowtype", "standard", "simple-import-sort", "mocha"],
+  "plugins": ["prettier", "babel", "promise", "import", "flowtype", "simple-import-sort", "mocha"],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
