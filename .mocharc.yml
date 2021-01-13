@@ -1,0 +1,4 @@
+require: 
+  - "@babel/register"
+  - "dotenv/config"
+timeout: 0
