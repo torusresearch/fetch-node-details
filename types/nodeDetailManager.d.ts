@@ -1,47 +1,47 @@
 interface EpochInfo {
-    id: String;
-    n: String;
-    k: String;
-    t: String;
-    nodeList: String[];
-    prevEpoch: String;
-    nextEpoch: String;
+    id: string;
+    n: string;
+    k: string;
+    t: string;
+    nodeList: string[];
+    prevEpoch: string;
+    nextEpoch: string;
 }
 
 interface NodeInfo {
-    declaredIp: String;
-    position: String;
-    pubKx: String;
-    pubKy: String;
-    tmP2PListenAddress: String;
-    p2pListenAddress: String;
+    declaredIp: string;
+    position: string;
+    pubKx: string;
+    pubKy: string;
+    tmP2PListenAddress: string;
+    p2pListenAddress: string;
 }
 
 interface TorusNodePub {
-    X: String;
-    Y: String;
+    X: string;
+    Y: string;
 }
 
 interface NodeDetails {
-    currentEpoch: String;
-    nodeListAddress: String;
-    torusNodeEndpoints: String[];
-    torusIndexes: Number[];
+    currentEpoch: string;
+    nodeListAddress: string;
+    torusNodeEndpoints: string[];
+    torusIndexes: number[];
     torusNodePub: TorusNodePub[];
-    updated: Boolean;
+    updated: boolean;
 }
 
 interface NodeDetailManagerCtorArgs {
-    network?: String;
-    proxyAddress?: String;
+    network?: string;
+    proxyAddress?: string;
 }
 
 declare class NodeDetailManager {
     constructor(args: NodeDetailManagerCtorArgs);
-    getNodeDetails(skip?: Boolean): Promise<NodeDetails>;
-    getNodeEndpoint(nodeEthAddress: String): Promise<NodeInfo>;
-    getEpochInfo(epoch: Number): Promise<EpochInfo>;
-    getCurrentEpoch(): Promise<String>;
+    getNodeDetails(skip?: boolean): Promise<NodeDetails>;
+    getNodeEndpoint(nodeEthAddress: string): Promise<NodeInfo>;
+    getEpochInfo(epoch: number): Promise<EpochInfo>;
+    getCurrentEpoch(): Promise<string>;
 }
 
 export as namespace FetchNodeDetails;
