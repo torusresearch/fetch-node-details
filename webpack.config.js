@@ -1,5 +1,9 @@
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const { EnvironmentPlugin } = require("webpack");
+
+require("dotenv").config({ path: ".env" });
+
 const pkg = require("./package.json");
 
 const pkgName = "fetchNodeDetails";
@@ -27,6 +31,7 @@ const baseConfig = {
   module: {
     rules: [],
   },
+  plugins: [new EnvironmentPlugin(["INFURA_PROJECT_ID"])],
 };
 
 const optimization = {
@@ -93,6 +98,7 @@ const cjsBundledConfig = {
     rules: [babelLoader],
   },
   plugins: [
+    ...baseConfig.plugins,
     new ESLintPlugin({
       files: "src",
     }),

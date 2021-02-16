@@ -3,6 +3,8 @@ import { toHex } from "web3-utils";
 
 import { abi } from "./abi.json";
 
+const { INFURA_PROJECT_ID } = process.env;
+
 class NodeDetailManager {
   _currentEpoch = "19";
 
@@ -65,7 +67,7 @@ class NodeDetailManager {
       const localUrl = new URL(network);
       url = localUrl.href;
     } catch (_) {
-      url = `https://api.infura.io/v1/jsonrpc/${network}`;
+      url = `https://${network}.infura.io/v3/${INFURA_PROJECT_ID}`;
     }
     Web3EthContract.setProvider(url);
     this.nodeListContract = new Web3EthContract(abi, proxyAddress);
