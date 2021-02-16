@@ -26,9 +26,9 @@ interface NodeDetails {
     currentEpoch: string;
     nodeListAddress: string;
     torusNodeEndpoints: string[];
-    torusIndexes: Number[];
+    torusIndexes: number[];
     torusNodePub: TorusNodePub[];
-    updated: Boolean;
+    updated: boolean;
 }
 
 interface NodeDetailManagerCtorArgs {
@@ -38,9 +38,9 @@ interface NodeDetailManagerCtorArgs {
 
 declare class NodeDetailManager {
     constructor(args: NodeDetailManagerCtorArgs);
-    getNodeDetails(skip?: Boolean): Promise<NodeDetails>;
+    getNodeDetails(skip?: boolean): Promise<NodeDetails>;
     getNodeEndpoint(nodeEthAddress: string): Promise<NodeInfo>;
-    getEpochInfo(epoch: Number): Promise<EpochInfo>;
+    getEpochInfo(epoch: number): Promise<EpochInfo>;
     getCurrentEpoch(): Promise<string>;
 }
 
