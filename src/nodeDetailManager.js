@@ -61,6 +61,8 @@ class NodeDetailManager {
 
   _torusIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+  _network = "mainnet";
+
   constructor({ network = "mainnet", proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" } = {}) {
     let url;
     try {
@@ -73,6 +75,7 @@ class NodeDetailManager {
     this.nodeListContract = new Web3EthContract(abi, proxyAddress);
     this.nodeListAddress = proxyAddress;
     this.updated = false;
+    this._network = network;
   }
 
   get _nodeDetails() {
@@ -98,11 +101,12 @@ class NodeDetailManager {
     return this.nodeListContract.methods.getNodeDetails(nodeEthAddress).call();
   }
 
-  async getNodeDetails(skip = false) {
+  async getNodeDetails(skip = false, skipPostEpochCheck = false) {
     try {
-      if (skip) return this._nodeDetails;
+      if (skip && this._network === "mainnet") return this._nodeDetails;
       if (this.updated) return this._nodeDetails;
       const latestEpoch = await this.getCurrentEpoch();
+      if (skipPostEpochCheck && this._network === "mainnet" && latestEpoch === this._currentEpoch) return this._nodeDetails;
       this._currentEpoch = latestEpoch;
       const latestEpochInfo = await this.getEpochInfo(latestEpoch);
       const nodeEndpointRequests = [];
