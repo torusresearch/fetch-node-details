@@ -1,6 +1,7 @@
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const { EnvironmentPlugin } = require("webpack");
+const { EnvironmentPlugin, ProvidePlugin } = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
 
 require("dotenv").config({ path: ".env" });
 
@@ -18,8 +19,10 @@ const baseConfig = {
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
-    library: libraryName,
-    libraryExport: "default",
+    library: {
+      name: libraryName,
+      export: "default",
+    },
   },
   resolve: {
     alias: {
@@ -27,16 +30,41 @@ const baseConfig = {
       lodash: path.resolve(__dirname, "node_modules/lodash"),
       "js-sha3": path.resolve(__dirname, "node_modules/js-sha3"),
     },
+    fallback: {
+      buffer: require.resolve("buffer/"),
+      http: require.resolve("stream-http"),
+      https: require.resolve("https-browserify"),
+      url: require.resolve("url/"),
+      os: require.resolve("os-browserify/browser"),
+    },
   },
   module: {
     rules: [],
   },
-  plugins: [new EnvironmentPlugin(["INFURA_PROJECT_ID"])],
+  plugins: [
+    new EnvironmentPlugin(["INFURA_PROJECT_ID"]),
+    new ProvidePlugin({
+      process: "process/browser",
+    }),
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+      }),
+    ],
+  },
 };
 
 const optimization = {
   optimization: {
     minimize: false,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+      }),
+    ],
   },
 };
 
@@ -55,7 +83,10 @@ const umdPolyfilledConfig = {
   output: {
     ...baseConfig.output,
     filename: `${pkgName}.polyfill.umd.min.js`,
-    libraryTarget: "umd",
+    library: {
+      ...baseConfig.output.library,
+      type: "umd",
+    },
   },
   module: {
     rules: [babelLoaderWithPolyfills],
@@ -67,7 +98,10 @@ const umdConfig = {
   output: {
     ...baseConfig.output,
     filename: `${pkgName}.umd.min.js`,
-    libraryTarget: "umd",
+    library: {
+      ...baseConfig.output.library,
+      type: "umd",
+    },
   },
   module: {
     rules: [babelLoader],
@@ -79,7 +113,10 @@ const cjsConfig = {
   output: {
     ...baseConfig.output,
     filename: `${pkgName}.cjs.js`,
-    libraryTarget: "commonjs2",
+    library: {
+      ...baseConfig.output.library,
+      type: "commonjs2",
+    },
   },
   module: {
     rules: [babelLoader],
@@ -92,7 +129,10 @@ const cjsBundledConfig = {
   output: {
     ...baseConfig.output,
     filename: `${pkgName}-bundled.cjs.js`,
-    libraryTarget: "commonjs2",
+    library: {
+      ...baseConfig.output.library,
+      type: "commonjs2",
+    },
   },
   module: {
     rules: [babelLoader],
@@ -112,7 +152,10 @@ const nodeConfig = {
   output: {
     ...baseConfig.output,
     filename: `${pkgName}-node.js`,
-    libraryTarget: "commonjs2",
+    library: {
+      ...baseConfig.output.library,
+      type: "commonjs2",
+    },
   },
   module: {
     rules: [babelLoader],
@@ -128,11 +171,3 @@ module.exports = [umdPolyfilledConfig, umdConfig, cjsConfig, cjsBundledConfig, n
 // experiments: {
 //   outputModule: true
 // }
-
-// node: {
-//   global: true,
-// },
-// resolve: {
-//   alias: { crypto: 'crypto-browserify', stream: 'stream-browserify', vm: 'vm-browserify' },
-//   aliasFields: ['browser'],
-// },
