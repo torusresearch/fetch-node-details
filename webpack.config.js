@@ -1,6 +1,6 @@
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const { EnvironmentPlugin } = require("webpack");
+const { EnvironmentPlugin, ProvidePlugin } = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 
 require("dotenv").config({ path: ".env" });
@@ -41,7 +41,12 @@ const baseConfig = {
   module: {
     rules: [],
   },
-  plugins: [new EnvironmentPlugin(["INFURA_PROJECT_ID"])],
+  plugins: [
+    new EnvironmentPlugin(["INFURA_PROJECT_ID"]),
+    new ProvidePlugin({
+      process: "process/browser",
+    }),
+  ],
   optimization: {
     minimize: true,
     minimizer: [
