@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const { EnvironmentPlugin } = require("webpack");
@@ -14,7 +15,7 @@ const { NODE_ENV = "production" } = process.env;
 const baseConfig = {
   mode: NODE_ENV,
   devtool: NODE_ENV === "production" ? false : "source-map",
-  entry: "./index.js",
+  entry: "./index.ts",
   target: "web",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -22,6 +23,7 @@ const baseConfig = {
     libraryExport: "default",
   },
   resolve: {
+    extensions: [".ts", ".js", ".json"],
     alias: {
       "bn.js": path.resolve(__dirname, "node_modules/bn.js"),
       lodash: path.resolve(__dirname, "node_modules/lodash"),
@@ -41,7 +43,7 @@ const optimization = {
 };
 
 const babelLoaderWithPolyfills = {
-  test: /\.m?js$/,
+  test: /\.(ts|js)x?$/,
   exclude: /(node_modules|bower_components)/,
   use: {
     loader: "babel-loader",
@@ -84,6 +86,13 @@ const cjsConfig = {
   module: {
     rules: [babelLoader],
   },
+  plugins: [
+    ...baseConfig.plugins,
+    new ESLintPlugin({
+      files: "src",
+      extensions: ".ts",
+    }),
+  ],
   externals: [...Object.keys(pkg.dependencies), /^(@babel\/runtime)/i],
 };
 
@@ -97,12 +106,6 @@ const cjsBundledConfig = {
   module: {
     rules: [babelLoader],
   },
-  plugins: [
-    ...baseConfig.plugins,
-    new ESLintPlugin({
-      files: "src",
-    }),
-  ],
   externals: [/^(@babel\/runtime)/i],
 };
 

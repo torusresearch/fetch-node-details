@@ -1,7 +1,7 @@
 import Web3EthContract from "web3-eth-contract";
 import { toHex } from "web3-utils";
 
-import { abi } from "./abi.json";
+import { abi, INodeDetails, INodeEndpoint, INodePub } from "./utils";
 
 const { INFURA_PROJECT_ID } = process.env;
 
@@ -20,7 +20,7 @@ class NodeDetailManager {
     "https://torusnode.ont.io/jrpc",
   ];
 
-  _torusNodePub = [
+  _torusNodePub: INodePub[] = [
     {
       X: "bbe83c64177c3775550e6ba6ac2bc059f6847d644c9e4894e42c60d7974d8c2b",
       Y: "82b49a7caf70def38cdad2740af45c1e4f969650105c5019a29bb18b21a9acb5",
@@ -63,8 +63,14 @@ class NodeDetailManager {
 
   _network = "mainnet";
 
+  nodeListAddress: string;
+
+  updated: boolean;
+
+  nodeListContract: Web3EthContract.Contract;
+
   constructor({ network = "mainnet", proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" } = {}) {
-    let url;
+    let url: string;
     try {
       const localUrl = new URL(network);
       url = localUrl.href;
@@ -78,7 +84,7 @@ class NodeDetailManager {
     this._network = network;
   }
 
-  get _nodeDetails() {
+  get _nodeDetails(): INodeDetails {
     return {
       currentEpoch: this._currentEpoch,
       nodeListAddress: this.nodeListAddress,
@@ -89,19 +95,19 @@ class NodeDetailManager {
     };
   }
 
-  getCurrentEpoch() {
+  getCurrentEpoch(): Promise<string> {
     return this.nodeListContract.methods.currentEpoch().call();
   }
 
-  getEpochInfo(epoch) {
+  getEpochInfo(epoch: string): Promise<{ nodeList: string[] }> {
     return this.nodeListContract.methods.getEpochInfo(epoch).call();
   }
 
-  getNodeEndpoint(nodeEthAddress) {
+  getNodeEndpoint(nodeEthAddress: string): Promise<INodeEndpoint> {
     return this.nodeListContract.methods.getNodeDetails(nodeEthAddress).call();
   }
 
-  async getNodeDetails(skip = false, skipPostEpochCheck = false) {
+  async getNodeDetails(skip = false, skipPostEpochCheck = false): Promise<INodeDetails> {
     try {
       if (skip && this._network === "mainnet") return this._nodeDetails;
       if (this.updated) return this._nodeDetails;
@@ -109,13 +115,12 @@ class NodeDetailManager {
       if (skipPostEpochCheck && this._network === "mainnet" && latestEpoch === this._currentEpoch) return this._nodeDetails;
       this._currentEpoch = latestEpoch;
       const latestEpochInfo = await this.getEpochInfo(latestEpoch);
-      const nodeEndpointRequests = [];
-      const indexes = latestEpochInfo.nodeList.map((_, pos) => pos + 1);
+      const indexes = latestEpochInfo.nodeList.map((_: string, pos: number) => pos + 1);
       this._torusIndexes = indexes;
-      latestEpochInfo.nodeList.map((nodeEthAddress) => nodeEndpointRequests.push(this.getNodeEndpoint(nodeEthAddress).catch((_) => {})));
+      const nodeEndpointRequests = latestEpochInfo.nodeList.map((nodeEthAddress: string) => this.getNodeEndpoint(nodeEthAddress));
       const nodeEndPoints = await Promise.all(nodeEndpointRequests);
-      const updatedEndpoints = [];
-      const updatedNodePub = [];
+      const updatedEndpoints: string[] = [];
+      const updatedNodePub: INodePub[] = [];
       for (let index = 0; index < nodeEndPoints.length; index += 1) {
         const endPointElement = nodeEndPoints[index];
         const endpoint = `https://${endPointElement.declaredIp.split(":")[0]}/jrpc`;
