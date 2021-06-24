@@ -20,6 +20,13 @@ export interface INodeEndpoint {
   pubKy: string;
 }
 
+export const ETHEREUM_NETWORK = {
+  ROPSTEN: "ropsten",
+  MAINNET: "mainnet",
+} as const;
+
+export type ETHEREUM_NETWORK_TYPE = typeof ETHEREUM_NETWORK[keyof typeof ETHEREUM_NETWORK];
+
 export const abi = [
   {
     constant: true,
