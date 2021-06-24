@@ -1,7 +1,7 @@
 import Web3EthContract from "web3-eth-contract";
 import { toHex } from "web3-utils";
 
-import { abi, INodeDetails, INodeEndpoint, INodePub } from "./utils";
+import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodeEndpoint, INodePub } from "./interfaces";
 
 const { INFURA_PROJECT_ID } = process.env;
 
@@ -61,7 +61,7 @@ class NodeDetailManager {
 
   _torusIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  _network = "mainnet";
+  _network: ETHEREUM_NETWORK_TYPE = ETHEREUM_NETWORK.MAINNET;
 
   nodeListAddress: string;
 
@@ -69,7 +69,7 @@ class NodeDetailManager {
 
   nodeListContract: Web3EthContract.Contract;
 
-  constructor({ network = "mainnet", proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" } = {}) {
+  constructor({ network = ETHEREUM_NETWORK.MAINNET, proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" } = {}) {
     let url: string;
     try {
       const localUrl = new URL(network);
@@ -109,10 +109,10 @@ class NodeDetailManager {
 
   async getNodeDetails(skip = false, skipPostEpochCheck = false): Promise<INodeDetails> {
     try {
-      if (skip && this._network === "mainnet") return this._nodeDetails;
+      if (skip && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
       if (this.updated) return this._nodeDetails;
       const latestEpoch = await this.getCurrentEpoch();
-      if (skipPostEpochCheck && this._network === "mainnet" && latestEpoch === this._currentEpoch) return this._nodeDetails;
+      if (skipPostEpochCheck && this._network === ETHEREUM_NETWORK.MAINNET && latestEpoch === this._currentEpoch) return this._nodeDetails;
       this._currentEpoch = latestEpoch;
       const latestEpochInfo = await this.getEpochInfo(latestEpoch);
       const indexes = latestEpochInfo.nodeList.map((_: string, pos: number) => pos + 1);
