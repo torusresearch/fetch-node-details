@@ -16,6 +16,11 @@ export interface INodeEndpoint {
     pubKx: string;
     pubKy: string;
 }
+export declare const ETHEREUM_NETWORK: {
+    readonly ROPSTEN: "ropsten";
+    readonly MAINNET: "mainnet";
+};
+export declare type ETHEREUM_NETWORK_TYPE = typeof ETHEREUM_NETWORK[keyof typeof ETHEREUM_NETWORK];
 export declare const abi: {
     constant: boolean;
     inputs: {

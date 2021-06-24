@@ -1,16 +1,16 @@
 import Web3EthContract from "web3-eth-contract";
-import { INodeDetails, INodeEndpoint, INodePub } from "./utils";
+import { ETHEREUM_NETWORK_TYPE, INodeDetails, INodeEndpoint, INodePub } from "./interfaces";
 declare class NodeDetailManager {
     _currentEpoch: string;
     _torusNodeEndpoints: string[];
     _torusNodePub: INodePub[];
     _torusIndexes: number[];
-    _network: string;
+    _network: ETHEREUM_NETWORK_TYPE;
     nodeListAddress: string;
     updated: boolean;
     nodeListContract: Web3EthContract.Contract;
     constructor({ network, proxyAddress }?: {
-        network?: string;
+        network?: "mainnet";
         proxyAddress?: string;
     });
     get _nodeDetails(): INodeDetails;
