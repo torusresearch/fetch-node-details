@@ -21,6 +21,10 @@ export declare const ETHEREUM_NETWORK: {
     readonly MAINNET: "mainnet";
 };
 export declare type ETHEREUM_NETWORK_TYPE = typeof ETHEREUM_NETWORK[keyof typeof ETHEREUM_NETWORK];
+export declare type NodeDetailManagerParams = {
+    network?: ETHEREUM_NETWORK_TYPE;
+    proxyAddress?: string;
+};
 export declare const abi: {
     constant: boolean;
     inputs: {

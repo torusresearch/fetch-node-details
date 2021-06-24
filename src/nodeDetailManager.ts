@@ -1,7 +1,7 @@
 import Web3EthContract from "web3-eth-contract";
 import { toHex } from "web3-utils";
 
-import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodeEndpoint, INodePub } from "./interfaces";
+import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodeEndpoint, INodePub, NodeDetailManagerParams } from "./interfaces";
 
 const { INFURA_PROJECT_ID } = process.env;
 
@@ -69,7 +69,7 @@ class NodeDetailManager {
 
   nodeListContract: Web3EthContract.Contract;
 
-  constructor({ network = ETHEREUM_NETWORK.MAINNET, proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" } = {}) {
+  constructor({ network = ETHEREUM_NETWORK.MAINNET, proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" }: NodeDetailManagerParams = {}) {
     let url: string;
     try {
       const localUrl = new URL(network);

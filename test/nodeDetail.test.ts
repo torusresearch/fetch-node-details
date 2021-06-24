@@ -1,5 +1,6 @@
 import { deepStrictEqual } from "assert";
 
+import { ETHEREUM_NETWORK } from "../src/interfaces";
 import NodeDetailManager from "../src/nodeDetailManager";
 import { nodeDetailsResponse, nodeDetailsRopsten, nodeDetailsStatic } from "./config";
 
@@ -20,17 +21,26 @@ describe("Fetch Node Details", function () {
     deepStrictEqual(details, nodeDetailsStatic);
   });
   it("#should return correct values when not skipping - ropsten", async function () {
-    const nodeDetailManager = new NodeDetailManager({ network: "ropsten", proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183" });
+    const nodeDetailManager = new NodeDetailManager({
+      network: ETHEREUM_NETWORK.ROPSTEN,
+      proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183",
+    });
     const details = await nodeDetailManager.getNodeDetails();
     deepStrictEqual(details, nodeDetailsRopsten);
   });
   it("#should return correct values when skipping - ropsten", async function () {
-    const nodeDetailManager = new NodeDetailManager({ network: "ropsten", proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183" });
+    const nodeDetailManager = new NodeDetailManager({
+      network: ETHEREUM_NETWORK.ROPSTEN,
+      proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183",
+    });
     const details = await nodeDetailManager.getNodeDetails(true);
     deepStrictEqual(details, nodeDetailsRopsten);
   });
   it("#should return correct values when skipping post epoch check - ropsten", async function () {
-    const nodeDetailManager = new NodeDetailManager({ network: "ropsten", proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183" });
+    const nodeDetailManager = new NodeDetailManager({
+      network: ETHEREUM_NETWORK.ROPSTEN,
+      proxyAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183",
+    });
     const details = await nodeDetailManager.getNodeDetails(false, true);
     deepStrictEqual(details, nodeDetailsRopsten);
   });
