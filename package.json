@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fetch-node-details",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "Fetches the node details from torus nodelist smart contract",
   "main": "dist/fetchNodeDetails.cjs.js",
   "unpkg": "dist/fetchNodeDetails.umd.min.js",
