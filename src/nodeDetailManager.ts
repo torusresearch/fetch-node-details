@@ -3,8 +3,6 @@ import { toHex } from "web3-utils";
 
 import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodeEndpoint, INodePub, NodeDetailManagerParams } from "./interfaces";
 
-const { INFURA_PROJECT_ID } = process.env;
-
 class NodeDetailManager {
   _currentEpoch = "19";
 
@@ -75,7 +73,8 @@ class NodeDetailManager {
       const localUrl = new URL(network);
       url = localUrl.href;
     } catch (_) {
-      url = `https://${network}.infura.io/v3/${INFURA_PROJECT_ID}`;
+      const projectId = process.env.INFURA_PROJECT_ID;
+      url = `https://${network}.infura.io/v3/${projectId}`;
     }
     Web3EthContract.setProvider(url);
     this.nodeListContract = new Web3EthContract(abi, proxyAddress);
