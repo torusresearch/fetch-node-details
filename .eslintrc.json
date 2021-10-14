@@ -15,6 +15,7 @@
   ],
   "plugins": ["prettier", "promise", "import", "simple-import-sort", "mocha", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
+  "ignorePatterns": "*.config.js",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 11,
