@@ -6,7 +6,7 @@
   "module": "dist/fetchNodeDetails.esm.js",
   "unpkg": "dist/fetchNodeDetails.umd.min.js",
   "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/src/index.d.ts",
   "files": [
     "dist",
     "types"
