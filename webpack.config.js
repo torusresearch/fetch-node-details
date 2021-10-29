@@ -81,7 +81,7 @@ exports.baseConfig = {
 //   externals: [/^(@babel\/runtime)/i],
 // };
 
-const nodeConfig = {
+exports.nodeConfig = {
   optimization: {
     minimize: false,
   },
@@ -93,7 +93,6 @@ const nodeConfig = {
   target: "node",
 };
 
-module.exports = [nodeConfig];
 // module.exports = [cjsConfig];
 
 // v5
