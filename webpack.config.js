@@ -9,9 +9,6 @@ const pkg = require("./package.json");
 const pkgName = "fetchNodeDetails";
 
 exports.baseConfig = {
-  output: {
-    libraryExport: "default",
-  },
   resolve: {
     alias: {
       "bn.js": path.resolve(__dirname, "node_modules/bn.js"),

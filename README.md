@@ -24,12 +24,12 @@ assignments, and key retrievals by other dependent libraries.
 
 ### Bundling
 
-This module is distributed in 4 formats
+This module is distributed in 5 formats
 
+- `esm` build `dist/fetchNodeDetails.esm.js` in es6 format
 - `commonjs` build `dist/fetchNodeDetails.cjs.js` in es5 format
-- `commonjs` build `dist/fetchNodeDetails-bundled.cjs.js` in es5 format with problematic packages bundled (benfits non-webpack users)
+- `commonjs` build `dist/fetchNodeDetails-bundled.cjs.js` in es5 format with problematic packages bundled (benefits non-webpack users)
 - `umd` build `dist/fetchNodeDetails.umd.min.js` in es5 format without polyfilling corejs minified
-- `umd` build `dist/fetchNodeDetails.polyfill.umd.min.js` in es5 format with polyfilling corejs minified
 - `node` build `dist/fetchNodeDetails-node.js` in es5 format
 
 By default, the appropriate format is used for your specified usecase
@@ -66,7 +66,7 @@ const nodeInfo = await fetchNodeDetails.getNodeDetails();
 ```
 
 ```js
-const FetchNodeDetails = require("@toruslabs/fetch-node-details");
+const FetchNodeDetails = require("@toruslabs/fetch-node-details").default;
 
 const fetchNodeDetails = new FetchNodeDetails();
 fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
@@ -74,7 +74,7 @@ fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
 
 ```js
 // For Node.js
-const FetchNodeDetails = require("@toruslabs/fetch-node-details/dist/fetchNodeDetails-node.js");
+const FetchNodeDetails = require("@toruslabs/fetch-node-details/dist/fetchNodeDetails-node.js").default;
 
 const fetchNodeDetails = new FetchNodeDetails();
 fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
@@ -83,8 +83,8 @@ fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
 ## Requirements
 
 - This package requires a peer dependency of `@babel/runtime`
-- Node 10+
-
+- Node 12+
 
 ## Local Development
+
 Requires a .env file with the parameters in .env.development
