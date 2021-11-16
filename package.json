@@ -23,21 +23,21 @@
     "@babel/runtime": "7.x"
   },
   "dependencies": {
-    "web3-eth-contract": "^1.6.0",
-    "web3-utils": "^1.6.0"
+    "web3-eth-contract": "^1.6.1",
+    "web3-utils": "^1.6.1"
   },
   "devDependencies": {
     "@babel/register": "^7.16.0",
     "@rollup/plugin-replace": "^3.0.0",
-    "@toruslabs/eslint-config-typescript": "^0.0.12",
-    "@toruslabs/torus-scripts": "^0.0.12",
+    "@toruslabs/eslint-config-typescript": "^0.0.13",
+    "@toruslabs/torus-scripts": "^0.0.13",
     "@types/mocha": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.3.1",
-    "@typescript-eslint/parser": "^5.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "eslint": "^8.2.0",
-    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-mocha": "^9.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
