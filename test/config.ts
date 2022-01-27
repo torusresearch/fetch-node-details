@@ -1,6 +1,6 @@
 export const nodeDetailsResponse = {
   currentEpoch: "19",
-  nodeListAddress: "0x638646503746d5456209e33a2ff5e3226d698bea",
+  nodeListAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80",
   torusNodeEndpoints: [
     "https://torus-19.torusnode.com/jrpc",
     "https://torus-node.ens.domains/jrpc",
@@ -56,7 +56,7 @@ export const nodeDetailsResponse = {
 
 export const nodeDetailsStatic = {
   currentEpoch: "19",
-  nodeListAddress: "0x638646503746d5456209e33a2ff5e3226d698bea",
+  nodeListAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80",
   torusNodeEndpoints: [
     "https://torus-19.torusnode.com/jrpc",
     "https://torus-node.ens.domains/jrpc",
@@ -112,7 +112,7 @@ export const nodeDetailsStatic = {
 
 export const nodeDetailsRopsten = {
   currentEpoch: "15",
-  nodeListAddress: "0x4023d2a0D330bF11426B12C6144Cfb96B7fa6183",
+  nodeListAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7",
   torusNodeEndpoints: [
     "https://teal-15-1.torusnode.com/jrpc",
     "https://teal-15-3.torusnode.com/jrpc",
@@ -140,6 +140,42 @@ export const nodeDetailsRopsten = {
     {
       X: "d908f41f8e06324a8a7abcf702adb6a273ce3ae63d86a3d22723e1bbf1438c9a",
       Y: "f977530b3ec0e525438c72d1e768380cbc5fb3b38a760ee925053b2e169428ce",
+    },
+  ],
+  torusIndexes: [1, 2, 3, 4, 5],
+  updated: true,
+};
+
+export const nodeDetailsPolygon = {
+  currentEpoch: "1",
+  nodeListAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005",
+  torusNodeEndpoints: [
+    "https://node-1.torus-cluster-2.com/jrpc",
+    "https://node-2.torus-cluster-2.com/jrpc",
+    "https://node-3.torus-cluster-2.com/jrpc",
+    "https://node-4.torus-cluster-2.com/jrpc",
+    "https://node-5.torus-cluster-2.com/jrpc",
+  ],
+  torusNodePub: [
+    {
+      X: "b1b0e1bb1cab2adfdb3512f33e3cc7430900ed3307c479720320559e46c0f53b",
+      Y: "b7d577d4922d42179d65d65db32d985310c50b797c9cb3d85428d2d6ef05f318",
+    },
+    {
+      X: "f6013540a81c264440280589aa3ec56ef528439991689443a4098d1b1c2b4d4",
+      Y: "e7d3f78555d899a5c8508ee63c7372a6d2f5970611872358a1d3260262f3ebe1",
+    },
+    {
+      X: "ff8d06e24166c4293146e95e88adfdddbdf7a80ff74021ee21725a142cd86925",
+      Y: "3571236d248fb984e45cbf6b33ff391c661030b9b7654859d618750cbaa234f6",
+    },
+    {
+      X: "a3eed488f12412d1960009f838aaa3402dec7e09938ac743a6431a6ae1352137",
+      Y: "f225363608d629f78ad3adcb768701ef4462236c39a4a1a6e4dd1e2ea281e86e",
+    },
+    {
+      X: "53d9f53ac3dc1eae545685453b2121949c22f502948e4acbc7b7c862f422dd8e",
+      Y: "6f3ebc2f8c0eeaf0467e4748427375c06b01c4e3f48cd65411d6a9226b571942",
     },
   ],
   torusIndexes: [1, 2, 3, 4, 5],
