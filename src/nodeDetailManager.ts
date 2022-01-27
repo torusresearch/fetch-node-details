@@ -1,7 +1,7 @@
 import Web3EthContract from "web3-eth-contract";
-import { toHex } from "web3-utils";
+import { keccak256, toHex } from "web3-utils";
 
-import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodeEndpoint, INodePub, NodeDetailManagerParams } from "./interfaces";
+import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodePub, NodeDetailManagerParams } from "./interfaces";
 
 class NodeDetailManager {
   _currentEpoch = "19";
@@ -67,7 +67,7 @@ class NodeDetailManager {
 
   nodeListContract: Web3EthContract.Contract;
 
-  constructor({ network = ETHEREUM_NETWORK.MAINNET, proxyAddress = "0x638646503746d5456209e33a2ff5e3226d698bea" }: NodeDetailManagerParams = {}) {
+  constructor({ network = ETHEREUM_NETWORK.MAINNET, proxyAddress = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80" }: NodeDetailManagerParams = {}) {
     let url: string;
     try {
       const localUrl = new URL(network);
@@ -94,45 +94,28 @@ class NodeDetailManager {
     };
   }
 
-  getCurrentEpoch(): Promise<string> {
-    return this.nodeListContract.methods.currentEpoch().call();
-  }
-
-  getEpochInfo(epoch: string): Promise<{ nodeList: string[] }> {
-    return this.nodeListContract.methods.getEpochInfo(epoch).call();
-  }
-
-  getNodeEndpoint(nodeEthAddress: string): Promise<INodeEndpoint> {
-    return this.nodeListContract.methods.getNodeDetails(nodeEthAddress).call();
-  }
-
-  async getNodeDetails(skip = false, skipPostEpochCheck = false): Promise<INodeDetails> {
-    try {
-      if (skip && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
-      if (this.updated) return this._nodeDetails;
-      const latestEpoch = await this.getCurrentEpoch();
-      if (skipPostEpochCheck && this._network === ETHEREUM_NETWORK.MAINNET && latestEpoch === this._currentEpoch) return this._nodeDetails;
-      this._currentEpoch = latestEpoch;
-      const latestEpochInfo = await this.getEpochInfo(latestEpoch);
-      const indexes = latestEpochInfo.nodeList.map((_: string, pos: number) => pos + 1);
-      this._torusIndexes = indexes;
-      const nodeEndpointRequests = latestEpochInfo.nodeList.map((nodeEthAddress: string) => this.getNodeEndpoint(nodeEthAddress));
-      const nodeEndPoints = await Promise.all(nodeEndpointRequests);
-      const updatedEndpoints: string[] = [];
-      const updatedNodePub: INodePub[] = [];
-      for (let index = 0; index < nodeEndPoints.length; index += 1) {
-        const endPointElement = nodeEndPoints[index];
-        const endpoint = `https://${endPointElement.declaredIp.split(":")[0]}/jrpc`;
-        updatedEndpoints.push(endpoint);
-        updatedNodePub.push({ X: toHex(endPointElement.pubKx).replace("0x", ""), Y: toHex(endPointElement.pubKy).replace("0x", "") });
-      }
-      this._torusNodeEndpoints = updatedEndpoints;
-      this._torusNodePub = updatedNodePub;
-      this.updated = true;
-      return this._nodeDetails;
-    } catch (_) {
-      return this._nodeDetails;
+  async getNodeDetails({ skip = false, verifier, verifierId }: { skip?: boolean; verifier: string; verifierId: string }): Promise<INodeDetails> {
+    if (skip && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
+    if (this.updated) return this._nodeDetails;
+    const hashedVerifierId = keccak256(verifierId);
+    const nodeDetails = await this.nodeListContract.methods.getNodeSet(verifier, hashedVerifierId).call();
+    const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;
+    this._currentEpoch = currentEpoch;
+    this._torusIndexes = torusIndexes.map((x: string) => Number(x));
+    const updatedEndpoints: string[] = [];
+    const updatedNodePub: INodePub[] = [];
+    for (let index = 0; index < torusNodeEndpoints.length; index += 1) {
+      const endPointElement = torusNodeEndpoints[index];
+      const pubKx = torusNodePubX[index];
+      const pubKy = torusNodePubY[index];
+      const endpoint = `https://${endPointElement.split(":")[0]}/jrpc`;
+      updatedEndpoints.push(endpoint);
+      updatedNodePub.push({ X: toHex(pubKx).replace("0x", ""), Y: toHex(pubKy).replace("0x", "") });
     }
+    this._torusNodeEndpoints = updatedEndpoints;
+    this._torusNodePub = updatedNodePub;
+    this.updated = true;
+    return this._nodeDetails;
   }
 }
 
