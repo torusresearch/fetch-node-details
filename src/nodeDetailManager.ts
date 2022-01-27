@@ -95,27 +95,34 @@ class NodeDetailManager {
   }
 
   async getNodeDetails({ skip = false, verifier, verifierId }: { skip?: boolean; verifier: string; verifierId: string }): Promise<INodeDetails> {
-    if (skip && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
-    if (this.updated) return this._nodeDetails;
-    const hashedVerifierId = keccak256(verifierId);
-    const nodeDetails = await this.nodeListContract.methods.getNodeSet(verifier, hashedVerifierId).call();
-    const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;
-    this._currentEpoch = currentEpoch;
-    this._torusIndexes = torusIndexes.map((x: string) => Number(x));
-    const updatedEndpoints: string[] = [];
-    const updatedNodePub: INodePub[] = [];
-    for (let index = 0; index < torusNodeEndpoints.length; index += 1) {
-      const endPointElement = torusNodeEndpoints[index];
-      const pubKx = torusNodePubX[index];
-      const pubKy = torusNodePubY[index];
-      const endpoint = `https://${endPointElement.split(":")[0]}/jrpc`;
-      updatedEndpoints.push(endpoint);
-      updatedNodePub.push({ X: toHex(pubKx).replace("0x", ""), Y: toHex(pubKy).replace("0x", "") });
+    try {
+      if (skip && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
+      if (this.updated) return this._nodeDetails;
+      const hashedVerifierId = keccak256(verifierId);
+      const nodeDetails = await this.nodeListContract.methods.getNodeSet(verifier, hashedVerifierId).call();
+      const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;
+      this._currentEpoch = currentEpoch;
+      this._torusIndexes = torusIndexes.map((x: string) => Number(x));
+      const updatedEndpoints: string[] = [];
+      const updatedNodePub: INodePub[] = [];
+      for (let index = 0; index < torusNodeEndpoints.length; index += 1) {
+        const endPointElement = torusNodeEndpoints[index];
+        const pubKx = torusNodePubX[index];
+        const pubKy = torusNodePubY[index];
+        const endpoint = `https://${endPointElement.split(":")[0]}/jrpc`;
+        updatedEndpoints.push(endpoint);
+        updatedNodePub.push({ X: toHex(pubKx).replace("0x", ""), Y: toHex(pubKy).replace("0x", "") });
+      }
+      this._torusNodeEndpoints = updatedEndpoints;
+      this._torusNodePub = updatedNodePub;
+      this.updated = true;
+      return this._nodeDetails;
+    } catch (error) {
+      if (this._network === ETHEREUM_NETWORK.MAINNET) {
+        return this._nodeDetails;
+      }
+      throw error;
     }
-    this._torusNodeEndpoints = updatedEndpoints;
-    this._torusNodePub = updatedNodePub;
-    this.updated = true;
-    return this._nodeDetails;
   }
 }
 
