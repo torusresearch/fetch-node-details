@@ -97,7 +97,8 @@ class NodeDetailManager {
   async getNodeDetails({ skip = false, verifier, verifierId }: { skip?: boolean; verifier: string; verifierId: string }): Promise<INodeDetails> {
     try {
       if (skip && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
-      if (this.updated) return this._nodeDetails;
+      // Do this only for mainnet where the list is static irrespective of verifier, verifierId
+      if (this.updated && this._network === ETHEREUM_NETWORK.MAINNET) return this._nodeDetails;
       const hashedVerifierId = keccak256(verifierId);
       const nodeDetails = await this.nodeListContract.methods.getNodeSet(verifier, hashedVerifierId).call();
       const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;
