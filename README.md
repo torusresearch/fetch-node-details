@@ -5,7 +5,7 @@
 
 ## Introduction
 
-Use this package to fetches details about Torus nodes, from a specified Smart Contract that holds details about the list of nodes & network.
+Use this package to fetch details about Torus nodes, from a specified Smart Contract that holds details about the list of nodes & network.
 This will dynamically get updates about the node list, allowing the front end to continue querying the different set of nodes after migrations.
 
 This utility library serves to find the endpoints and public keys associated
