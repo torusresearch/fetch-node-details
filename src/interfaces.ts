@@ -22,7 +22,7 @@ export const ETHEREUM_NETWORK = {
 
 export type ETHEREUM_NETWORK_TYPE = typeof ETHEREUM_NETWORK[keyof typeof ETHEREUM_NETWORK];
 
-export type NodeDetailManagerParams = { network?: ETHEREUM_NETWORK_TYPE; proxyAddress?: string };
+export type NodeDetailManagerParams = { network?: ETHEREUM_NETWORK_TYPE | string; proxyAddress?: string };
 
 export const abi = [
   {

@@ -59,7 +59,7 @@ class NodeDetailManager {
 
   _torusIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  _network: ETHEREUM_NETWORK_TYPE = ETHEREUM_NETWORK.MAINNET;
+  _network: ETHEREUM_NETWORK_TYPE | string = ETHEREUM_NETWORK.MAINNET;
 
   nodeListAddress: string;
 
