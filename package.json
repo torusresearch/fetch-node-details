@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fetch-node-details",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Fetches the node details from torus nodelist smart contract",
   "main": "dist/fetchNodeDetails.cjs.js",
   "module": "dist/fetchNodeDetails.esm.js",
