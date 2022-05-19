@@ -83,7 +83,7 @@ fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
 ## Requirements
 
 - This package requires a peer dependency of `@babel/runtime`
-- Node 12+
+- Node 14+
 
 ## Local Development
 
