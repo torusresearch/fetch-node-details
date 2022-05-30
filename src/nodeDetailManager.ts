@@ -1,7 +1,7 @@
 import Web3EthContract from "web3-eth-contract";
 import { keccak256, toHex } from "web3-utils";
 
-import { abi, ETHEREUM_NETWORK, ETHEREUM_NETWORK_TYPE, INodeDetails, INodePub, NodeDetailManagerParams } from "./interfaces";
+import { abi, ETHEREUM_NETWORK, INodeDetails, INodePub, NodeDetailManagerParams } from "./interfaces";
 
 class NodeDetailManager {
   public static PROXY_ADDRESS_MAINNET = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80";
@@ -17,8 +17,6 @@ class NodeDetailManager {
   private _torusNodePub: INodePub[] = [];
 
   private _torusIndexes: number[] = [];
-
-  private _network: ETHEREUM_NETWORK_TYPE | string = ETHEREUM_NETWORK.MAINNET;
 
   private nodeListAddress: string;
 
@@ -39,7 +37,6 @@ class NodeDetailManager {
     this.nodeListContract = new Web3EthContract(abi, proxyAddress);
     this.nodeListAddress = proxyAddress;
     this.updated = false;
-    this._network = network;
   }
 
   get _nodeDetails(): INodeDetails {
