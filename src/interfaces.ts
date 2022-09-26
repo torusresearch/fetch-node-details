@@ -14,15 +14,23 @@ export interface INodeDetails {
   updated: boolean;
 }
 
-export const ETHEREUM_NETWORK = {
-  ROPSTEN: "ropsten",
+export const TORUS_NETWORK = {
+  TESTNET: "testnet",
   MAINNET: "mainnet",
-  POLYGON: "polygon-mainnet",
+  CYAN: "cyan",
+  AQUA: "aqua",
 } as const;
 
-export type ETHEREUM_NETWORK_TYPE = typeof ETHEREUM_NETWORK[keyof typeof ETHEREUM_NETWORK];
+export const NETWORK_MAP = {
+  [TORUS_NETWORK.MAINNET]: "mainnet",
+  [TORUS_NETWORK.TESTNET]: "ropsten",
+  [TORUS_NETWORK.CYAN]: "polygon-mainnet",
+  [TORUS_NETWORK.AQUA]: "polygon-mainnet",
+};
 
-export type NodeDetailManagerParams = { network?: ETHEREUM_NETWORK_TYPE | string; proxyAddress?: string };
+export type TORUS_NETWORK_TYPE = typeof TORUS_NETWORK[keyof typeof TORUS_NETWORK];
+
+export type NodeDetailManagerParams = { network?: TORUS_NETWORK_TYPE | string; proxyAddress?: string };
 
 export const abi = [
   {
