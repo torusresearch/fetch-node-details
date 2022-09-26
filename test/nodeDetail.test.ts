@@ -2,13 +2,13 @@ import { deepStrictEqual } from "assert";
 
 import { TORUS_NETWORK } from "../src";
 import NodeDetailManager from "../src/nodeDetailManager";
-import { nodeDetailsAqua, nodeDetailsPolygon, nodeDetailsResponse, nodeDetailsRopsten } from "./config";
+import { nodeDetailsAqua, nodeDetailsCyan, nodeDetailsMainnet, nodeDetailsTestnet } from "./config";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
     const nodeDetailManager = new NodeDetailManager();
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    deepStrictEqual(details, nodeDetailsResponse);
+    deepStrictEqual(details, nodeDetailsMainnet);
   });
 
   it("#should return correct values - cyan", async function () {
@@ -17,7 +17,7 @@ describe("Fetch Node Details", function () {
       proxyAddress: NodeDetailManager.PROXY_ADDRESS_CYAN,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    deepStrictEqual(details, nodeDetailsPolygon);
+    deepStrictEqual(details, nodeDetailsCyan);
   });
 
   it("#should return correct values - testnet", async function () {
@@ -26,7 +26,7 @@ describe("Fetch Node Details", function () {
       proxyAddress: NodeDetailManager.PROXY_ADDRESS_TESTNET,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    deepStrictEqual(details, nodeDetailsRopsten);
+    deepStrictEqual(details, nodeDetailsTestnet);
   });
 
   it("#should return correct values - aqua", async function () {
