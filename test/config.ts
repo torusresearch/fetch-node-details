@@ -1,4 +1,4 @@
-export const nodeDetailsResponse = {
+export const nodeDetailsMainnet = {
   currentEpoch: "19",
   nodeListAddress: "0xf20336e16B5182637f09821c27BDe29b0AFcfe80",
   torusNodeEndpoints: [
@@ -54,7 +54,7 @@ export const nodeDetailsResponse = {
   updated: true,
 };
 
-export const nodeDetailsRopsten = {
+export const nodeDetailsTestnet = {
   currentEpoch: "15",
   nodeListAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7",
   torusNodeEndpoints: [
@@ -90,7 +90,7 @@ export const nodeDetailsRopsten = {
   updated: true,
 };
 
-export const nodeDetailsPolygon = {
+export const nodeDetailsCyan = {
   currentEpoch: "1",
   nodeListAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005",
   torusNodeEndpoints: [
@@ -120,6 +120,42 @@ export const nodeDetailsPolygon = {
     {
       X: "dcf3b3c5a9e43533b875862b4dcfd5614535e7838d9a916f3f735e28e345cd9d",
       Y: "856d980747c1d171972b2ea34831670763d4b493ea7537b295b4be4c25b012fc",
+    },
+  ],
+  torusIndexes: [1, 2, 3, 4, 5],
+  updated: true,
+};
+
+export const nodeDetailsAqua = {
+  currentEpoch: "1",
+  nodeListAddress: "0x29Dea82a0509153b91040ee13cDBba0f03efb625",
+  torusNodeEndpoints: [
+    "https://node-1.cluster-2.aqua.web3auth.io/jrpc",
+    "https://node-2.cluster-2.aqua.web3auth.io/jrpc",
+    "https://node-3.cluster-2.aqua.web3auth.io/jrpc",
+    "https://node-4.cluster-2.aqua.web3auth.io/jrpc",
+    "https://node-5.cluster-2.aqua.web3auth.io/jrpc",
+  ],
+  torusNodePub: [
+    {
+      X: "7d376a4a7ce6bba7a8a49001aaa2de3f24e0f56ee73a77c6678ec00363616f25",
+      Y: "d5752873e522f98b4ded27690aadfda57ff5dc2fd0c3055b9d83663441667010",
+    },
+    {
+      X: "e1b5debe1d9b42eb9917a5fe84fa5f48cae7a770b1f49f0546fbe26b1efaff3",
+      Y: "8947458cbfd8b40c7bc6160c7c746c2dca65c7d6ffdccd5579203b92a020b4ad",
+    },
+    {
+      X: "98c3582b138b375b643984094882c17ca7ee090787c0a7065d229672845aa25e",
+      Y: "2c3923bd015faac2cf3d91ab4cf8c6cdd4eb9f99e407a35703edf17e8c35d",
+    },
+    {
+      X: "e7ef4c1ea43bd385ab8bfb02a5aedcd33bed35b95980c0729e9a35edd02a8597",
+      Y: "d540aa7d1c9cafd2216e089b8c795a9034368960729103c9a2c875d76b81fc6d",
+    },
+    {
+      X: "bb7d3500ead64d0bccd97f24b5c848ff6cbe867c0c03ca9f2922626ac5d1e49d",
+      Y: "865ea03db0501bc9ffa83600202de437c7c10aa511c58ba54683b4d5f56ae314",
     },
   ],
   torusIndexes: [1, 2, 3, 4, 5],

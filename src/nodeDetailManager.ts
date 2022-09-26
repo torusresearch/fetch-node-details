@@ -1,14 +1,16 @@
 import Web3EthContract from "web3-eth-contract";
 import { keccak256, toHex } from "web3-utils";
 
-import { abi, ETHEREUM_NETWORK, INodeDetails, INodePub, NodeDetailManagerParams } from "./interfaces";
+import { abi, INodeDetails, INodePub, NETWORK_MAP, NodeDetailManagerParams, TORUS_NETWORK } from "./interfaces";
 
 class NodeDetailManager {
   public static PROXY_ADDRESS_MAINNET = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80";
 
-  public static PROXY_ADDRESS_ROPSTEN = "0x6258c9d6c12ed3edda59a1a6527e469517744aa7";
+  public static PROXY_ADDRESS_TESTNET = "0x6258c9d6c12ed3edda59a1a6527e469517744aa7";
 
-  public static PROXY_ADDRESS_POLYGON = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005";
+  public static PROXY_ADDRESS_CYAN = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005";
+
+  public static PROXY_ADDRESS_AQUA = "0x29Dea82a0509153b91040ee13cDBba0f03efb625";
 
   public static NODE_DETAILS_MAINNET: INodeDetails = {
     currentEpoch: "19",
@@ -80,14 +82,14 @@ class NodeDetailManager {
 
   private nodeListContract: Web3EthContract.Contract;
 
-  constructor({ network = ETHEREUM_NETWORK.MAINNET, proxyAddress = NodeDetailManager.PROXY_ADDRESS_MAINNET }: NodeDetailManagerParams = {}) {
+  constructor({ network = TORUS_NETWORK.MAINNET, proxyAddress = NodeDetailManager.PROXY_ADDRESS_MAINNET }: NodeDetailManagerParams = {}) {
     let url: string;
     try {
       const localUrl = new URL(network);
       url = localUrl.href;
     } catch (_) {
       const projectId = process.env.INFURA_PROJECT_ID;
-      url = `https://${network}.infura.io/v3/${projectId}`;
+      url = `https://${NETWORK_MAP[network]}.infura.io/v3/${projectId}`;
     }
     Web3EthContract.setProvider(url);
     this.nodeListContract = new Web3EthContract(abi, proxyAddress);
@@ -111,7 +113,7 @@ class NodeDetailManager {
       // Do this only for mainnet & testnet where the list is static irrespective of verifier, verifierId
       if (
         this.updated &&
-        (this.nodeListAddress === NodeDetailManager.PROXY_ADDRESS_MAINNET || this.nodeListAddress === NodeDetailManager.PROXY_ADDRESS_ROPSTEN)
+        (this.nodeListAddress === NodeDetailManager.PROXY_ADDRESS_MAINNET || this.nodeListAddress === NodeDetailManager.PROXY_ADDRESS_TESTNET)
       )
         return this._nodeDetails;
       const hashedVerifierId = keccak256(verifierId);

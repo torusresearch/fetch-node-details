@@ -1,31 +1,40 @@
 import { deepStrictEqual } from "assert";
 
-import { ETHEREUM_NETWORK } from "../src";
+import { TORUS_NETWORK } from "../src";
 import NodeDetailManager from "../src/nodeDetailManager";
-import { nodeDetailsPolygon, nodeDetailsResponse, nodeDetailsRopsten } from "./config";
+import { nodeDetailsAqua, nodeDetailsCyan, nodeDetailsMainnet, nodeDetailsTestnet } from "./config";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
     const nodeDetailManager = new NodeDetailManager();
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    deepStrictEqual(details, nodeDetailsResponse);
+    deepStrictEqual(details, nodeDetailsMainnet);
   });
 
-  it("#should return correct values - polygon", async function () {
+  it("#should return correct values - cyan", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: ETHEREUM_NETWORK.POLYGON,
-      proxyAddress: "0x9f072ba19b3370e512aa1b4bfcdaf97283168005",
+      network: TORUS_NETWORK.CYAN,
+      proxyAddress: NodeDetailManager.PROXY_ADDRESS_CYAN,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    deepStrictEqual(details, nodeDetailsPolygon);
+    deepStrictEqual(details, nodeDetailsCyan);
   });
 
-  it("#should return correct values - ropsten", async function () {
+  it("#should return correct values - testnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: ETHEREUM_NETWORK.ROPSTEN,
-      proxyAddress: "0x6258c9d6c12ed3edda59a1a6527e469517744aa7",
+      network: TORUS_NETWORK.TESTNET,
+      proxyAddress: NodeDetailManager.PROXY_ADDRESS_TESTNET,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    deepStrictEqual(details, nodeDetailsRopsten);
+    deepStrictEqual(details, nodeDetailsTestnet);
+  });
+
+  it("#should return correct values - aqua", async function () {
+    const nodeDetailManager = new NodeDetailManager({
+      network: TORUS_NETWORK.AQUA,
+      proxyAddress: NodeDetailManager.PROXY_ADDRESS_AQUA,
+    });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "glipandroid", verifierId: "hello@tor.us" });
+    deepStrictEqual(details, nodeDetailsAqua);
   });
 });
