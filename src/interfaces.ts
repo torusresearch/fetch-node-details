@@ -23,7 +23,7 @@ export const TORUS_NETWORK = {
 
 export const NETWORK_MAP = {
   [TORUS_NETWORK.MAINNET]: "mainnet",
-  [TORUS_NETWORK.TESTNET]: "ropsten",
+  [TORUS_NETWORK.TESTNET]: "goerli",
   [TORUS_NETWORK.CYAN]: "polygon-mainnet",
   [TORUS_NETWORK.AQUA]: "polygon-mainnet",
 };
