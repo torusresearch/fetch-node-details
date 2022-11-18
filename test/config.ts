@@ -56,7 +56,7 @@ export const nodeDetailsMainnet = {
 
 export const nodeDetailsTestnet = {
   currentEpoch: "15",
-  nodeListAddress: "0x2363faAE2A34ba675dA6910129146ED4904b453D",
+  nodeListAddress: "0xd084604e5FA387FbC2Da8bAab07fDD6aDED4614A",
   torusNodeEndpoints: [
     "https://teal-15-1.torusnode.com/jrpc",
     "https://teal-15-3.torusnode.com/jrpc",

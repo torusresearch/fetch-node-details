@@ -6,7 +6,7 @@ import { abi, INodeDetails, INodePub, NETWORK_MAP, NodeDetailManagerParams, TORU
 class NodeDetailManager {
   public static PROXY_ADDRESS_MAINNET = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80";
 
-  public static PROXY_ADDRESS_TESTNET = "0x2363faAE2A34ba675dA6910129146ED4904b453D";
+  public static PROXY_ADDRESS_TESTNET = "0xd084604e5FA387FbC2Da8bAab07fDD6aDED4614A";
 
   public static PROXY_ADDRESS_CYAN = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005";
 
