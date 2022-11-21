@@ -19,13 +19,15 @@ export const TORUS_NETWORK = {
   MAINNET: "mainnet",
   CYAN: "cyan",
   AQUA: "aqua",
+  CELESTE: "celeste",
 } as const;
 
 export const NETWORK_MAP = {
   [TORUS_NETWORK.MAINNET]: "mainnet",
-  [TORUS_NETWORK.TESTNET]: "ropsten",
+  [TORUS_NETWORK.TESTNET]: "goerli",
   [TORUS_NETWORK.CYAN]: "polygon-mainnet",
   [TORUS_NETWORK.AQUA]: "polygon-mainnet",
+  [TORUS_NETWORK.CELESTE]: "polygon-mainnet",
 };
 
 export type TORUS_NETWORK_TYPE = typeof TORUS_NETWORK[keyof typeof TORUS_NETWORK];

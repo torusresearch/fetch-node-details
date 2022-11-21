@@ -6,11 +6,13 @@ import { abi, INodeDetails, INodePub, NETWORK_MAP, NodeDetailManagerParams, TORU
 class NodeDetailManager {
   public static PROXY_ADDRESS_MAINNET = "0xf20336e16B5182637f09821c27BDe29b0AFcfe80";
 
-  public static PROXY_ADDRESS_TESTNET = "0x6258c9d6c12ed3edda59a1a6527e469517744aa7";
+  public static PROXY_ADDRESS_TESTNET = "0xd084604e5FA387FbC2Da8bAab07fDD6aDED4614A";
 
   public static PROXY_ADDRESS_CYAN = "0x9f072ba19b3370e512aa1b4bfcdaf97283168005";
 
   public static PROXY_ADDRESS_AQUA = "0x29Dea82a0509153b91040ee13cDBba0f03efb625";
+
+  public static PROXY_ADDRESS_CELESTE = "0x6Bffb4e89453069E7487f0fa5c9f4a2D771cce6c";
 
   public static NODE_DETAILS_MAINNET: INodeDetails = {
     currentEpoch: "19",
