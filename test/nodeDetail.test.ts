@@ -2,7 +2,7 @@ import { deepStrictEqual } from "assert";
 
 import { TORUS_NETWORK } from "../src";
 import NodeDetailManager from "../src/nodeDetailManager";
-import { nodeDetailsAqua, nodeDetailsCyan, nodeDetailsMainnet, nodeDetailsTestnet } from "./config";
+import { nodeDetailsAqua, nodeDetailsCeleste, nodeDetailsCyan, nodeDetailsMainnet, nodeDetailsTestnet } from "./config";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
@@ -34,7 +34,16 @@ describe("Fetch Node Details", function () {
       network: TORUS_NETWORK.AQUA,
       proxyAddress: NodeDetailManager.PROXY_ADDRESS_AQUA,
     });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "glipandroid", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     deepStrictEqual(details, nodeDetailsAqua);
+  });
+
+  it("#should return correct values - celeste", async function () {
+    const nodeDetailManager = new NodeDetailManager({
+      network: TORUS_NETWORK.CELESTE,
+      proxyAddress: NodeDetailManager.PROXY_ADDRESS_CELESTE,
+    });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
+    deepStrictEqual(details, nodeDetailsCeleste);
   });
 });

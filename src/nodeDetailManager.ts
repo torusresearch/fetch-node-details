@@ -12,6 +12,8 @@ class NodeDetailManager {
 
   public static PROXY_ADDRESS_AQUA = "0x29Dea82a0509153b91040ee13cDBba0f03efb625";
 
+  public static PROXY_ADDRESS_CELESTE = "0x6Bffb4e89453069E7487f0fa5c9f4a2D771cce6c";
+
   public static NODE_DETAILS_MAINNET: INodeDetails = {
     currentEpoch: "19",
     nodeListAddress: this.PROXY_ADDRESS_MAINNET,
