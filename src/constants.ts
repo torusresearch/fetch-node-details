@@ -15,4 +15,5 @@ export const NETWORK_URLS = {
     "https://lrc4.authnetwork.dev",
     "https://lrc5.authnetwork.dev",
   ],
+  [TORUS_NETWORK.MAINNET]: [], // TODO
 };

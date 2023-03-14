@@ -80,8 +80,11 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
-  constructor({ network = TORUS_NETWORK.DEVNET }: NodeDetailManagerParams = {}) {
+  private customEndpoints: string[];
+
+  constructor({ network = TORUS_NETWORK.DEVNET, customEndpoints }: NodeDetailManagerParams = {}) {
     this.network = network;
+    this.customEndpoints = customEndpoints || [];
     this.updated = false;
   }
 
@@ -100,8 +103,13 @@ class NodeDetailManager {
   async getNodeDetails(): Promise<INodeDetails> {
     try {
       if (this.updated) return this._nodeDetails;
-
-      const endPoints = NETWORK_URLS[this.network];
+      let endPoints = NETWORK_URLS[this.network] as string[];
+      if (this.customEndpoints.length > 0) {
+        endPoints = this.customEndpoints;
+      }
+      if (!endPoints || endPoints.length === 0) {
+        throw new Error(`Node Endpoints not found for ${this.network} network, Please pass custom endpoints in constructor`);
+      }
 
       const lookupPromises = endPoints.map((x) =>
         post<JRPCResponse<NodeLookupResponse>>(`${x}/sss/jrpc`, generateJsonRPCObject("NodeDetailsRequest", {})).catch((err) =>
@@ -109,7 +117,7 @@ class NodeDetailManager {
         )
       );
 
-      const lookupResponses = await Promise.all<JRPCResponse<NodeLookupResponse>>(lookupPromises);
+      const lookupResponses = await Promise.all(lookupPromises);
 
       const errorResult = thresholdSame(
         lookupResponses.map((x2) => x2 && x2.error),
@@ -131,9 +139,6 @@ class NodeDetailManager {
       if (!threholdNodes) {
         throw new Error("Unable to reach threshold for node lookups");
       }
-
-      // eslint-disable-next-line no-console
-      console.log("lookupResponses", threholdNodes);
 
       const parsedNodes = threholdNodes.nodes;
 
