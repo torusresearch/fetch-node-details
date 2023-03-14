@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<head>
+  Test Fetch Node Details
+</head>
+<body>
+  <script src="../dist/fetchNodeDetailsSapphire.umd.min.js"></script>
+  <script>
+    const fetchNodeDetails = new FetchNodeDetails.default();
+    fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
+  </script>
+</body>
