@@ -30,7 +30,7 @@ export const NETWORK_MAP = {
   [TORUS_NETWORK.CELESTE]: "polygon-mainnet",
 };
 
-export type TORUS_NETWORK_TYPE = typeof TORUS_NETWORK[keyof typeof TORUS_NETWORK];
+export type TORUS_NETWORK_TYPE = (typeof TORUS_NETWORK)[keyof typeof TORUS_NETWORK];
 
 export type NodeDetailManagerParams = { network?: TORUS_NETWORK_TYPE | string; proxyAddress?: string };
 
