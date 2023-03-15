@@ -21,16 +21,15 @@ export interface INodeDetails {
   torusNodeTSSEndpoints: string[];
   torusNodePub: INodePub[];
   torusIndexes: number[];
-  updated: boolean;
+  updated?: boolean;
 }
 
 export const TORUS_NETWORK = {
   DEVNET: "devnet",
   TESTNET: "testnet",
-  MAINNET: "mainnet",
 } as const;
 
-export type TORUS_NETWORK_TYPE = typeof TORUS_NETWORK[keyof typeof TORUS_NETWORK];
+export type TORUS_NETWORK_TYPE = (typeof TORUS_NETWORK)[keyof typeof TORUS_NETWORK];
 
 export type NodeDetailManagerParams = { network?: TORUS_NETWORK_TYPE; customEndpoints?: string[] };
 
