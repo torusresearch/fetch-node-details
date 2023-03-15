@@ -10,4 +10,11 @@ describe("Fetch Node Details", function () {
     delete details.updated;
     deepStrictEqual(details, NODE_DETAILS_DEVNET);
   });
+
+  it("#should return correct values on skipping server - devnet", async function () {
+    const nodeDetailManager = new NodeDetailManager();
+    const details = await nodeDetailManager.getNodeDetails({ skipServer: true });
+    delete details.updated;
+    deepStrictEqual(details, NODE_DETAILS_DEVNET);
+  });
 });
