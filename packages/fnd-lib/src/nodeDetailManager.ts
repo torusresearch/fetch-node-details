@@ -25,7 +25,9 @@ class NodeDetailManager {
   constructor({ network = TORUS_NETWORK.DEVNET, fndServerEndpoint }: NodeDetailManagerParams = {}) {
     this.network = network;
     this.updated = false;
-    this.fndServerEndpoint = fndServerEndpoint;
+    if (fndServerEndpoint) {
+      this.fndServerEndpoint = fndServerEndpoint;
+    }
   }
 
   get _nodeDetails(): INodeDetails {

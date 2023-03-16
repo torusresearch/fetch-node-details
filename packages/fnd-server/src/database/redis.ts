@@ -3,6 +3,9 @@ import { createClient } from "redis";
 
 const { REDIS_HOSTNAME, REDIS_PORT, REDIS_PASSWORD } = process.env;
 
+if (!REDIS_HOSTNAME) {
+  throw new Error("Please pass REDIS_HOSTNAME in env variables");
+}
 const [host, port] = REDIS_HOSTNAME.split(":");
 
 log.info("Redis", host, port, REDIS_PORT);

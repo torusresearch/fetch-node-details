@@ -1,9 +1,22 @@
 {
   "extends": "../../tsconfig.json",
+
   "include": ["src"],
   "compilerOptions": {
+    "moduleResolution": "node",
+    "strict": false,
+    "module": "CommonJS",
+    "target": "es2020",
+    "lib": ["ES2020", "DOM"],
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "noImplicitThis": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
   },
   "ts-node": {
     "files": true

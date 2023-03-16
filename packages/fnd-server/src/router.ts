@@ -20,7 +20,6 @@ router.get("/health", (_req: Request, res: Response) => {
   return res.status(200).send("ok!");
 });
 
-// TODO: add auth in routes once after updating tss-client
 router.get("/nodesDetails", async (req: Request, res: Response) => {
   try {
     const { network } = req.query;
@@ -35,9 +34,7 @@ router.get("/nodesDetails", async (req: Request, res: Response) => {
     const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE);
 
     try {
-      // todo check if config is available in redis.
       const cachedInfo = await redisClient.get(cacheKey);
-      console.log("cachedInfo", cachedInfo);
       if (cachedInfo) {
         const nodesDetails = JSON.parse(cachedInfo || "{}");
         if (Object.keys(nodesDetails).length > 0) {
@@ -65,8 +62,8 @@ router.get("/nodesDetails", async (req: Request, res: Response) => {
       ~~(endPoints.length / 2) + 1
     );
     const threholdNodes = thresholdSame<{
-      nodes: NODE[];
-    }>(
+      nodes: (NODE | undefined)[];
+    } | void>(
       lookupResponses.map((x3) => x3 && x3.result),
       ~~(endPoints.length / 2) + 1
     );
@@ -98,8 +95,11 @@ router.get("/nodesDetails", async (req: Request, res: Response) => {
     // currently node indexes are sorted in the order of endpoints.
     // so looping over endpoints is fine.
     for (let index = 0; index < endPoints.length; index++) {
-      const endpoint = endPoints[index];
       const nodeInfo = parsedNodes[index];
+      if (!nodeInfo) {
+        throw new Error("Invalid/empty node info found in nodes details");
+      }
+      const endpoint = endPoints[index];
       const pubKx = nodeInfo.public_key.X;
       const pubKy = nodeInfo.public_key.Y;
       indexes.push(parseInt(nodeInfo.node_index, 10));
