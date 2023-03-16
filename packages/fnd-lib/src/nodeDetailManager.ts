@@ -1,14 +1,8 @@
-import {
-  INodeDetails,
-  INodePub,
-  NODE_DETAILS_DEVNET,
-  NODE_DETAILS_TESTNET,
-  NodeDetailManagerParams,
-  TORUS_NETWORK,
-  TORUS_NETWORK_TYPE,
-} from "@toruslabs/fnd-base";
+import { INodeDetails, INodePub, NODE_DETAILS_DEVNET, NODE_DETAILS_TESTNET, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/fnd-base";
 import { get } from "@toruslabs/http-helpers";
 import log from "loglevel";
+
+import { NodeDetailManagerParams } from "./interfaces";
 class NodeDetailManager {
   private fndServerEndpoint = "https://fnd.tor.us/nodesDetails";
 

@@ -31,8 +31,6 @@ export const TORUS_NETWORK = {
 
 export type TORUS_NETWORK_TYPE = (typeof TORUS_NETWORK)[keyof typeof TORUS_NETWORK];
 
-export type NodeDetailManagerParams = { network?: TORUS_NETWORK_TYPE; customEndpoints?: string[] };
-
 export type NodeDetails = {
   address: string;
   node_index: string;

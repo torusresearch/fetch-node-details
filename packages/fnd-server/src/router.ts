@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import log from "loglevel";
 
 import redisClient from "./database/redis";
+import { NODE } from "./interface";
 import { thresholdSame } from "./utils/helpers";
 
 const router = express.Router();
@@ -63,7 +64,9 @@ router.get("/nodesDetails", async (req: Request, res: Response) => {
       lookupResponses.map((x2) => x2 && x2.error),
       ~~(endPoints.length / 2) + 1
     );
-    const threholdNodes = thresholdSame(
+    const threholdNodes = thresholdSame<{
+      nodes: NODE[];
+    }>(
       lookupResponses.map((x3) => x3 && x3.result),
       ~~(endPoints.length / 2) + 1
     );
