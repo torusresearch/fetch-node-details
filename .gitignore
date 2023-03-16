@@ -1,4 +1,5 @@
 node_modules
+dist
 .vscode
 packages/**/dist
 yarn-error.log
