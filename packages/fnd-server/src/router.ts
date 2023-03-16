@@ -36,6 +36,7 @@ router.get("/nodesDetails", async (req: Request, res: Response) => {
     try {
       // todo check if config is available in redis.
       const cachedInfo = await redisClient.get(cacheKey);
+      console.log("cachedInfo", cachedInfo);
       if (cachedInfo) {
         const nodesDetails = JSON.parse(cachedInfo || "{}");
         if (Object.keys(nodesDetails).length > 0) {
@@ -90,7 +91,6 @@ router.get("/nodesDetails", async (req: Request, res: Response) => {
     const updatedTSSEndpoints: string[] = [];
     const updatedNodePub: INodePub[] = [];
     const indexes: number[] = [];
-
     // nodes returns node list in sorted order of node indexes
     // currently node indexes are sorted in the order of endpoints.
     // so looping over endpoints is fine.

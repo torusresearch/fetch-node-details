@@ -25,7 +25,6 @@
   "dependencies": {
     "@toruslabs/http-helpers": "^3.3.0",
     "loglevel": "^1.8.1",
-    "web3-utils": "^1.8.1",
     "@toruslabs/fnd-base": "^0.1.0"
   },
   "devDependencies": {

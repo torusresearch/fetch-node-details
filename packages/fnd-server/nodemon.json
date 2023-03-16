@@ -7,6 +7,6 @@
     "ts": "node -r ts-node/register"
   },
   "env": {
-    "NODE_ENV": "local"
+    "NODE_ENV": "development"
   }
 }

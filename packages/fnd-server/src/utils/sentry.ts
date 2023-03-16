@@ -9,7 +9,7 @@ export const registerSentry = (app: Express): void => {
   if (sentryDsn) {
     Sentry.init({
       dsn: sentryDsn,
-      environment: process.env.ENVIRONMENT,
+      environment: process.env.NODE_ENV,
       integrations: [
         // enable HTTP calls
         new Sentry.Integrations.Http({ tracing: true, breadcrumbs: true }),

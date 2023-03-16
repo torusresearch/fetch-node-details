@@ -10,7 +10,7 @@ import {
 import { get } from "@toruslabs/http-helpers";
 import log from "loglevel";
 class NodeDetailManager {
-  private fndServerEndpoint = "http://localhost:8060/nodesDetails";
+  private fndServerEndpoint = "https://fnd.tor.us/nodesDetails";
 
   private _torusNodeBaseEndpoints: string[] = [];
 
@@ -64,8 +64,8 @@ class NodeDetailManager {
 
       if (!skipServer) {
         try {
-          const nodeDetails = await get<INodeDetails>(this.fndServerEndpoint, {}, {});
-          this.setNodeDetails(nodeDetails);
+          const { nodesDetails } = await get<{ nodesDetails: INodeDetails }>(`${this.fndServerEndpoint}?network=${this.network}`, {}, {});
+          this.setNodeDetails(nodesDetails);
           return this._nodeDetails;
         } catch (error) {
           log.error("Failed to fetch node details from server, using local", error);
