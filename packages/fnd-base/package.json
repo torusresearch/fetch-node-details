@@ -23,6 +23,8 @@
     "@babel/runtime": "7.x"
   },
   "dependencies": {
+    "web3-utils": "^1.8.2",
+    "web3-eth-contract": "^1.8.2"
   },
   "devDependencies": {
     "@babel/register": "^7.18.9",

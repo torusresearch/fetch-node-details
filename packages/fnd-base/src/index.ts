@@ -5,3 +5,4 @@ export * from "./mainnetConfig";
 export * from "./sapphireDevnetConfig";
 export * from "./sapphireLrcConfig";
 export * from "./testnetConfig";
+export * from "./utils";

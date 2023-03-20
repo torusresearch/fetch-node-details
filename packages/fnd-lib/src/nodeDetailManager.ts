@@ -1,4 +1,5 @@
 import {
+  getLegacyNodeDetails,
   INodeDetails,
   INodePub,
   MULTI_CLUSTER_NETWORKS,
@@ -69,7 +70,15 @@ class NodeDetailManager {
     throw new Error(`Unsupported network: ${network}`);
   }
 
-  async getNodeDetails({ skipServer = false }: { skipServer?: boolean }): Promise<INodeDetails> {
+  async getNodeDetails({
+    skipServer = false,
+    verifier,
+    verifierId,
+  }: {
+    skipServer?: boolean;
+    verifier?: string;
+    verifierId?: string;
+  }): Promise<INodeDetails> {
     try {
       if (this.updated) return this._nodeDetails;
       if (this.updated) {
@@ -77,18 +86,29 @@ class NodeDetailManager {
       }
 
       // always fetch from server for multi cluster servers like cyan, aqua etc.
-      if (!skipServer || (MULTI_CLUSTER_NETWORKS as string[]).includes(this.network)) {
+      if (!skipServer) {
         try {
           const { nodesDetails } = await get<{ nodesDetails: INodeDetails }>(`${this.fndServerEndpoint}?network=${this.network}`, {}, {});
           this.setNodeDetails(nodesDetails);
           return this._nodeDetails;
         } catch (error) {
-          if ((MULTI_CLUSTER_NETWORKS as string[]).includes(this.network)) {
-            throw error;
-          } else {
-            log.error("Failed to fetch node details from server, using local", error);
-          }
+          log.error("Failed to fetch node details from server, using local", error);
         }
+      }
+
+      if ((MULTI_CLUSTER_NETWORKS as string[]).includes(this.network)) {
+        if (!verifier) {
+          throw new Error(`Verifier is required in request body for ${this.network} network`);
+        }
+        if (!verifierId) {
+          throw new Error(`Verifier is required in request body for ${this.network} network`);
+        }
+        const nodesDetails = await getLegacyNodeDetails({
+          verifier,
+          verifierId,
+          network: this.network,
+        });
+        this.setNodeDetails(nodesDetails);
       }
       const nodeDetails = this.fetchLocalConfig(this.network);
       this.setNodeDetails(nodeDetails);
