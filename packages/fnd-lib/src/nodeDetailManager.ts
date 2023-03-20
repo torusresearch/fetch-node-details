@@ -2,11 +2,11 @@ import {
   getLegacyNodeDetails,
   INodeDetails,
   INodePub,
-  MULTI_CLUSTER_NETWORKS,
   NODE_DETAILS_MAINNET,
   NODE_DETAILS_SAPPHIRE_DEVNET,
   NODE_DETAILS_SAPPHIRE_TESTNET,
   NODE_DETAILS_TESTNET,
+  PROXY_CONTRACT_ADDRESS,
   TORUS_NETWORK,
   TORUS_NETWORK_TYPE,
 } from "@toruslabs/fnd-base";
@@ -19,6 +19,8 @@ class NodeDetailManager {
   private fndServerEndpoint = "https://fnd.tor.us/nodesDetails";
 
   private _currentEpoch = "1";
+
+  private _proxyContractAddress = PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.MAINNET];
 
   private _torusNodeEndpoints: string[] = [];
 
@@ -36,8 +38,13 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
-  constructor({ network = TORUS_NETWORK.SAPPHIRE_DEVNET, fndServerEndpoint }: NodeDetailManagerParams = {}) {
+  constructor({
+    network = TORUS_NETWORK.MAINNET,
+    proxyAddress = PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.MAINNET],
+    fndServerEndpoint,
+  }: NodeDetailManagerParams = {}) {
     this.network = network;
+    this._proxyContractAddress = proxyAddress;
     this.updated = false;
     if (fndServerEndpoint) {
       this.fndServerEndpoint = fndServerEndpoint;
@@ -57,7 +64,7 @@ class NodeDetailManager {
     };
   }
 
-  fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails {
+  fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails | undefined {
     if (network === TORUS_NETWORK.SAPPHIRE_DEVNET) {
       return NODE_DETAILS_SAPPHIRE_DEVNET;
     } else if (network === TORUS_NETWORK.SAPPHIRE_TESTNET) {
@@ -67,7 +74,7 @@ class NodeDetailManager {
     } else if (network === TORUS_NETWORK.TESTNET) {
       return NODE_DETAILS_TESTNET;
     }
-    throw new Error(`Unsupported network: ${network}`);
+    return undefined;
   }
 
   async getNodeDetails({
@@ -88,7 +95,11 @@ class NodeDetailManager {
       // always fetch from server for multi cluster servers like cyan, aqua etc.
       if (!skipServer) {
         try {
-          const { nodesDetails } = await get<{ nodesDetails: INodeDetails }>(`${this.fndServerEndpoint}?network=${this.network}`, {}, {});
+          const { nodesDetails } = await get<{ nodesDetails: INodeDetails }>(
+            `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}`,
+            {},
+            {}
+          );
           this.setNodeDetails(nodesDetails);
           return this._nodeDetails;
         } catch (error) {
@@ -96,7 +107,8 @@ class NodeDetailManager {
         }
       }
 
-      if ((MULTI_CLUSTER_NETWORKS as string[]).includes(this.network)) {
+      const nodeDetails = this.fetchLocalConfig(this.network);
+      if (!nodeDetails) {
         if (!verifier) {
           throw new Error(`Verifier is required in request body for ${this.network} network`);
         }
@@ -107,10 +119,12 @@ class NodeDetailManager {
           verifier,
           verifierId,
           network: this.network,
+          proxyAddress: this._proxyContractAddress,
         });
         this.setNodeDetails(nodesDetails);
+        return this._nodeDetails;
       }
-      const nodeDetails = this.fetchLocalConfig(this.network);
+
       this.setNodeDetails(nodeDetails);
       return this._nodeDetails;
     } catch (error) {

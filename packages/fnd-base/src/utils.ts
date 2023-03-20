@@ -1,7 +1,7 @@
 import Web3EthContract from "web3-eth-contract";
 import { keccak256, toHex } from "web3-utils";
 
-import { PROXY_CONTRACT_ADDRESS, TORUS_NETWORK } from "./constants";
+import { TORUS_NETWORK } from "./constants";
 import { abi, INodeDetails, INodePub } from "./interfaces";
 import { NODE_DETAILS_MAINNET } from "./mainnetConfig";
 import { NODE_DETAILS_TESTNET } from "./testnetConfig";
@@ -17,17 +17,25 @@ export const getLegacyNodeDetails = async ({
   verifier,
   verifierId,
   network,
+  proxyAddress,
 }: {
   verifier: string;
   verifierId: string;
   network: string;
+  proxyAddress: string;
 }): Promise<INodeDetails> => {
   try {
     const projectId = process.env.INFURA_PROJECT_ID;
-    const url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${projectId}`;
-    Web3EthContract.Contract.setProvider(url);
-    const proxyAddress = (PROXY_CONTRACT_ADDRESS as Record<string, string>)[network];
-    const nodeListContract = new Web3EthContract.Contract(abi, proxyAddress);
+    let url: string;
+    try {
+      const localUrl = new URL(network);
+      url = localUrl.href;
+    } catch (_) {
+      url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${projectId}`;
+    }
+
+    Web3EthContract.setProvider(url);
+    const nodeListContract = new Web3EthContract(abi, proxyAddress);
     const hashedVerifierId = keccak256(verifierId);
     const nodeDetails = await nodeListContract.methods.getNodeSet(verifier, hashedVerifierId).call();
     const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;

@@ -8,6 +8,7 @@ import {
   NODE_DETAILS_MAINNET,
   NODE_DETAILS_TESTNET,
   NodeLookupResponse,
+  PROXY_CONTRACT_ADDRESS,
   TORUS_NETWORK,
   TORUS_NETWORK_TYPE,
   TORUS_SAPPHIRE_NETWORK,
@@ -36,33 +37,48 @@ router.get("/health", (_req: Request, res: Response) => {
 
 router.get("/nodesDetails", async (req: Request, res: Response) => {
   try {
-    const { skipCache, network, verifier, verifierId } = req.query as Record<string, string>;
+    const { skipCache, network, verifier, verifierId, proxyContractAddress } = req.query as Record<string, string>;
 
-    // if legacy network
+    // if not a sapphire network
     if (!Object.values(TORUS_SAPPHIRE_NETWORK).includes(network as TORUS_SAPPHIRE_NETWORK_TYPE)) {
       // use static details for mainnet and testnet
       if (network === TORUS_NETWORK.MAINNET) {
-        return NODE_DETAILS_MAINNET;
+        return res.status(200).json({
+          nodesDetails: NODE_DETAILS_MAINNET,
+          success: true,
+        });
       } else if (network === TORUS_NETWORK.TESTNET) {
-        return NODE_DETAILS_TESTNET;
+        return res.status(200).json({
+          nodesDetails: NODE_DETAILS_TESTNET,
+          success: true,
+        });
       }
 
       if (!verifier) {
         return res.status(400).json({
           success: false,
-          message: `Verifier is required in request body for ${network} network`,
+          message: `Verifier is required in request query for ${network} network`,
         });
       }
       if (!verifierId) {
         return res.status(400).json({
           success: false,
-          message: `verifierId is required in request body ${network} network`,
+          message: `verifierId is required in request query for ${network} network`,
+        });
+      }
+
+      const _proxyContractAddress = proxyContractAddress || PROXY_CONTRACT_ADDRESS[network];
+      if (!_proxyContractAddress) {
+        return res.status(400).json({
+          success: false,
+          message: `_proxyContractAddress is required in request query for ${network} network`,
         });
       }
       const nodesDetails = await getLegacyNodeDetails({
         verifier,
         verifierId,
         network,
+        proxyAddress: _proxyContractAddress,
       });
       return res.status(200).json({
         nodesDetails,
