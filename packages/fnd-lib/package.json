@@ -1,5 +1,5 @@
 {
-  "name": "@toruslabs/fetch-node-details-sapphire",
+  "name": "@toruslabs/fetch-node-details",
   "version": "0.1.0",
   "description": "Fetches the node details from torus nodelist smart contract",
   "main": "dist/fetchNodeDetailsSapphire.cjs.js",

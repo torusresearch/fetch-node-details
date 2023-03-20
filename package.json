@@ -1,5 +1,5 @@
 {
-  "name": "fetch-node-details-sapphire",
+  "name": "fnd",
   "private": true,
   "workspaces": [
     "packages/*"

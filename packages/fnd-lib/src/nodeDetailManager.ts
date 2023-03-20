@@ -1,12 +1,25 @@
-import { INodeDetails, INodePub, NODE_DETAILS_DEVNET, NODE_DETAILS_TESTNET, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/fnd-base";
+import {
+  INodeDetails,
+  INodePub,
+  MULTI_CLUSTER_NETWORKS,
+  NODE_DETAILS_MAINNET,
+  NODE_DETAILS_SAPPHIRE_DEVNET,
+  NODE_DETAILS_SAPPHIRE_TESTNET,
+  NODE_DETAILS_TESTNET,
+  TORUS_NETWORK,
+  TORUS_NETWORK_TYPE,
+} from "@toruslabs/fnd-base";
 import { get } from "@toruslabs/http-helpers";
 import log from "loglevel";
 
 import { NodeDetailManagerParams } from "./interfaces";
+
 class NodeDetailManager {
   private fndServerEndpoint = "https://fnd.tor.us/nodesDetails";
 
-  private _torusNodeBaseEndpoints: string[] = [];
+  private _currentEpoch = "1";
+
+  private _torusNodeEndpoints: string[] = [];
 
   private _torusNodeRSSEndpoints: string[] = [];
 
@@ -22,7 +35,7 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
-  constructor({ network = TORUS_NETWORK.DEVNET, fndServerEndpoint }: NodeDetailManagerParams = {}) {
+  constructor({ network = TORUS_NETWORK.SAPPHIRE_DEVNET, fndServerEndpoint }: NodeDetailManagerParams = {}) {
     this.network = network;
     this.updated = false;
     if (fndServerEndpoint) {
@@ -32,7 +45,8 @@ class NodeDetailManager {
 
   get _nodeDetails(): INodeDetails {
     return {
-      torusNodeBaseEndpoints: this._torusNodeBaseEndpoints,
+      currentEpoch: this._currentEpoch,
+      torusNodeEndpoints: this._torusNodeEndpoints,
       torusNodeSSSEndpoints: this._torusNodeSSSEndpoints,
       torusNodeRSSEndpoints: this._torusNodeRSSEndpoints,
       torusNodeTSSEndpoints: this._torusNodeTSSEndpoints,
@@ -43,8 +57,12 @@ class NodeDetailManager {
   }
 
   fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails {
-    if (network === TORUS_NETWORK.DEVNET) {
-      return NODE_DETAILS_DEVNET;
+    if (network === TORUS_NETWORK.SAPPHIRE_DEVNET) {
+      return NODE_DETAILS_SAPPHIRE_DEVNET;
+    } else if (network === TORUS_NETWORK.SAPPHIRE_TESTNET) {
+      return NODE_DETAILS_SAPPHIRE_TESTNET;
+    } else if (network === TORUS_NETWORK.MAINNET) {
+      return NODE_DETAILS_MAINNET;
     } else if (network === TORUS_NETWORK.TESTNET) {
       return NODE_DETAILS_TESTNET;
     }
@@ -58,13 +76,18 @@ class NodeDetailManager {
         return this._nodeDetails;
       }
 
-      if (!skipServer) {
+      // always fetch from server for multi cluster servers like cyan, aqua etc.
+      if (!skipServer || (MULTI_CLUSTER_NETWORKS as string[]).includes(this.network)) {
         try {
           const { nodesDetails } = await get<{ nodesDetails: INodeDetails }>(`${this.fndServerEndpoint}?network=${this.network}`, {}, {});
           this.setNodeDetails(nodesDetails);
           return this._nodeDetails;
         } catch (error) {
-          log.error("Failed to fetch node details from server, using local", error);
+          if ((MULTI_CLUSTER_NETWORKS as string[]).includes(this.network)) {
+            throw error;
+          } else {
+            log.error("Failed to fetch node details from server, using local", error);
+          }
         }
       }
       const nodeDetails = this.fetchLocalConfig(this.network);
@@ -77,13 +100,15 @@ class NodeDetailManager {
   }
 
   private setNodeDetails(nodeDetails: INodeDetails) {
-    const { torusNodeBaseEndpoints, torusNodeSSSEndpoints, torusNodeRSSEndpoints, torusNodeTSSEndpoints, torusNodePub, torusIndexes } = nodeDetails;
-    this._torusNodeBaseEndpoints = torusNodeBaseEndpoints;
-    this._torusNodeSSSEndpoints = torusNodeSSSEndpoints;
-    this._torusNodeRSSEndpoints = torusNodeRSSEndpoints;
-    this._torusNodeTSSEndpoints = torusNodeTSSEndpoints;
+    const { currentEpoch, torusNodeEndpoints, torusNodeSSSEndpoints, torusNodeRSSEndpoints, torusNodeTSSEndpoints, torusNodePub, torusIndexes } =
+      nodeDetails;
+    this._torusNodeEndpoints = torusNodeEndpoints;
+    this._torusNodeSSSEndpoints = torusNodeSSSEndpoints || [];
+    this._torusNodeRSSEndpoints = torusNodeRSSEndpoints || [];
+    this._torusNodeTSSEndpoints = torusNodeTSSEndpoints || [];
     this._torusNodePub = torusNodePub;
     this._torusIndexes = torusIndexes;
+    this._currentEpoch = currentEpoch;
     this.updated = true;
   }
 }

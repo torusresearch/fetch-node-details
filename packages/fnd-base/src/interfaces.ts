@@ -1,3 +1,5 @@
+import { TORUS_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
+
 export interface JRPCResponse<T> {
   id: number;
   jsonrpc: "2.0";
@@ -15,25 +17,24 @@ export interface INodePub {
 }
 
 export interface INodeDetails {
-  torusNodeBaseEndpoints: string[];
-  torusNodeSSSEndpoints: string[];
-  torusNodeRSSEndpoints: string[];
-  torusNodeTSSEndpoints: string[];
+  currentEpoch: string;
+  torusNodeEndpoints: string[];
+  torusNodeSSSEndpoints?: string[];
+  torusNodeRSSEndpoints?: string[];
+  torusNodeTSSEndpoints?: string[];
   torusNodePub: INodePub[];
   torusIndexes: number[];
   updated?: boolean;
 }
 
-export const TORUS_NETWORK = {
-  DEVNET: "devnet",
-  TESTNET: "testnet",
-} as const;
+export type TORUS_SAPPHIRE_NETWORK_TYPE = (typeof TORUS_SAPPHIRE_NETWORK)[keyof typeof TORUS_SAPPHIRE_NETWORK];
 
 export type TORUS_NETWORK_TYPE = (typeof TORUS_NETWORK)[keyof typeof TORUS_NETWORK];
 
-export type NodeDetails = {
+export type NODE = {
   address: string;
   node_index: string;
+  epoch: string;
   public_key: {
     X: string;
     Y: string;
@@ -41,5 +42,5 @@ export type NodeDetails = {
 };
 
 export interface NodeLookupResponse {
-  nodes: NodeDetails[];
+  nodes: NODE[];
 }

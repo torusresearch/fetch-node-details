@@ -1,14 +1,16 @@
+import { TORUS_SAPPHIRE_NETWORK } from "./constants";
 import { getRSSEndpoints, getSSSEndpoints, getTSSEndpoints, NETWORK_URLS } from "./endpoints";
-import { INodeDetails, TORUS_NETWORK } from "./interfaces";
+import { INodeDetails } from "./interfaces";
 
-export const NODE_DETAILS_TESTNET: INodeDetails = {
-  torusNodeBaseEndpoints: NETWORK_URLS[TORUS_NETWORK.TESTNET],
+export const NODE_DETAILS_SAPPHIRE_TESTNET: INodeDetails = {
+  currentEpoch: "1",
+  torusNodeEndpoints: NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET],
 
-  torusNodeSSSEndpoints: getSSSEndpoints(TORUS_NETWORK.TESTNET),
+  torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET),
 
-  torusNodeRSSEndpoints: getRSSEndpoints(TORUS_NETWORK.TESTNET),
+  torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET),
 
-  torusNodeTSSEndpoints: getTSSEndpoints(TORUS_NETWORK.TESTNET),
+  torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET),
   torusIndexes: [1, 2, 3, 4, 5],
 
   torusNodePub: [
