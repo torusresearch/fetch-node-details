@@ -1,0 +1,52 @@
+import { TORUS_NETWORK } from "./constants";
+import { TORUS_SAPPHIRE_NETWORK_TYPE } from "./interfaces";
+
+export const NETWORK_URLS = {
+  [TORUS_NETWORK.SAPPHIRE_DEVNET]: [
+    "https://sapphire-dev-2-1.authnetwork.dev",
+    "https://sapphire-dev-2-2.authnetwork.dev",
+    "https://sapphire-dev-2-3.authnetwork.dev",
+    "https://sapphire-dev-2-4.authnetwork.dev",
+    "https://sapphire-dev-2-5.authnetwork.dev",
+  ],
+  [TORUS_NETWORK.SAPPHIRE_TESTNET]: [
+    "https://lrc1.authnetwork.dev",
+    "https://lrc2.authnetwork.dev",
+    "https://lrc3.authnetwork.dev",
+    "https://lrc4.authnetwork.dev",
+    "https://lrc5.authnetwork.dev",
+  ],
+};
+
+export const getSSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
+  const endpoints = NETWORK_URLS[network];
+  if (!endpoints || endpoints.length === 0) {
+    throw new Error(`Unsupported network: ${network}`);
+  }
+
+  return endpoints.map((e) => {
+    return `${e}/sss/jrpc`;
+  });
+};
+
+export const getRSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
+  const endpoints = NETWORK_URLS[network];
+  if (!endpoints || endpoints.length === 0) {
+    throw new Error(`Unsupported network: ${network}`);
+  }
+
+  return endpoints.map((e) => {
+    return `${e}/rss`;
+  });
+};
+
+export const getTSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
+  const endpoints = NETWORK_URLS[network];
+  if (!endpoints || endpoints.length === 0) {
+    throw new Error(`Unsupported network: ${network}`);
+  }
+
+  return endpoints.map((e) => {
+    return `${e}/tss`;
+  });
+};
