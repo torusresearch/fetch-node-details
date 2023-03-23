@@ -1,6 +1,7 @@
 export const TORUS_SAPPHIRE_NETWORK = {
   SAPPHIRE_DEVNET: "sapphire_devnet",
   SAPPHIRE_TESTNET: "sapphire_testnet",
+  SAPPHIRE_MAINNET: "sapphire_mainnet",
 } as const;
 export const TORUS_NETWORK = {
   MAINNET: "mainnet",

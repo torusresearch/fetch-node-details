@@ -16,6 +16,13 @@ export const NETWORK_URLS = {
     "https://lrc4.authnetwork.dev",
     "https://lrc5.authnetwork.dev",
   ],
+  [TORUS_NETWORK.SAPPHIRE_MAINNET]: [
+    "https://sapphire-1.auth.network/",
+    "https://sapphire-2.auth.network/",
+    "https://sapphire-3.auth.network/",
+    "https://sapphire-4.auth.network/",
+    "https://sapphire-5.auth.network/",
+  ],
 };
 
 export const getSSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
