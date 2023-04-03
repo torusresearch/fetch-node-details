@@ -1,5 +1,18 @@
 import { AbiType, StateMutabilityType } from "web3-utils";
 
+import { TORUS_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
+
+export interface JRPCResponse<T> {
+  id: number;
+  jsonrpc: "2.0";
+  result?: T;
+  error?: {
+    code: number;
+    message: string;
+    data?: unknown;
+  };
+}
+
 export interface INodePub {
   X: string;
   Y: string;
@@ -7,32 +20,32 @@ export interface INodePub {
 
 export interface INodeDetails {
   currentEpoch: string;
-  nodeListAddress: string;
   torusNodeEndpoints: string[];
+  torusNodeSSSEndpoints?: string[];
+  torusNodeRSSEndpoints?: string[];
+  torusNodeTSSEndpoints?: string[];
   torusNodePub: INodePub[];
   torusIndexes: number[];
-  updated: boolean;
+  updated?: boolean;
 }
 
-export const TORUS_NETWORK = {
-  TESTNET: "testnet",
-  MAINNET: "mainnet",
-  CYAN: "cyan",
-  AQUA: "aqua",
-  CELESTE: "celeste",
-} as const;
-
-export const NETWORK_MAP = {
-  [TORUS_NETWORK.MAINNET]: "mainnet",
-  [TORUS_NETWORK.TESTNET]: "goerli",
-  [TORUS_NETWORK.CYAN]: "polygon-mainnet",
-  [TORUS_NETWORK.AQUA]: "polygon-mainnet",
-  [TORUS_NETWORK.CELESTE]: "polygon-mainnet",
-};
+export type TORUS_SAPPHIRE_NETWORK_TYPE = (typeof TORUS_SAPPHIRE_NETWORK)[keyof typeof TORUS_SAPPHIRE_NETWORK];
 
 export type TORUS_NETWORK_TYPE = (typeof TORUS_NETWORK)[keyof typeof TORUS_NETWORK];
 
-export type NodeDetailManagerParams = { network?: TORUS_NETWORK_TYPE | string; proxyAddress?: string };
+export type NODE = {
+  address: string;
+  node_index: string;
+  epoch: string;
+  public_key: {
+    X: string;
+    Y: string;
+  };
+};
+
+export interface NodeLookupResponse {
+  nodes: NODE[];
+}
 
 export const abi = [
   {
