@@ -17,8 +17,6 @@ RUN npm install && apk del .gyp
 
 RUN npm run bootstrap
 
-RUN npm i -g yarn
-
 RUN yarn run build --scope=@toruslabs/fnd-base
 
 CMD cd packages/fnd-server && npm run build && npm run prod
