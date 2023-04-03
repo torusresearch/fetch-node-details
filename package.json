@@ -31,6 +31,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
+    "pack:lerna": "rimraf packages/**/toruslabs-*.tgz && lerna exec -- yarn pack",
     "bootstrap": "lerna bootstrap",
     "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
     "pre-commit": "lerna run pre-commit",
