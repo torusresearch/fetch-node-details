@@ -87,10 +87,13 @@ class NodeDetailManager {
     verifierId?: string;
   }): Promise<INodeDetails> {
     try {
-      if (this.updated) return this._nodeDetails;
-      if (this.updated) {
+      if (
+        this.updated &&
+        (this._proxyContractAddress === PROXY_CONTRACT_ADDRESS.mainnet ||
+          this._proxyContractAddress === PROXY_CONTRACT_ADDRESS.testnet ||
+          this.network.startsWith("sapphire"))
+      )
         return this._nodeDetails;
-      }
 
       if (!skipServer) {
         try {
