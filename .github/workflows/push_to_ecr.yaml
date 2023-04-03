@@ -4,7 +4,7 @@ on:
     branches: ["sapphire"]
 
 jobs:
-  release_to_US_region:
+  release_to_sg_region:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
