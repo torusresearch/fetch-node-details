@@ -18,6 +18,8 @@ export interface INodePub {
   Y: string;
 }
 
+export type legacyNetworks = "mainnet" | "testnet" | "cyan" | "aqua" | "celeste";
+
 export interface INodeDetails {
   currentEpoch: string;
   torusNodeEndpoints: string[];

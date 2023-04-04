@@ -36,7 +36,7 @@ class NodeDetailManager {
 
   private updated: boolean;
 
-  private network: TORUS_NETWORK_TYPE;
+  private network: TORUS_NETWORK_TYPE | string;
 
   constructor({
     network = TORUS_NETWORK.MAINNET,
@@ -109,7 +109,7 @@ class NodeDetailManager {
         }
       }
 
-      const nodeDetails = this.fetchLocalConfig(this.network);
+      const nodeDetails = this.fetchLocalConfig(this.network as TORUS_NETWORK_TYPE);
       if (!nodeDetails) {
         if (!verifier) {
           throw new Error(`Verifier is required in request body for ${this.network} network`);

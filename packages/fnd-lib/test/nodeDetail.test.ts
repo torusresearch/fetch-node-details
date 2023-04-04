@@ -4,11 +4,11 @@ import { deepStrictEqual } from "assert";
 import NodeDetailManager from "../src/nodeDetailManager";
 import { nodeDetailsAqua, nodeDetailsCeleste, nodeDetailsCyan } from "./config";
 
-const fndServerEndpoint = "http://localhost:8060/nodesDetails";
+const fndServerEndpoint = "https://fnd.tor.us/nodesDetails";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
-    const nodeDetailManager = new NodeDetailManager({ fndServerEndpoint: "http://localhost:8060/nodesDetails" });
+    const nodeDetailManager = new NodeDetailManager({});
     const details = await nodeDetailManager.getNodeDetails({});
     delete details.updated;
     delete details.torusNodeRSSEndpoints;
