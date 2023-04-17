@@ -17,4 +17,4 @@ RUN npm install && apk del .gyp
 
 RUN npm run bootstrap
 
-CMD cd packages/fnd-server && npm run build && npm run prod
+CMD npm run build && npm run prod

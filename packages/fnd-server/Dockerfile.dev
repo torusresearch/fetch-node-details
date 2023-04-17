@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+COPY *.tgz ./
+
 ENV NODE_OPTIONS --max-old-space-size=4096
 
 RUN apk add --no-cache --virtual .gyp \
@@ -11,8 +13,11 @@ RUN apk add --no-cache --virtual .gyp \
         make \
         g++ 
 
-RUN npm install && apk del .gyp
+
+RUN npm install
+
+RUN npm i -g nodemon
 
 COPY . .
 
-CMD cd packages/fnd-server && npm run serve
+CMD npm run serve

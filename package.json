@@ -35,7 +35,7 @@
     "bootstrap": "lerna bootstrap",
     "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
     "pre-commit": "lerna run pre-commit",
-    "dev": "docker-compose -f docker-compose.dev.yml up --build",
+    "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev --scope=@toruslabs/fnd-server",
     "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/"
   },
   "lint-staged": {

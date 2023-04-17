@@ -21,7 +21,7 @@
     "setup": "node ./test/setup.js"
   },
   "dependencies": {
-    "@toruslabs/constants": "^8.1.1",
+    "@toruslabs/constants": "file:./toruslabs-constants-v8.1.1.tgz",
     "@sentry/node": "^7.35.0",
     "@sentry/tracing": "^7.35.0",
     "@toruslabs/http-helpers": "^3.2.0",
@@ -36,7 +36,7 @@
     "morgan": "^1.10.0",
     "redis": "^4.3.1",
     "json-stable-stringify": "^1.0.2",
-    "@toruslabs/fnd-base": "^8.1.1",
+    "@toruslabs/fnd-base": "file:./toruslabs-fnd-base-v8.1.1.tgz",
     "web3-eth-contract": "^1.9.0",
     "web3-utils": "^1.9.0"
   },
@@ -50,7 +50,8 @@
     "assert": "^2.0.0",
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.20",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1"
   },
   "lint-staged": {
     "*.{json,md}": [

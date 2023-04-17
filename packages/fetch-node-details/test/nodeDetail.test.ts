@@ -5,7 +5,7 @@ import { deepStrictEqual } from "assert";
 import NodeDetailManager from "../src/nodeDetailManager";
 import { nodeDetailsAqua, nodeDetailsCeleste, nodeDetailsCyan } from "./config";
 
-const fndServerEndpoint = "https://fnd.tor.us/node-details";
+const fndServerEndpoint = "http://localhost:8060/node-details";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
