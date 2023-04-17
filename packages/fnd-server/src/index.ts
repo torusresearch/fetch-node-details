@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 import { errors } from "celebrate";
 import compression from "compression";
 import cors from "cors";
@@ -7,29 +8,23 @@ import helmet from "helmet";
 import { createServer } from "http";
 import log from "loglevel";
 import morgan from "morgan";
-import fetch from "node-fetch";
-import path from "path";
+
+// Setup environment
+dotenv.config({
+  path: process.env.NODE_ENV === "development" ? ".env.development" : ".env",
+});
+log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
 
 import router from "./router";
 import { registerSentry, registerSentryErrorHandler } from "./utils/sentry";
 
-(globalThis as any).fetch = fetch;
-// setup environment
-const envPath = path.resolve("../../../", process.env.NODE_ENV !== "production" ? ".env.development" : ".env");
-dotenv.config({
-  path: envPath,
-});
-
-log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
-
-const port = process.env.NODE_PORT || process.argv[2] || 8060;
-
-// Catch all errors, including exceptions in wasm
-process.on("uncaughtException", function (err) {
-  console.log(`Caught exception: ${err}`);
-});
-
+// setup app
 const app = express();
+const port = process.env.PORT || process.argv[2] || 8060;
+const http = createServer(app);
+
+http.keepAliveTimeout = 301 * 1000;
+http.headersTimeout = 305 * 1000;
 
 registerSentry(app);
 
@@ -41,7 +36,7 @@ const corsOptions = {
   origin: true,
   credentials: true,
   allowedHeaders: ["Content-Type", "x-api-key", "x-embed-host", "sentry-trace", "baggage", "x-web3-correlation-id"],
-  methods: "GET,POST",
+  methods: "GET",
   maxAge: 86400,
 };
 
@@ -59,12 +54,8 @@ app.use(errors());
 
 registerSentryErrorHandler(app);
 
-const server = createServer(app);
-server.keepAliveTimeout = 301 * 1000;
-server.headersTimeout = 305 * 1000;
-
-server.listen(port, () => {
-  console.log("app listening on port", port);
+http.listen(port, () => {
+  log.info("app listening on port", port);
 });
 
 export default app;

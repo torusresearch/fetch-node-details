@@ -1,21 +1,12 @@
 import log from "loglevel";
 import { createClient } from "redis";
 
-const { REDIS_HOSTNAME, REDIS_PORT } = process.env;
+const { REDIS_PORT, REDIS_HOSTNAME } = process.env;
 
-if (!REDIS_HOSTNAME) {
-  throw new Error("Please pass REDIS_HOSTNAME in env variables");
-}
-const [host, port] = REDIS_HOSTNAME.split(":");
-
-log.info("Redis", host, port, REDIS_PORT);
-
-const client = createClient({ socket: { host, port: Number(port || REDIS_PORT) } });
-
-client.connect();
+const client = createClient({ socket: { host: REDIS_HOSTNAME, port: Number(REDIS_PORT) } });
 
 client.on("error", (error) => {
-  log.error("error from redis", error);
+  log.error(error);
 });
 
 client.on("ready", () => {

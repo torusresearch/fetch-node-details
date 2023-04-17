@@ -1,11 +1,11 @@
 {
-  "name": "@toruslabs/fnd-base",
+  "name": "@toruslabs/constants",
   "version": "8.1.1",
-  "description": "Contains details for sapphire nodes",
-  "main": "dist/fndBase.cjs.js",
-  "module": "dist/fndBase.esm.js",
-  "unpkg": "dist/fndBase.umd.min.js",
-  "jsdelivr": "dist/fndBase.umd.min.js",
+  "description": "Contains constants for torus and web3auth",
+  "main": "dist/constants.cjs.js",
+  "module": "dist/constants.esm.js",
+  "unpkg": "dist/constants.umd.min.js",
+  "jsdelivr": "dist/constants.umd.min.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist",
@@ -22,12 +22,7 @@
   "peerDependencies": {
     "@babel/runtime": "7.x"
   },
-  "dependencies": {
-    "@toruslabs/constants": "^8.1.1"
-  },
-  "devDependencies": {
-    "web3-utils": "^1.9.0"
-  },
+  "dependencies": {},
   "lint-staged": {
     "!(*d).{js,ts}": [
       "eslint --cache --fix",
@@ -43,6 +38,8 @@
   },
   "keywords": [
     "torus",
+    "constants",
+    "web3auth",
     "nodes",
     "torus-embed",
     "torus-website",

@@ -1,7 +1,6 @@
-import { TORUS_NETWORK } from "./constants";
-import { TORUS_SAPPHIRE_NETWORK_TYPE } from "./interfaces";
+import { TORUS_NETWORK, TORUS_SAPPHIRE_NETWORK_TYPE } from "@toruslabs/constants";
 
-export const NETWORK_URLS = {
+export const SAPPHIRE_NETWORK_URLS: Record<TORUS_SAPPHIRE_NETWORK_TYPE, string[]> = {
   [TORUS_NETWORK.SAPPHIRE_DEVNET]: [
     "https://sapphire-dev-2-1.authnetwork.dev",
     "https://sapphire-dev-2-2.authnetwork.dev",
@@ -26,7 +25,7 @@ export const NETWORK_URLS = {
 };
 
 export const getSSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
-  const endpoints = NETWORK_URLS[network];
+  const endpoints = SAPPHIRE_NETWORK_URLS[network];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${network}`);
   }
@@ -37,7 +36,7 @@ export const getSSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
 };
 
 export const getRSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
-  const endpoints = NETWORK_URLS[network];
+  const endpoints = SAPPHIRE_NETWORK_URLS[network];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${network}`);
   }
@@ -48,7 +47,7 @@ export const getRSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
 };
 
 export const getTSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
-  const endpoints = NETWORK_URLS[network];
+  const endpoints = SAPPHIRE_NETWORK_URLS[network];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${network}`);
   }

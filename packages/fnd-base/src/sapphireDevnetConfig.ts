@@ -1,11 +1,11 @@
-import { TORUS_SAPPHIRE_NETWORK } from "./constants";
-import { getRSSEndpoints, getSSSEndpoints, getTSSEndpoints, NETWORK_URLS } from "./endpoints";
-import { INodeDetails } from "./interfaces";
+import { INodeDetails, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
+
+import { getRSSEndpoints, getSSSEndpoints, getTSSEndpoints, SAPPHIRE_NETWORK_URLS } from "./endpoints";
 
 export const NODE_DETAILS_SAPPHIRE_DEVNET: INodeDetails = {
   currentEpoch: "1",
 
-  torusNodeEndpoints: NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET],
+  torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET],
 
   torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET),
 

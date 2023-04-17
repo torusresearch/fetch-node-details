@@ -3,12 +3,17 @@ export const TORUS_SAPPHIRE_NETWORK = {
   SAPPHIRE_TESTNET: "sapphire_testnet",
   SAPPHIRE_MAINNET: "sapphire_mainnet",
 } as const;
-export const TORUS_NETWORK = {
+
+export const TORUS_LEGACY_NETWORK = {
   MAINNET: "mainnet",
   TESTNET: "testnet",
   CYAN: "cyan",
   AQUA: "aqua",
   CELESTE: "celeste",
+};
+
+export const TORUS_NETWORK = {
+  ...TORUS_LEGACY_NETWORK,
   ...TORUS_SAPPHIRE_NETWORK,
 } as const;
 
@@ -23,4 +28,13 @@ export const PROXY_CONTRACT_ADDRESS = {
 
   [TORUS_NETWORK.CELESTE]: "0x6Bffb4e89453069E7487f0fa5c9f4a2D771cce6c",
 };
+
 export const MULTI_CLUSTER_NETWORKS = [TORUS_NETWORK.AQUA, TORUS_NETWORK.CELESTE, TORUS_NETWORK.CYAN];
+
+export const NETWORK_MAP = {
+  [TORUS_NETWORK.MAINNET]: "mainnet",
+  [TORUS_NETWORK.TESTNET]: "goerli",
+  [TORUS_NETWORK.CYAN]: "polygon-mainnet",
+  [TORUS_NETWORK.AQUA]: "polygon-mainnet",
+  [TORUS_NETWORK.CELESTE]: "polygon-mainnet",
+};

@@ -1,4 +1,4 @@
-import { INodeDetails } from "./interfaces";
+import { INodeDetails } from "@toruslabs/constants";
 
 export const NODE_DETAILS_TESTNET: INodeDetails = {
   currentEpoch: "15",

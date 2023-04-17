@@ -3,7 +3,7 @@ const pkg = require("./package.json");
 const path = require("path");
 const generateWebpackConfig = require("../../webpack.config");
 
-const pkgName = "fndBase";
+const pkgName = pkg.name.split("/")[1];
 
 exports.nodeConfig = {
   optimization: {

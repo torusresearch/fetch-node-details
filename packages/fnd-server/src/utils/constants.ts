@@ -5,6 +5,7 @@ const envPath = process.env.NODE_ENV !== "production" ? ".env.development" : ".e
 dotenv.config({
   path: envPath,
 });
+
 export const { INFURA_PROJECT_ID } = process.env;
 
 if (!INFURA_PROJECT_ID) {

@@ -9,20 +9,9 @@
   },
   "ignorePatterns": ["*.config.js", "*.d.ts"],
   "env": {
-    "es6": true,
     "es2020": true,
     "browser": true,
     "node": true,
     "mocha": true
-  },
-  "rules": {
-    "array-callback-return": "off",
-    "camelcase": "off",
-    "no-console": "off",
-    "promise/param-names": "off",
-    "promise/valid-params": "off",
-    "promise/no-nesting": "off",
-    "promise/catch-or-return": "off",
-    "require-atomic-updates": "off"
   }
 }

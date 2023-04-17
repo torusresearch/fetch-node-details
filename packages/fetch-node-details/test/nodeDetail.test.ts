@@ -1,15 +1,16 @@
-import { NODE_DETAILS_MAINNET, NODE_DETAILS_SAPPHIRE_DEVNET, PROXY_CONTRACT_ADDRESS, TORUS_NETWORK } from "@toruslabs/fnd-base";
+import { TORUS_NETWORK } from "@toruslabs/constants";
+import { NODE_DETAILS_MAINNET, NODE_DETAILS_SAPPHIRE_DEVNET } from "@toruslabs/fnd-base";
 import { deepStrictEqual } from "assert";
 
 import NodeDetailManager from "../src/nodeDetailManager";
 import { nodeDetailsAqua, nodeDetailsCeleste, nodeDetailsCyan } from "./config";
 
-const fndServerEndpoint = "https://fnd.tor.us/nodesDetails";
+const fndServerEndpoint = "https://fnd.tor.us/node-details";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
     const nodeDetailManager = new NodeDetailManager({});
-    const details = await nodeDetailManager.getNodeDetails({});
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     delete details.torusNodeRSSEndpoints;
     delete details.torusNodeSSSEndpoints;
@@ -21,7 +22,7 @@ describe("Fetch Node Details", function () {
       network: TORUS_NETWORK.SAPPHIRE_DEVNET,
       fndServerEndpoint,
     });
-    const details = await nodeDetailManager.getNodeDetails({});
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_DEVNET);
   });
@@ -31,7 +32,7 @@ describe("Fetch Node Details", function () {
       network: TORUS_NETWORK.SAPPHIRE_DEVNET,
       fndServerEndpoint,
     });
-    const details = await nodeDetailManager.getNodeDetails({ skipServer: true });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_DEVNET);
   });
@@ -39,7 +40,6 @@ describe("Fetch Node Details", function () {
   it("#should return correct values - cyan", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CYAN,
-      proxyAddress: PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.CYAN],
       fndServerEndpoint,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
@@ -52,10 +52,9 @@ describe("Fetch Node Details", function () {
   it("#should return correct value when skipped server - cyan", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CYAN,
-      proxyAddress: PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.CYAN],
       fndServerEndpoint,
     });
-    const details = await nodeDetailManager.getNodeDetails({ skipServer: true, verifier: "google", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     delete details.torusNodeRSSEndpoints;
     delete details.torusNodeSSSEndpoints;
@@ -66,7 +65,6 @@ describe("Fetch Node Details", function () {
   it("#should return correct values - aqua", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.AQUA,
-      proxyAddress: PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.AQUA],
       fndServerEndpoint,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
@@ -79,10 +77,9 @@ describe("Fetch Node Details", function () {
   it("#should return correct value when skipped server - aqua", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.AQUA,
-      proxyAddress: PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.AQUA],
       fndServerEndpoint,
     });
-    const details = await nodeDetailManager.getNodeDetails({ skipServer: true, verifier: "google", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     delete details.torusNodeRSSEndpoints;
     delete details.torusNodeSSSEndpoints;
@@ -93,7 +90,6 @@ describe("Fetch Node Details", function () {
   it("#should return correct values - celeste", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CELESTE,
-      proxyAddress: PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.CELESTE],
       fndServerEndpoint,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
@@ -106,10 +102,9 @@ describe("Fetch Node Details", function () {
   it("#should return correct value when skipped server - celeste", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CELESTE,
-      proxyAddress: PROXY_CONTRACT_ADDRESS[TORUS_NETWORK.CELESTE],
       fndServerEndpoint,
     });
-    const details = await nodeDetailManager.getNodeDetails({ skipServer: true, verifier: "google", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     delete details.torusNodeRSSEndpoints;
     delete details.torusNodeSSSEndpoints;
