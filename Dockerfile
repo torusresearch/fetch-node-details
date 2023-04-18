@@ -11,8 +11,6 @@ RUN apk add --no-cache --virtual .gyp \
         make \
         g++
 
-COPY . .
-
 RUN npm install && apk del .gyp
 
 COPY packages/fnd-server .

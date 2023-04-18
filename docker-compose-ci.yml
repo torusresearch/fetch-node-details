@@ -21,6 +21,4 @@ services:
       - ./.env.development
     ports:
       - "8060:8060/tcp"
-    volumes:
-      - .:/app
-    command: "/app/ci.sh"
+    command: "ci.sh"

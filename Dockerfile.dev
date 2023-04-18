@@ -1,4 +1,5 @@
 FROM node:16-alpine
+RUN apk add --no-cache tzdata
 
 WORKDIR /app
 
@@ -9,12 +10,9 @@ ENV NODE_OPTIONS --max-old-space-size=4096
 RUN apk add --no-cache --virtual .gyp \
         python3 \
         make \
-        g++ 
+        g++ \
+        && npm install && apk del .gyp
 
-RUN npm install && apk del .gyp
-
-COPY ci.sh  .
-
-COPY packages/fnd-server .
+COPY . .
 
 CMD cd packages/fnd-server && npm run serve

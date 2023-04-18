@@ -1,5 +1,4 @@
 #!/bin/sh
-npm run dev &
-/app/node_modules/.bin/wait-port 8060
+./node_modules/.bin/wait-port 8060
 sleep 10
-npm run test
+./node_modules/.bin/mocha ./packages/fetch-node-details/test/nodeDetail.test.ts
