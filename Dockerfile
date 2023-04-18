@@ -9,10 +9,10 @@ RUN apk add --no-cache --virtual .gyp \
         make \
         g++
 
-COPY packages/fnd-server/package*.json .
+COPY package*.json .
 
-RUN npm install && apk del .gyp
+RUN npm install
 
-COPY packages/fnd-server .
+COPY . .
 
-CMD  npm run build && npm run prod
+CMD cd packages/fnd-server && npm run build && npm run prod
