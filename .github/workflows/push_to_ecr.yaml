@@ -23,7 +23,7 @@ jobs:
 
       - name: Run tests
         run: |
-          npm ci
+          npm i
           npm run test:ci
   release_to_sg_region:
     runs-on: ubuntu-latest
