@@ -3,9 +3,9 @@
   Test Fetch Node Details
 </head>
 <body>
-  <script src="../dist/fetchNodeDetailsSapphire.umd.min.js"></script>
+  <script src="../dist/fetchNodeDetails.umd.min.js"></script>
   <script>
-    const fetchNodeDetails = new FetchNodeDetails.default();
-    fetchNodeDetails.getNodeDetails().then((nodeInfo) => console.log(nodeInfo));
+    const fetchNodeDetails = new FetchNodeDetails.default({ network: "mainnet" });
+    fetchNodeDetails.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" }).then((nodeInfo) => console.log(nodeInfo));
   </script>
 </body>
