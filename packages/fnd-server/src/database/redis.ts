@@ -2,8 +2,7 @@ import log from "loglevel";
 import { createClient } from "redis";
 
 const { REDIS_PORT, REDIS_HOSTNAME } = process.env;
-// eslint-disable-next-line no-console
-console.log("REDI", REDIS_PORT, REDIS_HOSTNAME);
+
 const client = createClient({ socket: { host: REDIS_HOSTNAME, port: Number(REDIS_PORT) } });
 
 client.connect();
