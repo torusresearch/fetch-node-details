@@ -4,21 +4,15 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "servers": "node scripts/runServers.js",
-    "depcheck": "depcheck .",
     "serve": "nodemon --config nodemon.json src/index.ts",
-    "prod": "cross-env NODE_ENV=production && node dist/index.js",
+    "prod": "cross-env NODE_ENV=production && node dist/src/index.js",
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build:server",
     "build:server": "tsc",
     "lint": "eslint --fix 'src/**/*.ts'",
     "pre-commit": "lint-staged --cwd .",
     "dev": "docker-compose -f ../../docker-compose.dev.yml up --build",
-    "down": "docker-compose -f ../../docker-compose.dev.yml down",
-    "lint:ts": "eslint --fix 'src/**/*.ts'",
-    "lint:prettier": "prettier --write 'src/**/*.ts'",
-    "setup": "node ./test/setup.js"
+    "down": "docker-compose -f ../../docker-compose.dev.yml down"
   },
   "dependencies": {
     "@toruslabs/constants": "^8.1.1",
@@ -62,5 +56,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

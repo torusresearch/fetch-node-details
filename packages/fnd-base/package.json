@@ -16,7 +16,6 @@
     "build": "torus-scripts build",
     "release": "torus-scripts release",
     "prepack": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --fix 'src/**/*.ts'"
   },
   "peerDependencies": {
