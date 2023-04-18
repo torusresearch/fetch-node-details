@@ -20,7 +20,6 @@
     "lerna": "^6.6.1",
     "lint-staged": "^13.2.1",
     "mocha": "^10.2.0",
-    "node-fetch": "^3.3.1",
     "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
@@ -32,21 +31,21 @@
   "main": "index.js",
   "scripts": {
     "wait": "wait-port 8060",
-    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel --scope=@toruslabs/fetch-node-details",
+    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel",
     "server:detach": "docker-compose -f docker-compose.dev.yml up --build --detach",
     "test:ci": "npm run server:detach && wait-port 8060 && sleep 5 && npm run test",
     "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
-    "pack:lerna": "rimraf packages/**/toruslabs-*.tgz && lerna exec -- yarn pack",
+    "pack:lerna": "lerna exec -- rimraf toruslabs-*.tgz && lerna exec -- yarn pack",
     "bootstrap": "lerna bootstrap",
     "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
     "pre-commit": "lerna run pre-commit",
-    "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev --scope=@toruslabs/fnd-server",
+    "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev",
     "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/"
   },
   "lint-staged": {
     "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": ""
 }

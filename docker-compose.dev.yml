@@ -8,8 +8,6 @@ services:
       - 6379:6379
   fnd-server:
     restart: always
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     depends_on:
       - redis
     build:
