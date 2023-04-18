@@ -66,7 +66,7 @@ class NodeDetailManager {
 
         return this._nodeDetails;
       } catch (error) {
-        log.error("Failed to fetch node details from server, using local", error);
+        log.error("Failed to fetch node details from server, using local.", error);
       }
 
       const nodeDetails = fetchLocalConfig(this.network as TORUS_NETWORK_TYPE);
