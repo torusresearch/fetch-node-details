@@ -21,4 +21,3 @@ services:
       - ./.env.development
     ports:
       - "8060:8060/tcp"
-    command: "ci.sh"
