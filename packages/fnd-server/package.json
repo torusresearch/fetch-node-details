@@ -51,8 +51,7 @@
     "cross-env": "^7.0.3",
     "nodemon": "^2.0.20",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.9.1",
-    "wait-port": "^1.0.4"
+    "ts-node": "^10.9.1"
   },
   "lint-staged": {
     "*.{json,md}": [
