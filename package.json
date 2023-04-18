@@ -33,7 +33,8 @@
   "scripts": {
     "wait": "wait-port 8060",
     "test": "cross-env FORCE_COLOR=1 lerna run test --parallel --scope=@toruslabs/fetch-node-details",
-    "test:ci": "docker-compose -f docker-compose-ci.yml up --build --detach && sleep 5 && npm run test",
+    "server:detach": "docker-compose -f docker-compose.dev.yml up --build --detach",
+    "test:ci": "npm run server:detach && wait-port 8060 && sleep 5 && npm run test",
     "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
     "pack:lerna": "rimraf packages/**/toruslabs-*.tgz && lerna exec -- yarn pack",
     "bootstrap": "lerna bootstrap",
