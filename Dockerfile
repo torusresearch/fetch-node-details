@@ -4,20 +4,17 @@ WORKDIR /app
 
 COPY package*.json ./
 
-COPY *.tgz ./
-
 ENV NODE_OPTIONS --max-old-space-size=4096
 
 RUN apk add --no-cache --virtual .gyp \
         python3 \
         make \
-        g++ 
-
-
-RUN npm install
-
-RUN npm i -g nodemon
+        g++
 
 COPY . .
 
-CMD npm run serve
+RUN npm install && apk del .gyp
+
+RUN npm run bootstrap
+
+CMD cd packages/fnd-server && npm run build && npm run prod

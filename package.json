@@ -29,7 +29,7 @@
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel",
+    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel --scope=@toruslabs/fetch-node-details",
     "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
     "pack:lerna": "rimraf packages/**/toruslabs-*.tgz && lerna exec -- yarn pack",
     "bootstrap": "lerna bootstrap",

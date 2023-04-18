@@ -6,6 +6,8 @@ import JsonStringify from "json-stable-stringify";
 import Web3EthContract from "web3-eth-contract";
 import { keccak256, toHex } from "web3-utils";
 
+import { INFURA_PROJECT_ID } from "./constants";
+
 export const thresholdSame = <T>(arr: T[], t: number): T | undefined => {
   const hashMap: Record<string, number> = {};
   for (let i = 0; i < arr.length; i += 1) {
@@ -30,13 +32,12 @@ export const getLegacyNodeDetails = async ({
   proxyAddress: string;
 }): Promise<INodeDetails> => {
   try {
-    const projectId = process.env.INFURA_PROJECT_ID;
     let url: string;
     try {
       const localUrl = new URL(network);
       url = localUrl.href;
     } catch (_) {
-      url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${projectId}`;
+      url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${INFURA_PROJECT_ID}`;
     }
 
     Web3EthContract.setProvider(url);

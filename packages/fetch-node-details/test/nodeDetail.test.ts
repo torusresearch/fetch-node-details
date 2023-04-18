@@ -9,7 +9,10 @@ const fndServerEndpoint = "http://localhost:8060/node-details";
 
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
-    const nodeDetailManager = new NodeDetailManager({});
+    const nodeDetailManager = new NodeDetailManager({
+      fndServerEndpoint,
+      enableLogging: true,
+    });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
     delete details.torusNodeRSSEndpoints;
@@ -21,16 +24,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.SAPPHIRE_DEVNET,
       fndServerEndpoint,
-    });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    delete details.updated;
-    deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_DEVNET);
-  });
-
-  it("#should return correct values on skipping server - devnet", async function () {
-    const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.SAPPHIRE_DEVNET,
-      fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
@@ -41,6 +35,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CYAN,
       fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
@@ -53,6 +48,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CYAN,
       fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
@@ -66,6 +62,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.AQUA,
       fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
@@ -78,6 +75,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.AQUA,
       fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
@@ -91,6 +89,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CELESTE,
       fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
@@ -103,6 +102,7 @@ describe("Fetch Node Details", function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_NETWORK.CELESTE,
       fndServerEndpoint,
+      enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;

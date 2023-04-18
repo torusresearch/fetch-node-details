@@ -59,10 +59,11 @@ class NodeDetailManager {
       if (this.updated && !MULTI_CLUSTER_NETWORKS.includes(this.network)) return this._nodeDetails;
 
       try {
-        const { nodesDetails } = await get<{ nodesDetails: INodeDetails }>(
+        const { nodeDetails } = await get<{ nodeDetails: INodeDetails }>(
           `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}`
         );
-        this.setNodeDetails(nodesDetails);
+        this.setNodeDetails(nodeDetails);
+
         return this._nodeDetails;
       } catch (error) {
         log.error("Failed to fetch node details from server, using local", error);

@@ -14,14 +14,14 @@
     "build:server": "tsc",
     "lint": "eslint --fix 'src/**/*.ts'",
     "pre-commit": "lint-staged --cwd .",
-    "dev": "docker-compose -f docker-compose.dev.yml up --build",
-    "down": "docker-compose -f docker-compose.dev.yml down",
+    "dev": "docker-compose -f ../../docker-compose.dev.yml up --build",
+    "down": "docker-compose -f ../../docker-compose.dev.yml down",
     "lint:ts": "eslint --fix 'src/**/*.ts'",
     "lint:prettier": "prettier --write 'src/**/*.ts'",
     "setup": "node ./test/setup.js"
   },
   "dependencies": {
-    "@toruslabs/constants": "file:./toruslabs-constants-v8.1.1.tgz",
+    "@toruslabs/constants": "^8.1.1",
     "@sentry/node": "^7.35.0",
     "@sentry/tracing": "^7.35.0",
     "@toruslabs/http-helpers": "^3.2.0",
@@ -36,7 +36,7 @@
     "morgan": "^1.10.0",
     "redis": "^4.3.1",
     "json-stable-stringify": "^1.0.2",
-    "@toruslabs/fnd-base": "file:./toruslabs-fnd-base-v8.1.1.tgz",
+    "@toruslabs/fnd-base": "^8.1.1",
     "web3-eth-contract": "^1.9.0",
     "web3-utils": "^1.9.0"
   },
