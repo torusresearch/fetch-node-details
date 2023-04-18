@@ -13,6 +13,8 @@ RUN apk add --no-cache --virtual .gyp \
 
 RUN npm install && apk del .gyp
 
-COPY . .
+COPY ci.sh  .
+
+COPY packages/fnd-server .
 
 CMD cd packages/fnd-server && npm run serve

@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/torusresearch/fetch-node-details-sapphire.git"
+    "url": "git+https://github.com/torusresearch/fetch-node-details.git"
   },
   "keywords": [
     "torus",

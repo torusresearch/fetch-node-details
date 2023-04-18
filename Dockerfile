@@ -15,6 +15,6 @@ COPY . .
 
 RUN npm install && apk del .gyp
 
-RUN npm run bootstrap
+COPY packages/fnd-server .
 
 CMD cd packages/fnd-server && npm run build && npm run prod

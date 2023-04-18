@@ -1,9 +1,28 @@
-name: Push Backend to ECR
+name: Test and Push Backend to ECR
 on:
   push:
     branches: ["sapphire"]
 
 jobs:
+  test:
+    name: run tests
+    strategy:
+      matrix:
+        node: ["16.x"]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Run tests
+        run: npm run test:ci
   release_to_sg_region:
     runs-on: ubuntu-latest
     steps:

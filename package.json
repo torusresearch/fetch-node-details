@@ -30,6 +30,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cross-env FORCE_COLOR=1 lerna run test --parallel --scope=@toruslabs/fetch-node-details",
+    "test:ci": "docker-compose -f docker-compose-ci.yml up --build --abort-on-container-exit --exit-code-from fnd-server",
     "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
     "pack:lerna": "rimraf packages/**/toruslabs-*.tgz && lerna exec -- yarn pack",
     "bootstrap": "lerna bootstrap",
