@@ -1,0 +1,62 @@
+{
+  "name": "@toruslabs/fetch-node-details",
+  "version": "8.1.1",
+  "description": "Fetches the node details for torus nodes",
+  "main": "dist/fetchNodeDetails.cjs.js",
+  "module": "dist/fetchNodeDetails.esm.js",
+  "unpkg": "dist/fetchNodeDetails.umd.min.js",
+  "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "start": "torus-scripts start",
+    "build": "torus-scripts build",
+    "release": "torus-scripts release",
+    "prepack": "npm run build",
+    "test": "mocha",
+    "lint": "eslint --fix 'src/**/*.ts'"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "7.x"
+  },
+  "dependencies": {
+    "@toruslabs/constants": "^8.1.1",
+    "@toruslabs/http-helpers": "^3.3.0",
+    "loglevel": "^1.8.1",
+    "@toruslabs/fnd-base": "^8.1.1"
+  },
+  "lint-staged": {
+    "!(*d).{js,ts}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ],
+    "*.{json, md}": [
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torusresearch/fetch-node-details.git"
+  },
+  "keywords": [
+    "torus",
+    "nodes",
+    "torus-embed",
+    "torus-website",
+    "fetch-node-details",
+    "toruslabs"
+  ],
+  "author": "Chaitanya Potti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/torusresearch/fetch-node-details-sapphire/issues"
+  },
+  "homepage": "https://github.com/torusresearch/fetch-node-details-sapphire#readme",
+  "engines": {
+    "node": ">=14.17.0",
+    "npm": ">=6.x"
+  }
+}

@@ -1,87 +1,52 @@
 {
-  "name": "@toruslabs/fetch-node-details",
-  "version": "8.1.1",
-  "description": "Fetches the node details from torus nodelist smart contract",
-  "main": "dist/fetchNodeDetails.cjs.js",
-  "module": "dist/fetchNodeDetails.esm.js",
-  "unpkg": "dist/fetchNodeDetails.umd.min.js",
-  "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
-  "types": "dist/types/index.d.ts",
-  "files": [
-    "dist",
-    "src"
+  "name": "fnd",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "scripts": {
-    "start": "torus-scripts start",
-    "build": "torus-scripts build",
-    "release": "torus-scripts release",
-    "prepack": "npm run build",
-    "test": "mocha",
-    "lint:ts": "eslint --fix 'src/**/*.ts'",
-    "prepare": "husky install"
-  },
-  "peerDependencies": {
-    "@babel/runtime": "7.x"
-  },
-  "dependencies": {
-    "web3-eth-contract": "^1.8.2",
-    "web3-utils": "^1.8.2"
-  },
   "devDependencies": {
     "@babel/register": "^7.21.0",
-    "@rollup/plugin-replace": "^5.0.2",
     "@toruslabs/eslint-config-typescript": "^1.4.1",
     "@toruslabs/torus-scripts": "^3.0.4",
     "@types/mocha": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
-    "eslint": "^8.36.0",
+    "eslint": "^8.38.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-mocha": "^10.1.0",
-    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tsdoc": "^0.2.17",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
+    "lerna": "^6.6.1",
+    "lint-staged": "^13.2.1",
     "mocha": "^10.2.0",
-    "prettier": "^2.8.4",
-    "rimraf": "^4.4.0",
+    "node-fetch": "^3.3.1",
+    "prettier": "^2.8.7",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.5"
+    "tsconfig-paths-webpack-plugin": "^4.0.1",
+    "typescript": "^4.7.4",
+    "wait-port": "^1.0.4"
+  },
+  "version": "1.1.0",
+  "main": "index.js",
+  "scripts": {
+    "wait": "wait-port 8060",
+    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel",
+    "server:detach": "docker-compose -f docker-compose.dev.yml up --build --detach",
+    "test:ci": "npm run server:detach && wait-port 8060 && sleep 20 && npm run test",
+    "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
+    "pack:lerna": "lerna exec -- rimraf toruslabs-*.tgz && lerna exec -- yarn pack",
+    "bootstrap": "lerna bootstrap",
+    "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
+    "pre-commit": "lerna run pre-commit",
+    "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev",
+    "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/"
   },
   "lint-staged": {
-    "!(*d).{js,ts}": [
-      "eslint --cache --fix",
-      "prettier --write"
-    ],
-    "*.{json, md}": [
-      "prettier --write"
-    ]
+    "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/torusresearch/fetch-node-details.git"
-  },
-  "keywords": [
-    "torus",
-    "nodes",
-    "torus-embed",
-    "torus-website",
-    "fetch-node-details",
-    "toruslabs"
-  ],
-  "author": "Chaitanya Potti",
+  "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/torusresearch/fetch-node-details/issues"
-  },
-  "homepage": "https://github.com/torusresearch/fetch-node-details#readme",
-  "engines": {
-    "node": ">=14.17.0",
-    "npm": ">=6.x"
-  }
+  "description": ""
 }

@@ -5,7 +5,7 @@
 <body>
   <script src="../dist/fetchNodeDetails.umd.min.js"></script>
   <script>
-    const fetchNodeDetails = new FetchNodeDetails.default();
+    const fetchNodeDetails = new FetchNodeDetails.default({ network: "mainnet" });
     fetchNodeDetails.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" }).then((nodeInfo) => console.log(nodeInfo));
   </script>
 </body>
