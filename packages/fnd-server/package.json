@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@toruslabs/constants": "^8.1.1",
-    "@sentry/node": "^7.48.0",
-    "@sentry/tracing": "^7.48.0",
+    "@sentry/node": "^7.49.0",
+    "@sentry/tracing": "^7.49.0",
     "@toruslabs/http-helpers": "^3.3.0",
     "@toruslabs/loglevel-sentry": "^4.1.0",
     "celebrate": "^15.0.1",
