@@ -5,8 +5,6 @@ const generateWebpackConfig = require("../../webpack.config");
 
 const pkgName = pkg.name.split("/")[1];
 
-console.log(pkg);
-
 exports.nodeConfig = {
   optimization: {
     minimize: false,
