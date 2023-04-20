@@ -39,10 +39,12 @@
     "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
     "pack:lerna": "lerna exec -- rimraf toruslabs-*.tgz && lerna exec -- yarn pack",
     "bootstrap": "lerna bootstrap",
+    "publish:lerna": "yarn clean && yarn bootstrap && lerna publish",
     "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
     "pre-commit": "lerna run pre-commit",
     "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev",
-    "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/"
+    "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
