@@ -27,7 +27,7 @@ jobs:
           npm run test:ci
 
   release_to_sg_region:
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -59,15 +59,15 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA"
 
-      # - name: Deploy Production env
-      #   run: |
-      #     aws ecs update-service --cluster $ECS_CLUSTER_FND --service $ECS_SERVICE_FND --force-new-deployment
-      #   env:
-      #     ECS_CLUSTER_FND: prod-microservices
-      #     ECS_SERVICE_FND: fnd-server-service
+      - name: Deploy Production env
+        run: |
+          aws ecs update-service --cluster $ECS_CLUSTER_FND --service $ECS_SERVICE_FND --force-new-deployment
+        env:
+          ECS_CLUSTER_FND: prod-microservices
+          ECS_SERVICE_FND: fnd-server-service
 
   release_to_us_region:
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -99,9 +99,9 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA"
 
-      # - name: Deploy Production env
-      #   run: |
-      #     aws ecs update-service --cluster $ECS_CLUSTER_FND --service $ECS_SERVICE_FND --force-new-deployment
-      #   env:
-      #     ECS_CLUSTER_FND: prod-microservices
-      #     ECS_SERVICE_FND: fnd-server-service
+      - name: Deploy Production env
+        run: |
+          aws ecs update-service --cluster $ECS_CLUSTER_FND --service $ECS_SERVICE_FND --force-new-deployment
+        env:
+          ECS_CLUSTER_FND: prod-microservices
+          ECS_SERVICE_FND: fnd-server-service
