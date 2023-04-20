@@ -31,6 +31,7 @@
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
+    "just:publish:lerna": "lerna publish",
     "wait": "wait-port 8060",
     "test": "cross-env FORCE_COLOR=1 lerna run test --parallel",
     "server:detach": "docker-compose -f docker-compose.dev.yml up --build --detach",

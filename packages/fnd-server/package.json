@@ -2,6 +2,7 @@
   "name": "@toruslabs/fnd-server",
   "version": "8.1.1",
   "description": "",
+  "private": true,
   "main": "src/index.ts",
   "scripts": {
     "serve": "nodemon --config nodemon.json src/index.ts",
