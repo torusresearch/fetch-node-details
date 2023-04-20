@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fetch-node-details",
-  "version": "8.1.1",
+  "version": "9.0.0",
   "description": "Fetches the node details for torus nodes",
   "main": "dist/fetchNodeDetails.cjs.js",
   "module": "dist/fetchNodeDetails.esm.js",
@@ -23,10 +23,10 @@
     "@babel/runtime": "7.x"
   },
   "dependencies": {
-    "@toruslabs/constants": "^8.1.1",
+    "@toruslabs/constants": "^9.0.0",
+    "@toruslabs/fnd-base": "^9.0.0",
     "@toruslabs/http-helpers": "^3.3.0",
-    "loglevel": "^1.8.1",
-    "@toruslabs/fnd-base": "^8.1.1"
+    "loglevel": "^1.8.1"
   },
   "lint-staged": {
     "!(*d).{js,ts}": [

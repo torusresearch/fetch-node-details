@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/constants",
-  "version": "8.1.1",
+  "version": "9.0.0",
   "description": "Contains constants for torus and web3auth",
   "main": "dist/constants.cjs.js",
   "module": "dist/constants.esm.js",
@@ -21,7 +21,6 @@
   "peerDependencies": {
     "@babel/runtime": "7.x"
   },
-  "dependencies": {},
   "lint-staged": {
     "!(*d).{js,ts}": [
       "eslint --cache --fix",
