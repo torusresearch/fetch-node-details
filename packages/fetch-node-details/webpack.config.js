@@ -15,7 +15,7 @@ exports.nodeConfig = {
       type: "commonjs2",
     },
   },
-  externals: [...Object.keys(pkg.dependencies), /^(@babel\/runtime)/i],
+  externals: [...Object.keys(pkg.dependencies || {}), /^(@babel\/runtime)/i],
   target: "node",
 };
 
