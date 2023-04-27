@@ -1,3 +1,5 @@
+import { TORUS_NETWORK_TYPE } from "./interfaces";
+
 export const TORUS_SAPPHIRE_NETWORK = {
   SAPPHIRE_DEVNET: "sapphire_devnet",
   SAPPHIRE_TESTNET: "sapphire_testnet",
@@ -10,7 +12,7 @@ export const TORUS_LEGACY_NETWORK = {
   CYAN: "cyan",
   AQUA: "aqua",
   CELESTE: "celeste",
-};
+} as const;
 
 export const TORUS_NETWORK = {
   ...TORUS_LEGACY_NETWORK,
@@ -29,7 +31,7 @@ export const PROXY_CONTRACT_ADDRESS = {
   [TORUS_NETWORK.CELESTE]: "0x6Bffb4e89453069E7487f0fa5c9f4a2D771cce6c",
 };
 
-export const MULTI_CLUSTER_NETWORKS = [TORUS_NETWORK.AQUA, TORUS_NETWORK.CELESTE, TORUS_NETWORK.CYAN];
+export const MULTI_CLUSTER_NETWORKS: TORUS_NETWORK_TYPE[] = [TORUS_NETWORK.AQUA, TORUS_NETWORK.CELESTE, TORUS_NETWORK.CYAN];
 
 export const NETWORK_MAP = {
   [TORUS_NETWORK.MAINNET]: "mainnet",
@@ -37,4 +39,12 @@ export const NETWORK_MAP = {
   [TORUS_NETWORK.CYAN]: "polygon-mainnet",
   [TORUS_NETWORK.AQUA]: "polygon-mainnet",
   [TORUS_NETWORK.CELESTE]: "polygon-mainnet",
+};
+
+export const SIGNER_MAP = {
+  [TORUS_NETWORK.MAINNET]: "https://signer.tor.us",
+  [TORUS_NETWORK.TESTNET]: "https://signer.tor.us",
+  [TORUS_NETWORK.CYAN]: "https://signer-polygon.tor.us",
+  [TORUS_NETWORK.AQUA]: "https://signer-polygon.tor.us",
+  [TORUS_NETWORK.CELESTE]: "https://signer-polygon.tor.us",
 };

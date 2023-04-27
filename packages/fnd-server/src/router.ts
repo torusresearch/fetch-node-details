@@ -24,7 +24,7 @@ const router = express.Router();
 
 const NODE_INFO_EXPIRY = 24 * 60 * 60; // 1 day
 
-const getNetworkRedisKey = (network: string, verifier: string, verifierId: string) => {
+const getNetworkRedisKey = (network: TORUS_NETWORK_TYPE, verifier: string, verifierId: string) => {
   if (!MULTI_CLUSTER_NETWORKS.includes(network)) return `fnd:${network}`;
   return `fnd:${network}:${verifier}:${verifierId}`;
 };
@@ -54,7 +54,7 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const { network, verifier, verifierId } = req.query as Record<string, string>;
-      const cacheKey = getNetworkRedisKey(network, verifier, verifierId);
+      const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
 
       try {
         const cachedInfo = await redisClient.get(cacheKey);
@@ -74,7 +74,7 @@ router.get(
 
       // if not a sapphire network
       if (Object.values(TORUS_LEGACY_NETWORK).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
-        let nodeDetails = fetchLocalConfig(network);
+        let nodeDetails = fetchLocalConfig(network as TORUS_LEGACY_NETWORK_TYPE);
         // use static details for mainnet and testnet
         if (!nodeDetails) {
           nodeDetails = await getLegacyNodeDetails({
