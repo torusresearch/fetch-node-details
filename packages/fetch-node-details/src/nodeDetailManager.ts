@@ -26,7 +26,7 @@ class NodeDetailManager {
 
   private updated: boolean;
 
-  private network: TORUS_NETWORK_TYPE | string;
+  private network: TORUS_NETWORK_TYPE;
 
   constructor({ network = TORUS_NETWORK.MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
     this.network = network;
