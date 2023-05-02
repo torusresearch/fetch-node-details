@@ -63,7 +63,6 @@ import FetchNodeDetails from "@toruslabs/fetch-node-details";
 
 const nodeDetailManager = new NodeDetailManager({ network: "mainnet" });
 const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-
 ```
 
 ```js
@@ -84,7 +83,7 @@ fetchNodeDetails.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us"
 ## Requirements
 
 - This package requires a peer dependency of `@babel/runtime`
-- Node 14+
+- Node 16+
 
 ## Local Development
 
