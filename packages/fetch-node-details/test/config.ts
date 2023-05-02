@@ -47,12 +47,12 @@ export const nodeDetailsAqua = {
       Y: "d5752873e522f98b4ded27690aadfda57ff5dc2fd0c3055b9d83663441667010",
     },
     {
-      X: "e1b5debe1d9b42eb9917a5fe84fa5f48cae7a770b1f49f0546fbe26b1efaff3",
+      X: "0e1b5debe1d9b42eb9917a5fe84fa5f48cae7a770b1f49f0546fbe26b1efaff3",
       Y: "8947458cbfd8b40c7bc6160c7c746c2dca65c7d6ffdccd5579203b92a020b4ad",
     },
     {
       X: "98c3582b138b375b643984094882c17ca7ee090787c0a7065d229672845aa25e",
-      Y: "2c3923bd015faac2cf3d91ab4cf8c6cdd4eb9f99e407a35703edf17e8c35d",
+      Y: "02c3923bd015faac2cf3d91ab4cf8c6cdd4eb9f99e407a35703edf17e8c35d",
     },
     {
       X: "e7ef4c1ea43bd385ab8bfb02a5aedcd33bed35b95980c0729e9a35edd02a8597",
@@ -78,7 +78,7 @@ export const nodeDetailsCeleste = {
   torusNodePub: [
     {
       X: "184a61fc08255c33ac8d57da86d957725e45157a4dfe6b80838b9c0acf450133",
-      Y: "6b2189341bc8ba97cd849f58bac8d6fa4484c42d57a529797a4d615bf20fbcd",
+      Y: "06b2189341bc8ba97cd849f58bac8d6fa4484c42d57a529797a4d615bf20fbcd",
     },
     {
       X: "3ca052df886a84096c2b2eded87cbfacab06d5e231b75a0fe8b6bc7fa4ed04a1",

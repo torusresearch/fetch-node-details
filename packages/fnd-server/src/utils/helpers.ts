@@ -41,10 +41,16 @@ export const getLegacyNodeDetails = async ({
 
     const provider = new ethers.JsonRpcProvider(url);
     const nodeListContract = new Contract(proxyAddress, abi, provider);
-    const hashedVerifierId = keccak256(verifierId);
-    const nodeDetails = await nodeListContract.getNodeSet(verifier, hashedVerifierId);
+    const hashedVerifierId = keccak256(Buffer.from(verifierId, "utf8"));
+    const nodeDetails: {
+      currentEpoch: bigint;
+      torusNodeEndpoints: string[];
+      torusNodePubX: bigint[];
+      torusNodePubY: bigint[];
+      torusIndexes: bigint[];
+    } = await nodeListContract.getNodeSet(verifier, hashedVerifierId);
     const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;
-    const _torusIndexes = torusIndexes.map((x: string) => Number(x));
+    const _torusIndexes = torusIndexes.map((x: bigint) => Number(x));
     const updatedEndpoints: string[] = [];
     const updatedNodePub: INodePub[] = [];
     for (let index = 0; index < torusNodeEndpoints.length; index += 1) {
@@ -56,10 +62,11 @@ export const getLegacyNodeDetails = async ({
       updatedNodePub.push({ X: toBeHex(pubKx).replace("0x", ""), Y: toBeHex(pubKy).replace("0x", "") });
     }
     return {
-      currentEpoch,
+      currentEpoch: currentEpoch.toString(),
       torusIndexes: _torusIndexes,
       torusNodeEndpoints: updatedEndpoints,
       torusNodePub: updatedNodePub,
+      updated: true,
     };
   } catch (error) {
     if (network === TORUS_NETWORK.MAINNET) {
