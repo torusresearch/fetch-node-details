@@ -2,7 +2,7 @@ import { URL } from "node:url";
 
 import { abi, INodeDetails, INodePub, NETWORK_MAP, TORUS_NETWORK } from "@toruslabs/constants";
 import { NODE_DETAILS_MAINNET, NODE_DETAILS_TESTNET } from "@toruslabs/fnd-base";
-import { Contract, ethers, keccak256, toBeHex } from "ethers";
+import { Contract, JsonRpcProvider, keccak256, toBeHex } from "ethers";
 import JsonStringify from "json-stable-stringify";
 
 import { INFURA_PROJECT_ID } from "./constants";
@@ -39,7 +39,7 @@ export const getLegacyNodeDetails = async ({
       url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${INFURA_PROJECT_ID}`;
     }
 
-    const provider = new ethers.JsonRpcProvider(url);
+    const provider = new JsonRpcProvider(url);
     const nodeListContract = new Contract(proxyAddress, abi, provider);
     const hashedVerifierId = keccak256(Buffer.from(verifierId, "utf8"));
     const nodeDetails: {
