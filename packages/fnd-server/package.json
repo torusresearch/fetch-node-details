@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fnd-server",
-  "version": "9.0.1",
+  "version": "10.0.0",
   "description": "",
   "private": true,
   "main": "src/index.ts",
@@ -18,21 +18,21 @@
   "dependencies": {
     "@sentry/node": "^7.50.0",
     "@sentry/tracing": "^7.50.0",
-    "@toruslabs/constants": "^9.0.1",
-    "@toruslabs/fnd-base": "^9.0.1",
+    "@toruslabs/constants": "^10.0.0",
+    "@toruslabs/fnd-base": "^10.0.0",
     "@toruslabs/http-helpers": "^4.0.0",
     "@toruslabs/loglevel-sentry": "^4.1.0",
     "celebrate": "^15.0.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "ethers": "^6.3.0",
     "express": "^4.18.2",
     "helmet": "^6.1.5",
     "json-stable-stringify": "^1.0.2",
     "loglevel": "^1.8.1",
     "morgan": "^1.10.0",
-    "redis": "^4.6.6",
-    "ethers": "^6.3.0"
+    "redis": "^4.6.6"
   },
   "devDependencies": {
     "@toruslabs/eslint-config-node": "^2.0.0",
