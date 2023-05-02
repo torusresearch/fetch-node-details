@@ -7,8 +7,8 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/register": "^7.21.0",
-    "@toruslabs/eslint-config-typescript": "^1.4.1",
-    "@toruslabs/torus-scripts": "^3.0.6",
+    "@toruslabs/eslint-config-typescript": "^2.0.0",
+    "@toruslabs/torus-scripts": "^4.0.0",
     "@types/mocha": "^10.0.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
