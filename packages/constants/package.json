@@ -51,8 +51,8 @@
   },
   "homepage": "https://github.com/torusresearch/fetch-node-details#readme",
   "engines": {
-    "node": ">=14.17.0",
-    "npm": ">=6.x"
+    "node": ">=16.18.1",
+    "npm": ">=8.x"
   },
   "publishConfig": {
     "access": "public"

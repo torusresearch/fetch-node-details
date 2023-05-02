@@ -2,9 +2,8 @@ import { URL } from "node:url";
 
 import { abi, INodeDetails, INodePub, NETWORK_MAP, TORUS_NETWORK } from "@toruslabs/constants";
 import { NODE_DETAILS_MAINNET, NODE_DETAILS_TESTNET } from "@toruslabs/fnd-base";
+import { Contract, ethers, keccak256, toBeHex } from "ethers";
 import JsonStringify from "json-stable-stringify";
-import Web3EthContract from "web3-eth-contract";
-import { keccak256, toHex } from "web3-utils";
 
 import { INFURA_PROJECT_ID } from "./constants";
 
@@ -40,10 +39,10 @@ export const getLegacyNodeDetails = async ({
       url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${INFURA_PROJECT_ID}`;
     }
 
-    Web3EthContract.setProvider(url);
-    const nodeListContract = new Web3EthContract(abi, proxyAddress);
+    const provider = new ethers.JsonRpcProvider(url);
+    const nodeListContract = new Contract(proxyAddress, abi, provider);
     const hashedVerifierId = keccak256(verifierId);
-    const nodeDetails = await nodeListContract.methods.getNodeSet(verifier, hashedVerifierId).call();
+    const nodeDetails = await nodeListContract.getNodeSet(verifier, hashedVerifierId);
     const { currentEpoch, torusNodeEndpoints, torusNodePubX, torusNodePubY, torusIndexes } = nodeDetails;
     const _torusIndexes = torusIndexes.map((x: string) => Number(x));
     const updatedEndpoints: string[] = [];
@@ -54,7 +53,7 @@ export const getLegacyNodeDetails = async ({
       const pubKy = torusNodePubY[index];
       const endpoint = `https://${endPointElement.split(":")[0]}/jrpc`;
       updatedEndpoints.push(endpoint);
-      updatedNodePub.push({ X: toHex(pubKx).replace("0x", ""), Y: toHex(pubKy).replace("0x", "") });
+      updatedNodePub.push({ X: toBeHex(pubKx).replace("0x", ""), Y: toBeHex(pubKy).replace("0x", "") });
     }
     return {
       currentEpoch,
