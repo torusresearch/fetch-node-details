@@ -1,4 +1,4 @@
-import { INodeDetails, INodePub, MULTI_CLUSTER_NETWORKS, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
+import { INodeDetails, INodePub, MULTI_CLUSTER_NETWORKS, TORUS_LEGACY_NETWORK_TYPE, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
 import { fetchLocalConfig } from "@toruslabs/fnd-base";
 import { get } from "@toruslabs/http-helpers";
 import logger from "loglevel";
@@ -28,8 +28,9 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
-  constructor({ network = TORUS_NETWORK.MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
+  constructor({ network = TORUS_NETWORK.SAPPHIRE_MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
     this.network = network;
+
     this.updated = false;
     if (fndServerEndpoint) {
       this.fndServerEndpoint = fndServerEndpoint;
@@ -56,7 +57,7 @@ class NodeDetailManager {
 
   async getNodeDetails({ verifier, verifierId }: { verifier: string; verifierId: string }): Promise<INodeDetails> {
     try {
-      if (this.updated && !MULTI_CLUSTER_NETWORKS.includes(this.network)) return this._nodeDetails;
+      if (this.updated && !MULTI_CLUSTER_NETWORKS.includes(this.network as TORUS_LEGACY_NETWORK_TYPE)) return this._nodeDetails;
 
       try {
         const { nodeDetails } = await get<{ nodeDetails: INodeDetails }>(
