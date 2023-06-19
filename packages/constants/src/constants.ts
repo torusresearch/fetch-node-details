@@ -8,18 +8,27 @@ export const TORUS_LEGACY_NETWORK = {
   CELESTE: "celeste",
 } as const;
 
+export const LEGACY_MAINNET = "legacy_mainnet";
+export const LEGACY_TESTNET = "legacy_testnet";
+export const LEGACY_CYAN = "legacy_cyan";
+export const LEGACY_AQUA = "legacy_aqua";
+export const LEGACY_CELESTE = "legacy_celeste";
+export const SAPPHIRE_DEVNET = "sapphire_devnet";
+export const SAPPHIRE_TESTNET = "sapphire_testnet";
+export const SAPPHIRE_MAINNET = "sapphire_mainnet";
+
 export const TORUS_LEGACY_NETWORK_SAPPHIRE_ALIAS = {
-  LEGACY_MAINNET: "legacy_mainnet",
-  LEGACY_TESTNET: "legacy_testnet",
-  LEGACY_CYAN: "legacy_cyan",
-  LEGACY_AQUA: "legacy_aqua",
-  LEGACY_CELESTE: "legacy_celeste",
+  [LEGACY_MAINNET]: "legacy_mainnet",
+  [LEGACY_TESTNET]: "legacy_testnet",
+  [LEGACY_CYAN]: "legacy_cyan",
+  [LEGACY_AQUA]: "legacy_aqua",
+  [LEGACY_CELESTE]: "legacy_celeste",
 } as const;
 
 export const TORUS_SAPPHIRE_NETWORK = {
-  SAPPHIRE_DEVNET: "sapphire_devnet",
-  SAPPHIRE_TESTNET: "sapphire_testnet",
-  SAPPHIRE_MAINNET: "sapphire_mainnet",
+  [SAPPHIRE_DEVNET]: "sapphire_devnet",
+  [SAPPHIRE_TESTNET]: "sapphire_testnet",
+  [SAPPHIRE_MAINNET]: "sapphire_mainnet",
   ...TORUS_LEGACY_NETWORK_SAPPHIRE_ALIAS,
 } as const;
 
