@@ -1,14 +1,9 @@
 import { INodeDetails, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
 
+import { NODE_DETAILS_MAINNET } from "./legacyMainnetConfig";
 import { NODE_DETAILS_SAPPHIRE_DEVNET } from "./sapphireDevnetConfig";
 import { NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET, NODE_DETAILS_SAPPHIRE_TESTNET } from "./sapphireLrcConfig";
-import {
-  NODE_DETAILS_SAPPHIRE_LEGACY_AQUA,
-  NODE_DETAILS_SAPPHIRE_LEGACY_CELESTE,
-  NODE_DETAILS_SAPPHIRE_LEGACY_CYAN,
-  NODE_DETAILS_SAPPHIRE_LEGACY_MAINNET,
-  NODE_DETAILS_SAPPHIRE_MAINNET,
-} from "./sapphireMainnetConfig";
+import { NODE_DETAILS_SAPPHIRE_MAINNET } from "./sapphireMainnetConfig";
 
 export function fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails | undefined {
   if (network === TORUS_NETWORK.SAPPHIRE_DEVNET) {
@@ -17,16 +12,10 @@ export function fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails | un
     return NODE_DETAILS_SAPPHIRE_TESTNET;
   } else if (network === TORUS_NETWORK.SAPPHIRE_MAINNET) {
     return NODE_DETAILS_SAPPHIRE_MAINNET;
-  } else if (network === TORUS_NETWORK.LEGACY_MAINNET) {
-    return NODE_DETAILS_SAPPHIRE_LEGACY_MAINNET;
-  } else if (network === TORUS_NETWORK.LEGACY_CYAN) {
-    return NODE_DETAILS_SAPPHIRE_LEGACY_CYAN;
-  } else if (network === TORUS_NETWORK.LEGACY_CELESTE) {
-    return NODE_DETAILS_SAPPHIRE_LEGACY_CELESTE;
-  } else if (network === TORUS_NETWORK.LEGACY_AQUA) {
-    return NODE_DETAILS_SAPPHIRE_LEGACY_AQUA;
   } else if (network === TORUS_NETWORK.LEGACY_TESTNET) {
     return NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET;
+  } else if (network === TORUS_NETWORK.LEGACY_MAINNET) {
+    return NODE_DETAILS_MAINNET; // TODO: point mainnet, cyan, celeste and aqua to sapphire routes, once migrated.
   }
   return undefined;
 }

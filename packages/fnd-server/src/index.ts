@@ -48,8 +48,8 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") 
 
 app.disable("x-powered-by");
 
-// Register app routes.
 app.use("/", router);
+
 app.use(errors());
 
 registerSentryErrorHandler(app);

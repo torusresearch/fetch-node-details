@@ -1,6 +1,6 @@
 import type { AbiType, StateMutabilityType } from "web3-utils";
 
-import { TORUS_LEGACY_NETWORK, TORUS_LEGACY_NETWORK_SAPPHIRE_ALIAS, TORUS_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
+import { TORUS_LEGACY_NETWORK, TORUS_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
 
 export interface JRPCResponse<T> {
   id: number;
@@ -30,7 +30,6 @@ export interface INodeDetails {
 }
 
 export type TORUS_LEGACY_NETWORK_TYPE = (typeof TORUS_LEGACY_NETWORK)[keyof typeof TORUS_LEGACY_NETWORK];
-export type TORUS_LEGACY_NETWORK_ALIAS_TYPE = (typeof TORUS_LEGACY_NETWORK_SAPPHIRE_ALIAS)[keyof typeof TORUS_LEGACY_NETWORK_SAPPHIRE_ALIAS];
 
 export type TORUS_SAPPHIRE_NETWORK_TYPE = (typeof TORUS_SAPPHIRE_NETWORK)[keyof typeof TORUS_SAPPHIRE_NETWORK];
 

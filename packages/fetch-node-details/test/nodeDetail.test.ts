@@ -2,9 +2,9 @@ import { TORUS_NETWORK } from "@toruslabs/constants";
 import {
   NODE_DETAILS_MAINNET,
   NODE_DETAILS_SAPPHIRE_DEVNET,
-  NODE_DETAILS_SAPPHIRE_MAINNET,
   // NODE_DETAILS_SAPPHIRE_TESTNET,
-  NODE_DETAILS_TESTNET,
+  NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET,
+  NODE_DETAILS_SAPPHIRE_MAINNET,
 } from "@toruslabs/fnd-base";
 import { deepStrictEqual } from "assert";
 
@@ -61,7 +61,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - cyan", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.CYAN,
+      network: TORUS_NETWORK.LEGACY_CYAN,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -75,7 +75,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - aqua", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.AQUA,
+      network: TORUS_NETWORK.LEGACY_AQUA,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -89,7 +89,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - celeste", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.CELESTE,
+      network: TORUS_NETWORK.LEGACY_CELESTE,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -103,7 +103,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - testnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.TESTNET,
+      network: TORUS_NETWORK.LEGACY_TESTNET,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -112,6 +112,6 @@ describe("Fetch Node Details", function () {
     delete details.torusNodeRSSEndpoints;
     delete details.torusNodeSSSEndpoints;
     delete details.torusNodeTSSEndpoints;
-    deepStrictEqual(details, NODE_DETAILS_TESTNET);
+    deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET);
   });
 });

@@ -1,12 +1,4 @@
-import { TORUS_LEGACY_NETWORK_ALIAS_TYPE, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
-
-const LEGACY_NETWORK_ROUTE_IDENTIFIER = {
-  [TORUS_NETWORK.LEGACY_MAINNET]: "legacy_mainnet",
-  [TORUS_NETWORK.LEGACY_TESTNET]: "teal",
-  [TORUS_NETWORK.LEGACY_AQUA]: "aqua",
-  [TORUS_NETWORK.LEGACY_CELESTE]: "celeste",
-  [TORUS_NETWORK.LEGACY_CYAN]: "cyan",
-};
+import { LEGACY_NETWORKS_ROUTE_MAP, TORUS_LEGACY_NETWORK_TYPE, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
 
 export const SAPPHIRE_NETWORK_URLS: Record<TORUS_NETWORK_TYPE, string[]> = {
   [TORUS_NETWORK.SAPPHIRE_DEVNET]: [
@@ -67,12 +59,12 @@ export const SAPPHIRE_NETWORK_URLS: Record<TORUS_NETWORK_TYPE, string[]> = {
   ],
 };
 
-export const getSSSEndpoints = (network: TORUS_NETWORK_TYPE) => {
+export const getSSSEndpoints = (network: TORUS_NETWORK_TYPE | TORUS_LEGACY_NETWORK_TYPE) => {
   const endpoints = SAPPHIRE_NETWORK_URLS[network];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${network}`);
   }
-  const routeIdentifier = LEGACY_NETWORK_ROUTE_IDENTIFIER[network as TORUS_LEGACY_NETWORK_ALIAS_TYPE];
+  const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
     if (routeIdentifier) {
       return `${e}/sss/${routeIdentifier}/jrpc`;
