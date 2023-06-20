@@ -108,9 +108,6 @@ describe("Fetch Node Details", function () {
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us" });
     delete details.updated;
-
-    // eslint-disable-next-line no-console
-    console.log("details", details, NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET);
     deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET);
   });
 });
