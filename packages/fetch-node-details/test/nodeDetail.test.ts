@@ -2,7 +2,6 @@ import { TORUS_NETWORK } from "@toruslabs/constants";
 import {
   NODE_DETAILS_MAINNET,
   NODE_DETAILS_SAPPHIRE_DEVNET,
-  // NODE_DETAILS_SAPPHIRE_TESTNET,
   NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET,
   NODE_DETAILS_SAPPHIRE_MAINNET,
 } from "@toruslabs/fnd-base";
@@ -109,9 +108,9 @@ describe("Fetch Node Details", function () {
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us" });
     delete details.updated;
-    delete details.torusNodeRSSEndpoints;
-    delete details.torusNodeSSSEndpoints;
-    delete details.torusNodeTSSEndpoints;
+
+    // eslint-disable-next-line no-console
+    console.log("details", details, NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET);
     deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET);
   });
 });

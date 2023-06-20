@@ -12,11 +12,12 @@ export const TORUS_SAPPHIRE_NETWORK = {
   SAPPHIRE_DEVNET: "sapphire_devnet",
   SAPPHIRE_TESTNET: "sapphire_testnet",
   SAPPHIRE_MAINNET: "sapphire_mainnet",
-  ...TORUS_LEGACY_NETWORK,
+  LEGACY_TESTNET: "testnet",
 } as const;
 
 export const TORUS_NETWORK = {
   ...TORUS_SAPPHIRE_NETWORK,
+  ...TORUS_LEGACY_NETWORK,
 } as const;
 
 export const PROXY_CONTRACT_ADDRESS = {

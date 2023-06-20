@@ -38,7 +38,7 @@ export const NODE_DETAILS_SAPPHIRE_TESTNET: INodeDetails = {
 };
 
 export const NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET: INodeDetails = {
-  ...NODE_DETAILS_SAPPHIRE_TESTNET,
+  currentEpoch: NODE_DETAILS_SAPPHIRE_TESTNET.currentEpoch,
 
   torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET],
 
@@ -47,4 +47,8 @@ export const NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET: INodeDetails = {
   torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
 
   torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
+
+  torusIndexes: NODE_DETAILS_SAPPHIRE_TESTNET.torusIndexes,
+
+  torusNodePub: NODE_DETAILS_SAPPHIRE_TESTNET.torusNodePub,
 };

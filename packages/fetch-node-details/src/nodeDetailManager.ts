@@ -28,7 +28,7 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
-  constructor({ network = TORUS_NETWORK.SAPPHIRE_MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
+  constructor({ network = TORUS_NETWORK.LEGACY_MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
     this.network = network;
 
     this.updated = false;
