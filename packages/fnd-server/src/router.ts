@@ -196,4 +196,22 @@ router.get(
   }
 );
 
+router.get("/invalidateCache", async (req: Request, res: Response) => {
+  try {
+    const { network, verifier, verifierId } = req.query as Record<string, string>;
+    const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
+    await redisClient.setEx(cacheKey, 0, "{}");
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    log.error("Error while invalidating cached nodes details", error);
+    return res.status(500).json({
+      success: false,
+      message: (error as Error).message || "Something went wrong",
+    });
+  }
+});
+
 export default router;
