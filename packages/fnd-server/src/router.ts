@@ -24,8 +24,8 @@ const router = express.Router();
 
 const NODE_INFO_EXPIRY = 24 * 60 * 60; // 1 day
 
-const getNetworkRedisKey = (network: TORUS_NETWORK_TYPE, verifier: string, verifierId: string) => {
-  if (!MULTI_CLUSTER_NETWORKS.includes(network)) return `fnd:${network}`;
+const getNetworkRedisKey = (network: TORUS_NETWORK_TYPE | TORUS_LEGACY_NETWORK_TYPE, verifier: string, verifierId: string) => {
+  if (!MULTI_CLUSTER_NETWORKS.includes(network as TORUS_LEGACY_NETWORK_TYPE)) return `fnd:${network}`;
   return `fnd:${network}:${verifier}:${verifierId}`;
 };
 
@@ -54,7 +54,7 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const { network, verifier, verifierId } = req.query as Record<string, string>;
-      const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
+      const cacheKey = getNetworkRedisKey(network as TORUS_LEGACY_NETWORK_TYPE, verifier, verifierId);
 
       try {
         const cachedInfo = await redisClient.get(cacheKey);

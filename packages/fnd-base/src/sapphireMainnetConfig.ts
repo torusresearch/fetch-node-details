@@ -37,3 +37,52 @@ export const NODE_DETAILS_SAPPHIRE_MAINNET: INodeDetails = {
     },
   ],
 };
+
+// TODO: uncomment once these networks migration is done.
+// export const NODE_DETAILS_SAPPHIRE_LEGACY_MAINNET: INodeDetails = {
+//   ...NODE_DETAILS_SAPPHIRE_MAINNET,
+
+//   torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.LEGACY_MAINNET],
+
+//   torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_MAINNET),
+
+//   torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_MAINNET),
+
+//   torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_MAINNET),
+// };
+
+// export const NODE_DETAILS_SAPPHIRE_LEGACY_CYAN: INodeDetails = {
+//   ...NODE_DETAILS_SAPPHIRE_MAINNET,
+
+//   torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.LEGACY_CYAN],
+
+//   torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_CYAN),
+
+//   torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_CYAN),
+
+//   torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_CYAN),
+// };
+
+// export const NODE_DETAILS_SAPPHIRE_LEGACY_AQUA: INodeDetails = {
+//   ...NODE_DETAILS_SAPPHIRE_MAINNET,
+
+//   torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.LEGACY_AQUA],
+
+//   torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_AQUA),
+
+//   torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_AQUA),
+
+//   torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_AQUA),
+// };
+
+// export const NODE_DETAILS_SAPPHIRE_LEGACY_CELESTE: INodeDetails = {
+//   ...NODE_DETAILS_SAPPHIRE_MAINNET,
+
+//   torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.LEGACY_CELESTE],
+
+//   torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_CELESTE),
+
+//   torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_CELESTE),
+
+//   torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_CELESTE),
+// };

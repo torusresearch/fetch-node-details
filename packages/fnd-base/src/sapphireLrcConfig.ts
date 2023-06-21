@@ -13,27 +13,42 @@ export const NODE_DETAILS_SAPPHIRE_TESTNET: INodeDetails = {
 
   torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET),
   torusIndexes: [1, 2, 3, 4, 5],
-
   torusNodePub: [
     {
-      X: "d0e57d0fb29f37888a71c5d1d8312b191121b53e7e77968ca59e5c2ceee89386",
-      Y: "2190e5e78c02ecdd4e5e04a01d3c12d847d53682ade7b6f715df1e1f3911081d",
+      X: "f74389b0a4c8d10d2a687ae575f69b20f412d41ab7f1fe6b358aa14871327247",
+      Y: "54e3a73098ed9bced3ef8821736e9794f9264a1420c0c7ad15d2fa617ba35ef7",
     },
     {
-      X: "69d4fcd1ab4dedc06ac0bafaccac8e5459275ec12a8b3feaef26646ece902e38",
-      Y: "2319469c4344d78140ed9672c5231a0d045467dec66c77b53dfbefc56496ff3c",
+      X: "bc38813a6873e526087918507c78fc3a61624670ee851ecfb4f3bef55d027b5a",
+      Y: "ac4b21229f662a0aefdfdac21cf17c3261a392c74a8790db218b34e3e4c1d56a",
     },
     {
-      X: "9b0ea52ef5d8fc68e02b3ea242b2b11556ab5746b92779a7c4d61ff57c054710",
-      Y: "0f9fc9e706e0a2d2b5c8511177583cdf5fa5379e2c3c1ed4db74aaded08b1a28",
+      X: "b56541684ea5fa40c8337b7688d502f0e9e092098962ad344c34e94f06d293fb",
+      Y: "759a998cef79d389082f9a75061a29190eec0cac99b8c25ddcf6b58569dad55c",
     },
     {
-      X: "e08bb1de0c017241be3c8e2ab3e788b64cb83d77ddd5517424626d1e3a4a5406",
-      Y: "d4a87ae195e1f55fe4751caf22123d495cc4b51df48f234c956262fd1d8baafc",
+      X: "7bcb058d4c6ffc6ba4bfdfd93d141af35a66338a62c7c27cdad2ae3f8289b767",
+      Y: "336ab1935e41ed4719e162587f0ab55518db4207a1eb36cc72303f1b86689d2b",
     },
     {
-      X: "29154aaa5b76bdb5082ea9616769f1940e56de5c6d8afb8cc75fbd228302d961",
-      Y: "3535fb808e205f5589ca2dd28014103771266148ebc372f364dae0f3905dd811",
+      X: "bf12a136ef94399ea098f926f04e26a4ec4ac70f69cce274e8893704c4951773",
+      Y: "bdd44828020f52ce510e026338216ada184a6867eb4e19fb4c2d495d4a7e15e4",
     },
   ],
+};
+
+export const NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET: INodeDetails = {
+  currentEpoch: NODE_DETAILS_SAPPHIRE_TESTNET.currentEpoch,
+
+  torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET],
+
+  torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
+
+  torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
+
+  torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
+
+  torusIndexes: NODE_DETAILS_SAPPHIRE_TESTNET.torusIndexes,
+
+  torusNodePub: NODE_DETAILS_SAPPHIRE_TESTNET.torusNodePub,
 };
