@@ -200,7 +200,7 @@ router.get("/invalidateCache", async (req: Request, res: Response) => {
   try {
     const { network, verifier, verifierId } = req.query as Record<string, string>;
     const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
-    redisClient.setEx(cacheKey, 0, "{}");
+    await redisClient.setEx(cacheKey, 0, "{}");
 
     return res.status(200).json({
       success: true,
