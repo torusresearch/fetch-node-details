@@ -56,27 +56,26 @@ router.get(
       const { network, verifier, verifierId } = req.query as Record<string, string>;
       const cacheKey = getNetworkRedisKey(network as TORUS_LEGACY_NETWORK_TYPE, verifier, verifierId);
 
-      try {
-        const cachedInfo = await redisClient.get(cacheKey);
-        if (cachedInfo) {
-          const nodeDetails = JSON.parse(cachedInfo || "{}");
-          if (Object.keys(nodeDetails).length > 0) {
-            return res.status(200).json({
-              nodeDetails,
-              success: true,
-            });
-          }
-          log.warn("Found empty node list from cache");
-        }
-      } catch (error) {
-        log.warn("Error while getting cached nodes info", error);
-      }
-
       // if not a sapphire network
       if (Object.values(TORUS_LEGACY_NETWORK).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
         let nodeDetails = fetchLocalConfig(network as TORUS_LEGACY_NETWORK_TYPE);
         // use static details for mainnet and testnet
         if (!nodeDetails) {
+          try {
+            const cachedInfo = await redisClient.get(cacheKey);
+            if (cachedInfo) {
+              nodeDetails = JSON.parse(cachedInfo || "{}");
+              if (Object.keys(nodeDetails).length > 0) {
+                return res.status(200).json({
+                  nodeDetails,
+                  success: true,
+                });
+              }
+              log.warn("Found empty node list from cache");
+            }
+          } catch (error) {
+            log.warn("Error while getting cached nodes info", error);
+          }
           nodeDetails = await getLegacyNodeDetails({
             verifier,
             verifierId,
@@ -93,6 +92,22 @@ router.get(
           nodeDetails,
           success: true,
         });
+      }
+
+      try {
+        const cachedInfo = await redisClient.get(cacheKey);
+        if (cachedInfo) {
+          const nodeDetails = JSON.parse(cachedInfo || "{}");
+          if (Object.keys(nodeDetails).length > 0) {
+            return res.status(200).json({
+              nodeDetails,
+              success: true,
+            });
+          }
+          log.warn("Found empty node list from cache");
+        }
+      } catch (error) {
+        log.warn("Error while getting cached nodes info", error);
       }
       const endPoints: string[] = SAPPHIRE_NETWORK_URLS[network as TORUS_NETWORK_TYPE];
       if (!endPoints || endPoints.length === 0) {
