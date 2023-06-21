@@ -199,12 +199,12 @@ router.get(
 router.get("/invalidateCache", async (req: Request, res: Response) => {
   try {
     const { network, verifier, verifierId } = req.query as Record<string, string>;
-    try {
-      const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
-      redisClient.setEx(cacheKey, 0, "{}");
-    } catch (error) {
-      log.warn("Error while cleaning cached nodes info", error);
-    }
+    const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
+    redisClient.setEx(cacheKey, 0, "{}");
+
+    return res.status(200).json({
+      success: true,
+    });
   } catch (error) {
     log.error("Error while invalidating cached nodes details", error);
     return res.status(500).json({
