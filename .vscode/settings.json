@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["toruslabs"]
+  "cSpell.words": ["toruslabs"],
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "editor.codeActionsOnSave": {
+      "source.fixAll": true
+  },
 }
