@@ -1,11 +1,11 @@
-import { INodeDetails, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
+import { INodeDetails, TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
 
-import { getRSSEndpoints, getSSSEndpoints, getTSSEndpoints, SAPPHIRE_NETWORK_URLS } from "./endpoints";
+import { getRSSEndpoints, getSSSEndpoints, getTSSEndpoints } from "./endpoints";
 
 export const NODE_DETAILS_SAPPHIRE_TESTNET: INodeDetails = {
   currentEpoch: "1",
 
-  torusNodeEndpoints: SAPPHIRE_NETWORK_URLS[TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET],
+  torusNodeEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET),
 
   torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET),
 
@@ -38,17 +38,7 @@ export const NODE_DETAILS_SAPPHIRE_TESTNET: INodeDetails = {
 };
 
 export const NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET: INodeDetails = {
-  currentEpoch: NODE_DETAILS_SAPPHIRE_TESTNET.currentEpoch,
-
-  torusNodeEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
-
-  torusNodeSSSEndpoints: getSSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
-
-  torusNodeRSSEndpoints: getRSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
-
-  torusNodeTSSEndpoints: getTSSEndpoints(TORUS_SAPPHIRE_NETWORK.LEGACY_TESTNET),
-
-  torusIndexes: NODE_DETAILS_SAPPHIRE_TESTNET.torusIndexes,
-
-  torusNodePub: NODE_DETAILS_SAPPHIRE_TESTNET.torusNodePub,
+  ...NODE_DETAILS_SAPPHIRE_TESTNET,
+  torusNodeEndpoints: getSSSEndpoints(TORUS_LEGACY_NETWORK.TESTNET),
+  torusNodeSSSEndpoints: getSSSEndpoints(TORUS_LEGACY_NETWORK.TESTNET),
 };

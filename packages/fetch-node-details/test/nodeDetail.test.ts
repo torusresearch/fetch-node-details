@@ -1,10 +1,5 @@
 import { TORUS_NETWORK } from "@toruslabs/constants";
-import {
-  NODE_DETAILS_MAINNET,
-  NODE_DETAILS_SAPPHIRE_DEVNET,
-  NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET,
-  NODE_DETAILS_SAPPHIRE_MAINNET,
-} from "@toruslabs/fnd-base";
+import { NODE_DETAILS_MAINNET, NODE_DETAILS_SAPPHIRE_DEVNET, NODE_DETAILS_SAPPHIRE_MAINNET, NODE_DETAILS_TESTNET } from "@toruslabs/fnd-base";
 import { deepStrictEqual } from "assert";
 
 import NodeDetailManager from "../src/nodeDetailManager";
@@ -60,7 +55,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - cyan", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.LEGACY_CYAN,
+      network: TORUS_NETWORK.CYAN,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -74,7 +69,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - aqua", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.LEGACY_AQUA,
+      network: TORUS_NETWORK.AQUA,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -88,7 +83,7 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - celeste", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.LEGACY_CELESTE,
+      network: TORUS_NETWORK.CELESTE,
       fndServerEndpoint,
       enableLogging: true,
     });
@@ -102,12 +97,15 @@ describe("Fetch Node Details", function () {
 
   it("#should return correct values - testnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_NETWORK.LEGACY_TESTNET,
+      network: TORUS_NETWORK.TESTNET,
       fndServerEndpoint,
       enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us" });
     delete details.updated;
-    deepStrictEqual(details, NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET);
+    delete details.torusNodeRSSEndpoints;
+    delete details.torusNodeSSSEndpoints;
+    delete details.torusNodeTSSEndpoints;
+    deepStrictEqual(details, NODE_DETAILS_TESTNET);
   });
 });

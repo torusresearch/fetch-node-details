@@ -1,6 +1,6 @@
 import type { AbiType, StateMutabilityType } from "web3-utils";
 
-import { TORUS_LEGACY_NETWORK, TORUS_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
+import { TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
 
 export interface JRPCResponse<T> {
   id: number;
@@ -33,7 +33,7 @@ export type TORUS_LEGACY_NETWORK_TYPE = (typeof TORUS_LEGACY_NETWORK)[keyof type
 
 export type TORUS_SAPPHIRE_NETWORK_TYPE = (typeof TORUS_SAPPHIRE_NETWORK)[keyof typeof TORUS_SAPPHIRE_NETWORK];
 
-export type TORUS_NETWORK_TYPE = (typeof TORUS_NETWORK)[keyof typeof TORUS_NETWORK];
+export type TORUS_NETWORK_TYPE = TORUS_LEGACY_NETWORK_TYPE | TORUS_SAPPHIRE_NETWORK_TYPE;
 
 export type NODE = {
   address: string;
@@ -47,6 +47,12 @@ export type NODE = {
 
 export interface NodeLookupResponse {
   nodes: NODE[];
+}
+
+export interface ILegacyNetworkMigrationInfo {
+  migrationCompleted: boolean;
+  networkIdentifier: string;
+  networkMigratedTo: TORUS_SAPPHIRE_NETWORK_TYPE;
 }
 
 export const abi = [
