@@ -1,21 +1,26 @@
-import { INodeDetails, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
+import {
+  INodeDetails,
+  LEGACY_NETWORKS_ROUTE_MAP,
+  TORUS_LEGACY_NETWORK,
+  TORUS_LEGACY_NETWORK_TYPE,
+  TORUS_NETWORK_TYPE,
+  TORUS_SAPPHIRE_NETWORK,
+  TORUS_SAPPHIRE_NETWORK_TYPE,
+} from "@toruslabs/constants";
 
 import { NODE_DETAILS_MAINNET } from "./legacyMainnetConfig";
-import { NODE_DETAILS_SAPPHIRE_DEVNET } from "./sapphireDevnetConfig";
-import { NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET, NODE_DETAILS_SAPPHIRE_TESTNET } from "./sapphireLrcConfig";
-import { NODE_DETAILS_SAPPHIRE_MAINNET } from "./sapphireMainnetConfig";
+import { getSapphireNodeDetails } from "./sapphireNetworkConfig";
 
 export function fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails | undefined {
-  if (network === TORUS_NETWORK.SAPPHIRE_DEVNET) {
-    return NODE_DETAILS_SAPPHIRE_DEVNET;
-  } else if (network === TORUS_NETWORK.SAPPHIRE_TESTNET) {
-    return NODE_DETAILS_SAPPHIRE_TESTNET;
-  } else if (network === TORUS_NETWORK.SAPPHIRE_MAINNET) {
-    return NODE_DETAILS_SAPPHIRE_MAINNET;
-  } else if (network === TORUS_NETWORK.LEGACY_TESTNET) {
-    return NODE_DETAILS_SAPPHIRE_LEGACY_TESTNET;
-  } else if (network === TORUS_NETWORK.LEGACY_MAINNET) {
-    return NODE_DETAILS_MAINNET; // TODO: point mainnet, cyan, celeste and aqua to sapphire routes, once migrated.
+  if (Object.values(TORUS_SAPPHIRE_NETWORK).includes(network as TORUS_SAPPHIRE_NETWORK_TYPE)) {
+    return getSapphireNodeDetails(network as TORUS_SAPPHIRE_NETWORK_TYPE);
   }
+
+  if (Object.values(TORUS_LEGACY_NETWORK).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
+    const legacyMap = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
+    if (legacyMap.migrationCompleted) return getSapphireNodeDetails(legacyMap.networkMigratedTo);
+    if (network === TORUS_LEGACY_NETWORK.MAINNET) return NODE_DETAILS_MAINNET;
+  }
+
   return undefined;
 }

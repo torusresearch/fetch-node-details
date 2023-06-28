@@ -1,4 +1,11 @@
-import { INodeDetails, INodePub, MULTI_CLUSTER_NETWORKS, TORUS_LEGACY_NETWORK_TYPE, TORUS_NETWORK, TORUS_NETWORK_TYPE } from "@toruslabs/constants";
+import {
+  INodeDetails,
+  INodePub,
+  MULTI_CLUSTER_NETWORKS,
+  TORUS_LEGACY_NETWORK_TYPE,
+  TORUS_NETWORK_TYPE,
+  TORUS_SAPPHIRE_NETWORK,
+} from "@toruslabs/constants";
 import { fetchLocalConfig } from "@toruslabs/fnd-base";
 import { get } from "@toruslabs/http-helpers";
 import logger from "loglevel";
@@ -28,7 +35,7 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
-  constructor({ network = TORUS_NETWORK.LEGACY_MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
+  constructor({ network = TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, fndServerEndpoint, enableLogging = false }: NodeDetailManagerParams = {}) {
     this.network = network;
 
     this.updated = false;

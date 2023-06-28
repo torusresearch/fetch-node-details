@@ -1,7 +1,7 @@
 import { URL } from "node:url";
 
 import { abi, INodeDetails, INodePub, NETWORK_MAP, TORUS_LEGACY_NETWORK } from "@toruslabs/constants";
-import { NODE_DETAILS_MAINNET, NODE_DETAILS_TESTNET } from "@toruslabs/fnd-base";
+import { NODE_DETAILS_MAINNET } from "@toruslabs/fnd-base";
 import { Contract, JsonRpcProvider, keccak256, toBeHex } from "ethers";
 import JsonStringify from "json-stable-stringify";
 
@@ -69,10 +69,8 @@ export const getLegacyNodeDetails = async ({
       updated: true,
     };
   } catch (error) {
-    if (network === TORUS_LEGACY_NETWORK.LEGACY_MAINNET) {
+    if (network === TORUS_LEGACY_NETWORK.MAINNET) {
       return NODE_DETAILS_MAINNET;
-    } else if (network === TORUS_LEGACY_NETWORK.LEGACY_TESTNET) {
-      return NODE_DETAILS_TESTNET;
     }
     throw error;
   }
