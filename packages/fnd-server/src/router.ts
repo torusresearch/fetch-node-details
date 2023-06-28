@@ -58,30 +58,26 @@ router.get(
         });
       }
       // use static details for mainnet and testnet
-      if (!nodeDetails) {
-        try {
-          const cachedInfo = await redisClient.get(cacheKey);
-          if (cachedInfo) {
-            nodeDetails = JSON.parse(cachedInfo || "{}");
-            if (Object.keys(nodeDetails).length > 0) {
-              return res.status(200).json({
-                nodeDetails,
-                success: true,
-              });
-            }
-            log.warn("Found empty node list from cache");
+      try {
+        const cachedInfo = await redisClient.get(cacheKey);
+        if (cachedInfo) {
+          nodeDetails = JSON.parse(cachedInfo || "{}");
+          if (Object.keys(nodeDetails).length > 0) {
+            return res.status(200).json({
+              nodeDetails,
+              success: true,
+            });
           }
-        } catch (error) {
-          log.warn("Error while getting cached nodes info", error);
+          log.warn("Found empty node list from cache");
         }
+
         nodeDetails = await getLegacyNodeDetails({
           verifier,
           verifierId,
           network,
           proxyAddress: PROXY_CONTRACT_ADDRESS[network],
         });
-      }
-      try {
+
         redisClient.setEx(cacheKey, NODE_INFO_EXPIRY, JSON.stringify(nodeDetails));
       } catch (error) {
         log.warn("Error while setting cached nodes info", error);
