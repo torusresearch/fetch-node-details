@@ -10,6 +10,7 @@ const fndServerEndpoint = "http://localhost:8060/node-details";
 describe("Fetch Node Details", function () {
   it("#should return correct values - mainnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
+      network: TORUS_LEGACY_NETWORK.MAINNET,
       fndServerEndpoint,
       enableLogging: true,
     });
