@@ -24,9 +24,6 @@
   "dependencies": {
     "@toruslabs/constants": "^10.0.0"
   },
-  "devDependencies": {
-    "web3-utils": "^1.9.0"
-  },
   "lint-staged": {
     "!(*d).{js,ts}": [
       "eslint --cache --fix",

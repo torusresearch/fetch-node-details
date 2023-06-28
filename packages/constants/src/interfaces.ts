@@ -1,5 +1,3 @@
-import type { AbiType, StateMutabilityType } from "web3-utils";
-
 import { TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
 
 export interface JRPCResponse<T> {
@@ -97,7 +95,7 @@ export const abi = [
         type: "uint256[]",
       },
     ],
-    stateMutability: "view" as StateMutabilityType,
-    type: "function" as AbiType,
+    stateMutability: "view",
+    type: "function",
   },
 ];
