@@ -51,6 +51,12 @@ router.get(
       const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
 
       let nodeDetails = fetchLocalConfig(network as TORUS_NETWORK_TYPE);
+      if (nodeDetails) {
+        return res.status(200).json({
+          nodeDetails,
+          success: true,
+        });
+      }
       // use static details for mainnet and testnet
       if (!nodeDetails) {
         try {

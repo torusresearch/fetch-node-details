@@ -50,7 +50,11 @@ export const getRSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
     throw new Error(`Unsupported network: ${network}`);
   }
 
+  const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
+    if (routeIdentifier && routeIdentifier.networkIdentifier) {
+      return `${e}/rss/${routeIdentifier.networkIdentifier}`;
+    }
     return `${e}/rss`;
   });
 };
@@ -61,7 +65,11 @@ export const getTSSEndpoints = (network: TORUS_SAPPHIRE_NETWORK_TYPE) => {
     throw new Error(`Unsupported network: ${network}`);
   }
 
+  const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
+    if (routeIdentifier && routeIdentifier.networkIdentifier) {
+      return `${e}/tss/${routeIdentifier.networkIdentifier}`;
+    }
     return `${e}/tss`;
   });
 };
