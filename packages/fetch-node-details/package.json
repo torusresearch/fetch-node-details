@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fetch-node-details",
-  "version": "11.0.0",
+  "version": "11.0.1",
   "description": "Fetches the node details for torus nodes",
   "main": "dist/fetchNodeDetails.cjs.js",
   "module": "dist/fetchNodeDetails.esm.js",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@toruslabs/constants": "^11.0.0",
-    "@toruslabs/fnd-base": "^11.0.0",
+    "@toruslabs/fnd-base": "^11.0.1",
     "@toruslabs/http-helpers": "^4.0.0",
     "loglevel": "^1.8.1"
   },
