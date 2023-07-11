@@ -7,7 +7,7 @@ export const NODE_DETAILS_MAINNET: INodeDetails = {
     "https://torus-19.torusnode.com/jrpc",
     "https://torus-node.ens.domains/jrpc",
     "https://torus-node.matic.network/jrpc",
-    "https://torus.zilliqa.network/jrpc",
+    "https://zilliqa.tor.us/jrpc",
     "https://torus-mainnet.cosmos.network/jrpc",
     "https://torus2.etherscan.com/jrpc",
     "https://torus-node-v2.skalelabs.com/jrpc",
