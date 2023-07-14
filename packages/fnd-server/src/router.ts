@@ -80,7 +80,7 @@ router.get(
 
         redisClient.setEx(cacheKey, NODE_INFO_EXPIRY, JSON.stringify(nodeDetails));
       } catch (error) {
-        log.warn("Error while setting cached nodes info", error);
+        log.warn("Error while setting cached nodes info ", network, error);
       }
       return res.status(200).json({
         nodeDetails,
