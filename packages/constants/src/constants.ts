@@ -10,7 +10,6 @@ export const TORUS_LEGACY_NETWORK = {
 
 export const TORUS_SAPPHIRE_NETWORK = {
   SAPPHIRE_DEVNET: "sapphire_devnet",
-  SAPPHIRE_TESTNET: "sapphire_testnet",
   SAPPHIRE_MAINNET: "sapphire_mainnet",
 } as const;
 
@@ -48,7 +47,7 @@ export const LEGACY_NETWORKS_ROUTE_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, ILegac
   [TORUS_LEGACY_NETWORK.TESTNET]: {
     migrationCompleted: true,
     networkIdentifier: "teal",
-    networkMigratedTo: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET,
+    networkMigratedTo: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET,
   },
 };
 
