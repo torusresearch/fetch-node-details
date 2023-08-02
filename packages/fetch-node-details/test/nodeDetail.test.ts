@@ -32,17 +32,6 @@ describe("Fetch Node Details", function () {
     deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET));
   });
 
-  it("#should return correct values - sapphire testnet", async function () {
-    const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET,
-      fndServerEndpoint,
-      enableLogging: true,
-    });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
-    delete details.updated;
-    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET));
-  });
-
   it("#should return correct values - sapphire mainnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
@@ -104,6 +93,6 @@ describe("Fetch Node Details", function () {
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us" });
     delete details.updated;
-    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET, TORUS_LEGACY_NETWORK.TESTNET));
+    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, TORUS_LEGACY_NETWORK.TESTNET));
   });
 });

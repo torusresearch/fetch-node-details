@@ -8,13 +8,6 @@ export const SAPPHIRE_NETWORK_URLS: Record<TORUS_SAPPHIRE_NETWORK_TYPE, string[]
     "https://sapphire-dev-2-4.authnetwork.dev",
     "https://sapphire-dev-2-5.authnetwork.dev",
   ],
-  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_TESTNET]: [
-    "https://sapphire-dev-2-1.authnetwork.dev",
-    "https://sapphire-dev-2-2.authnetwork.dev",
-    "https://sapphire-dev-2-3.authnetwork.dev",
-    "https://sapphire-dev-2-4.authnetwork.dev",
-    "https://sapphire-dev-2-5.authnetwork.dev",
-  ],
   [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: [
     "https://sapphire-1.auth.network",
     "https://sapphire-2.auth.network",
