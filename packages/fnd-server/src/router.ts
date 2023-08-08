@@ -75,7 +75,7 @@ router.get(
           verifier,
           verifierId,
           network,
-          proxyAddress: PROXY_CONTRACT_ADDRESS[network],
+          proxyAddress: PROXY_CONTRACT_ADDRESS[network as TORUS_LEGACY_NETWORK_TYPE],
         });
 
         redisClient.setEx(cacheKey, NODE_INFO_EXPIRY, JSON.stringify(nodeDetails));

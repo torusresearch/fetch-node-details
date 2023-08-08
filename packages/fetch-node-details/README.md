@@ -24,13 +24,11 @@ assignments, and key retrievals by other dependent libraries.
 
 ### Bundling
 
-This module is distributed in 5 formats
+This module is distributed in 3 formats
 
 - `esm` build `dist/fetchNodeDetails.esm.js` in es6 format
 - `commonjs` build `dist/fetchNodeDetails.cjs.js` in es5 format
-- `commonjs` build `dist/fetchNodeDetails-bundled.cjs.js` in es5 format with problematic packages bundled (benefits non-webpack users)
 - `umd` build `dist/fetchNodeDetails.umd.min.js` in es5 format without polyfilling corejs minified
-- `node` build `dist/fetchNodeDetails-node.js` in es5 format
 
 By default, the appropriate format is used for your specified usecase
 You can use a different format (if you know what you're doing eg. node) by referencing the correct file
@@ -83,7 +81,7 @@ fetchNodeDetails.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us"
 ## Requirements
 
 - This package requires a peer dependency of `@babel/runtime`
-- Node 16+
+- Node 18+
 
 ## Local Development
 
