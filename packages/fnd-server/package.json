@@ -21,7 +21,7 @@
     "@toruslabs/constants": "^12.0.0",
     "@toruslabs/fnd-base": "^12.0.0",
     "@toruslabs/http-helpers": "^5.0.0",
-    "@toruslabs/loglevel-sentry": "^5.0.0",
+    "@toruslabs/loglevel-sentry": "^6.0.0",
     "celebrate": "^15.0.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
