@@ -11,7 +11,6 @@ module.exports = {
   },
   ignorePatterns: ["*.config.js", "*.d.ts", ".eslintrc.js"],
   env: {
-    es2020: true,
     browser: true,
     node: true,
     mocha: true,
