@@ -4,30 +4,23 @@
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@babel/register": "^7.22.5",
-    "@toruslabs/eslint-config-typescript": "^2.0.0",
-    "@toruslabs/torus-scripts": "^4.0.0",
+    "@toruslabs/config": "^2.0.1",
+    "@toruslabs/eslint-config-typescript": "^3.0.0",
+    "@toruslabs/torus-scripts": "^5.0.2",
     "@types/mocha": "^10.0.1",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
-    "eslint": "^8.43.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-tsdoc": "^0.2.17",
+    "eslint": "^8.46.0",
     "husky": "^8.0.3",
-    "lerna": "^7.1.0",
+    "lerna": "^7.1.4",
     "lint-staged": "^13.2.3",
     "mocha": "^10.2.0",
-    "node-fetch": "^3.3.1",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.1",
     "ts-node": "^10.9.1",
-    "tsconfig-paths-webpack-plugin": "^4.0.1",
-    "typescript": "^4.7.4",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
+    "typescript": "^5.1.6",
     "wait-port": "^1.0.4"
   },
   "version": "1.1.0",
@@ -51,6 +44,10 @@
   },
   "lint-staged": {
     "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
+  },
+  "engines": {
+    "node": ">=18.x",
+    "npm": ">=9.x"
   },
   "author": "",
   "license": "MIT",

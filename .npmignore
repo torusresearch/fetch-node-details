@@ -104,7 +104,6 @@ examples/
 toruslabs-openlogin-*
 openlogin-*
 ssl/
-src/
 scripts/
 .eslintrc.json
 .eslintignore
