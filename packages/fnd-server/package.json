@@ -6,7 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "serve": "nodemon --config nodemon.json",
-    "prod": "cross-env NODE_ENV=production && node dist/src/index.js",
+    "prod": "cross-env NODE_ENV=production && node dist/index.js",
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build:server",
     "build:server": "tsc",
