@@ -40,7 +40,7 @@ export const LEGACY_NETWORKS_ROUTE_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, ILegac
   },
   [TORUS_LEGACY_NETWORK.CYAN]: { migrationCompleted: false, networkIdentifier: "cyan", networkMigratedTo: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET },
   [TORUS_LEGACY_NETWORK.MAINNET]: {
-    migrationCompleted: false,
+    migrationCompleted: true,
     networkIdentifier: "mainnet",
     networkMigratedTo: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
   },

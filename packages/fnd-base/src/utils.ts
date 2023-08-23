@@ -8,7 +8,6 @@ import {
   TORUS_SAPPHIRE_NETWORK_TYPE,
 } from "@toruslabs/constants";
 
-import { NODE_DETAILS_MAINNET } from "./legacyMainnetConfig";
 import { getSapphireNodeDetails } from "./sapphireNetworkConfig";
 
 export function fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails | undefined {
@@ -19,7 +18,6 @@ export function fetchLocalConfig(network: TORUS_NETWORK_TYPE): INodeDetails | un
   if (Object.values(TORUS_LEGACY_NETWORK).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
     const legacyMap = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
     if (legacyMap.migrationCompleted) return getSapphireNodeDetails(legacyMap.networkMigratedTo, network as TORUS_LEGACY_NETWORK_TYPE);
-    if (network === TORUS_LEGACY_NETWORK.MAINNET) return NODE_DETAILS_MAINNET;
   }
 
   return undefined;
