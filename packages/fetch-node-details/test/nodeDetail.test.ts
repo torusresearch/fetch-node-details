@@ -1,5 +1,5 @@
 import { TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
-import { getSapphireNodeDetails, NODE_DETAILS_MAINNET } from "@toruslabs/fnd-base";
+import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
 import { deepStrictEqual } from "assert";
 
 import NodeDetailManager from "../src/nodeDetailManager";
@@ -16,10 +16,7 @@ describe("Fetch Node Details", function () {
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
-    delete details.torusNodeRSSEndpoints;
-    delete details.torusNodeSSSEndpoints;
-    delete details.torusNodeTSSEndpoints;
-    deepStrictEqual(details, NODE_DETAILS_MAINNET);
+    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.MAINNET));
   });
   it("#should return correct values - sapphire devnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
