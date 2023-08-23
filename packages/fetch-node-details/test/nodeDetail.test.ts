@@ -16,9 +16,6 @@ describe("Fetch Node Details", function () {
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
     delete details.updated;
-    delete details.torusNodeRSSEndpoints;
-    delete details.torusNodeSSSEndpoints;
-    delete details.torusNodeTSSEndpoints;
     deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.MAINNET));
   });
   it("#should return correct values - sapphire devnet", async function () {
