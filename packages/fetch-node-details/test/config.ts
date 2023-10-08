@@ -1,37 +1,3 @@
-export const nodeDetailsCyan = {
-  currentEpoch: "1",
-  torusNodeEndpoints: [
-    "https://node-1.torus-cluster-1.com/jrpc",
-    "https://node-2.torus-cluster-1.com/jrpc",
-    "https://node-3.torus-cluster-1.com/jrpc",
-    "https://node-4.torus-cluster-1.com/jrpc",
-    "https://node-5.torus-cluster-1.com/jrpc",
-  ],
-  torusNodePub: [
-    {
-      X: "805f81fd2fdc0d207b5a8b6643cd8f885bb761942f31fd6e138fcf8871d44cff",
-      Y: "10bd6ec1675147256fbc4094c05191975a175d49ae8716ee83409929e6a302e7",
-    },
-    {
-      X: "28394dafddfa20cb9ef5c9c26c31415c613565c3bbd9a82af8bfc88376e65353",
-      Y: "5507f59c00d585fbed0ca08773a24faea4724e2b68be3da1e7281d5968251f1b",
-    },
-    {
-      X: "4a190019eea47a45e6edb6a871a850b67fb72dcd9e255a07156c31dbf3a40035",
-      Y: "565aa310a9e736f03d0693df4723880cafe25edba46c9ee88ace6453044d5ae9",
-    },
-    {
-      X: "8a0f03b3ad07b1bd6068bb0aad3fe9feea5181643b04d292c65769c96b5990f8",
-      Y: "4b34b66a7d91ff85f330a3c012a7bf45f5509be57bdf61885a906214d818a695",
-    },
-    {
-      X: "dcf3b3c5a9e43533b875862b4dcfd5614535e7838d9a916f3f735e28e345cd9d",
-      Y: "856d980747c1d171972b2ea34831670763d4b493ea7537b295b4be4c25b012fc",
-    },
-  ],
-  torusIndexes: [1, 2, 3, 4, 5],
-};
-
 export const nodeDetailsAqua = {
   currentEpoch: "1",
   torusNodeEndpoints: [
