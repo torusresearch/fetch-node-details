@@ -3,7 +3,7 @@ import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
 import { deepStrictEqual } from "assert";
 
 import NodeDetailManager from "../src/nodeDetailManager";
-import { nodeDetailsAqua, nodeDetailsCeleste } from "./config";
+import { nodeDetailsCeleste } from "./config";
 
 const fndServerEndpoint = "http://localhost:8060/node-details";
 
@@ -59,10 +59,7 @@ describe("Fetch Node Details", function () {
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google-aqua", verifierId: "hello@tor.us" });
     delete details.updated;
-    delete details.torusNodeRSSEndpoints;
-    delete details.torusNodeSSSEndpoints;
-    delete details.torusNodeTSSEndpoints;
-    deepStrictEqual(details, nodeDetailsAqua);
+    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.AQUA));
   });
 
   it("#should return correct values - celeste", async function () {
