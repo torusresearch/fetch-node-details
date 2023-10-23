@@ -60,6 +60,8 @@ export const NETWORK_MAP = {
 };
 
 export const SIGNER_MAP = {
+  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: "https://signer.tor.us",
+  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: "https://signer.tor.us",
   [TORUS_LEGACY_NETWORK.MAINNET]: "https://signer.tor.us",
   [TORUS_LEGACY_NETWORK.TESTNET]: "https://signer.tor.us",
   [TORUS_LEGACY_NETWORK.CYAN]: "https://signer-polygon.tor.us",
