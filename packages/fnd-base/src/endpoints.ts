@@ -2,11 +2,11 @@ import { LEGACY_NETWORKS_ROUTE_MAP, TORUS_LEGACY_NETWORK_TYPE, TORUS_SAPPHIRE_NE
 
 export const SAPPHIRE_NETWORK_URLS: Record<TORUS_SAPPHIRE_NETWORK_TYPE, string[]> = {
   [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: [
-    "https://sapphire-dev-2-1.authnetwork.dev",
-    "https://sapphire-dev-2-2.authnetwork.dev",
-    "https://sapphire-dev-2-3.authnetwork.dev",
-    "https://sapphire-dev-2-4.authnetwork.dev",
-    "https://sapphire-dev-2-5.authnetwork.dev",
+    "https://node-1.dev-node.web3auth.io",
+    "https://node-2.dev-node.web3auth.io",
+    "https://node-3.dev-node.web3auth.io",
+    "https://node-4.dev-node.web3auth.io",
+    "https://node-5.dev-node.web3auth.io",
   ],
   [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: [
     "https://sapphire-1.auth.network",
