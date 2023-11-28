@@ -1,4 +1,4 @@
-import type { ILegacyNetworkMigrationInfo, TORUS_LEGACY_NETWORK_TYPE } from "./interfaces";
+import type { ILegacyNetworkMigrationInfo, TORUS_LEGACY_NETWORK_TYPE, TORUS_NETWORK_TYPE } from "./interfaces";
 
 export const TORUS_LEGACY_NETWORK = {
   MAINNET: "mainnet",
@@ -51,7 +51,7 @@ export const LEGACY_NETWORKS_ROUTE_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, ILegac
   },
 };
 
-export const NETWORK_MAP = {
+export const NETWORK_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
   [TORUS_LEGACY_NETWORK.MAINNET]: "mainnet",
   [TORUS_LEGACY_NETWORK.TESTNET]: "goerli",
   [TORUS_LEGACY_NETWORK.CYAN]: "polygon-mainnet",
@@ -59,12 +59,23 @@ export const NETWORK_MAP = {
   [TORUS_LEGACY_NETWORK.CELESTE]: "polygon-mainnet",
 };
 
-export const SIGNER_MAP = {
-  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: "https://signer.tor.us",
-  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: "https://signer.tor.us",
-  [TORUS_LEGACY_NETWORK.MAINNET]: "https://signer.tor.us",
-  [TORUS_LEGACY_NETWORK.TESTNET]: "https://signer.tor.us",
-  [TORUS_LEGACY_NETWORK.CYAN]: "https://signer-polygon.tor.us",
-  [TORUS_LEGACY_NETWORK.AQUA]: "https://signer-polygon.tor.us",
-  [TORUS_LEGACY_NETWORK.CELESTE]: "https://signer-polygon.tor.us",
+export const SIGNER_MAP: Record<TORUS_NETWORK_TYPE, string> = {
+  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: "https://signer.web3auth.io",
+  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: "https://signer.web3auth.io",
+  [TORUS_LEGACY_NETWORK.MAINNET]: "https://signer.web3auth.io",
+  [TORUS_LEGACY_NETWORK.TESTNET]: "https://signer.web3auth.io",
+  [TORUS_LEGACY_NETWORK.CYAN]: "https://signer-polygon.web3auth.io",
+  [TORUS_LEGACY_NETWORK.AQUA]: "https://signer-polygon.web3auth.io",
+  [TORUS_LEGACY_NETWORK.CELESTE]: "https://signer-polygon.web3auth.io",
 };
+
+export const METADATA_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
+  [TORUS_LEGACY_NETWORK.MAINNET]: "https://metadata.web3auth.io",
+  [TORUS_LEGACY_NETWORK.TESTNET]: "https://metadata.web3auth.io",
+  [TORUS_LEGACY_NETWORK.CYAN]: "https://metadata.web3auth.io",
+  [TORUS_LEGACY_NETWORK.AQUA]: "https://metadata.web3auth.io",
+  [TORUS_LEGACY_NETWORK.CELESTE]: "https://metadata.web3auth.io",
+};
+
+export const FND_SERVER = "https://fnd.web3auth.io";
+export const SESSION_SERVER = "https://session.web3auth.io";
