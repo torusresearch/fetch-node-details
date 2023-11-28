@@ -1,7 +1,10 @@
 import {
+  FND_SERVER,
   INodeDetails,
   INodePub,
+  METADATA_MAP,
   MULTI_CLUSTER_NETWORKS,
+  TORUS_LEGACY_NETWORK,
   TORUS_LEGACY_NETWORK_TYPE,
   TORUS_NETWORK_TYPE,
   TORUS_SAPPHIRE_NETWORK,
@@ -15,7 +18,7 @@ import { NodeDetailManagerParams } from "./interfaces";
 const log = logger.getLogger("fnd");
 
 class NodeDetailManager {
-  private fndServerEndpoint = "https://fnd.tor.us/node-details";
+  private fndServerEndpoint = `${FND_SERVER}/node-details`;
 
   private _currentEpoch = "1";
 
@@ -85,6 +88,14 @@ class NodeDetailManager {
       log.error("Failed to fetch node details", error);
       throw error;
     }
+  }
+
+  async getMetadataUrl(): Promise<string> {
+    if (Object.values(TORUS_LEGACY_NETWORK).includes(this.network as TORUS_LEGACY_NETWORK_TYPE)) {
+      return METADATA_MAP[this.network as TORUS_LEGACY_NETWORK_TYPE];
+    }
+    const nodeDetails = await this.getNodeDetails({ verifier: "test-verifier", verifierId: "test-verifier-id" });
+    return nodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata");
   }
 
   private setNodeDetails(nodeDetails: INodeDetails) {
