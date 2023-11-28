@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/constants",
-  "version": "13.0.4",
+  "version": "13.1.0",
   "description": "Contains constants for torus and web3auth",
   "main": "dist/constants.cjs.js",
   "module": "dist/constants.esm.js",
