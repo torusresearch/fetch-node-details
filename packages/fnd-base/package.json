@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fnd-base",
-  "version": "13.1.0",
+  "version": "13.1.1",
   "description": "Contains details for sapphire nodes",
   "main": "dist/fndBase.cjs.js",
   "module": "dist/fndBase.esm.js",
