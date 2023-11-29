@@ -9,11 +9,11 @@ export const SAPPHIRE_NETWORK_URLS: Record<TORUS_SAPPHIRE_NETWORK_TYPE, string[]
     "https://node-5.dev-node.web3auth.io",
   ],
   [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: [
-    "https://sapphire-1.auth.network",
-    "https://sapphire-2.auth.network",
-    "https://sapphire-3.auth.network",
-    "https://sapphire-4.auth.network",
-    "https://sapphire-5.auth.network",
+    "https://node-1.node.web3auth.io",
+    "https://node-2.node.web3auth.io",
+    "https://node-3.node.web3auth.io",
+    "https://node-4.node.web3auth.io",
+    "https://node-5.node.web3auth.io",
   ],
 };
 
