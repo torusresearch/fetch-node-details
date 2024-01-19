@@ -37,7 +37,7 @@ export const getLegacyNodeDetails = async ({
   } catch (_) {
     url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${INFURA_PROJECT_ID}`;
   }
-  log.info("proxy using url", url);
+  log.info("proxy using url", url, network, verifier, verifierId, proxyAddress);
 
   const provider = new JsonRpcProvider(url);
   const nodeListContract = new Contract(proxyAddress, abi, provider);
