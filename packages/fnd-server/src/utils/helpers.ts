@@ -3,8 +3,8 @@ import { URL } from "node:url";
 import { abi, INodeDetails, INodePub, NETWORK_MAP } from "@toruslabs/constants";
 import { Contract, JsonRpcProvider, keccak256, toBeHex } from "ethers";
 import JsonStringify from "json-stable-stringify";
-import log from "loglevel";
 
+// import log from "loglevel";
 import { INFURA_PROJECT_ID } from "./constants";
 
 export const thresholdSame = <T>(arr: T[], t: number): T | undefined => {
@@ -37,7 +37,7 @@ export const getLegacyNodeDetails = async ({
   } catch (_) {
     url = `https://${(NETWORK_MAP as Record<string, string>)[network]}.infura.io/v3/${INFURA_PROJECT_ID}`;
   }
-  log.info("proxy using url", url, network, verifier, verifierId, proxyAddress);
+  // log.info("proxy using url", url, network, verifier, verifierId, proxyAddress);
 
   const provider = new JsonRpcProvider(url);
   const nodeListContract = new Contract(proxyAddress, abi, provider);

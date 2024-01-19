@@ -48,9 +48,10 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const { network, verifier, verifierId } = req.query as Record<string, string>;
-      const cacheKey = getNetworkRedisKey(network as TORUS_NETWORK_TYPE, verifier, verifierId);
+      const finalNetwork = network.toLowerCase();
+      const cacheKey = getNetworkRedisKey(finalNetwork as TORUS_NETWORK_TYPE, verifier, verifierId);
 
-      let nodeDetails = fetchLocalConfig(network as TORUS_NETWORK_TYPE);
+      let nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE);
       if (nodeDetails) {
         return res.status(200).json({
           nodeDetails,
@@ -74,13 +75,13 @@ router.get(
         nodeDetails = await getLegacyNodeDetails({
           verifier,
           verifierId,
-          network,
-          proxyAddress: PROXY_CONTRACT_ADDRESS[network as TORUS_LEGACY_NETWORK_TYPE],
+          network: finalNetwork,
+          proxyAddress: PROXY_CONTRACT_ADDRESS[finalNetwork as TORUS_LEGACY_NETWORK_TYPE],
         });
 
         redisClient.setEx(cacheKey, NODE_INFO_EXPIRY, JSON.stringify(nodeDetails));
       } catch (error) {
-        log.warn("Error while setting cached nodes info ", network, error);
+        log.warn("Error while setting cached nodes info ", finalNetwork, error);
       }
       return res.status(200).json({
         nodeDetails,
