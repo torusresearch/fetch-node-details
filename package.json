@@ -7,20 +7,20 @@
   "devDependencies": {
     "@babel/register": "^7.23.7",
     "@toruslabs/config": "^2.0.2",
-    "@toruslabs/eslint-config-typescript": "^3.0.3",
-    "@toruslabs/torus-scripts": "^5.1.0",
+    "@toruslabs/eslint-config-typescript": "^3.2.0",
+    "@toruslabs/torus-scripts": "^5.3.0",
     "@types/mocha": "^10.0.6",
     "cross-env": "^7.0.3",
-    "dotenv": "^16.3.1",
-    "eslint": "^8.56.0",
-    "husky": "^8.0.3",
-    "lerna": "^8.0.2",
-    "lint-staged": "^15.2.0",
-    "mocha": "^10.2.0",
-    "prettier": "^3.2.4",
+    "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lerna": "^8.1.2",
+    "lint-staged": "^15.2.2",
+    "mocha": "^10.3.0",
+    "prettier": "^3.2.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.2",
     "wait-port": "^1.1.0"
   },
   "version": "1.1.0",
@@ -40,7 +40,7 @@
     "pre-commit": "lerna run pre-commit",
     "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev",
     "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "

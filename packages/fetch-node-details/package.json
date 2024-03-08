@@ -8,8 +8,7 @@
   "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "start": "torus-scripts start",
@@ -25,8 +24,8 @@
   "dependencies": {
     "@toruslabs/constants": "^13.1.0",
     "@toruslabs/fnd-base": "^13.1.1",
-    "@toruslabs/http-helpers": "^6.0.0",
-    "loglevel": "^1.8.1"
+    "@toruslabs/http-helpers": "^6.1.0",
+    "loglevel": "^1.9.1"
   },
   "lint-staged": {
     "!(*d).{js,ts}": [
