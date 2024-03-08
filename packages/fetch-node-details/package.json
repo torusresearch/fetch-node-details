@@ -8,8 +8,7 @@
   "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "start": "torus-scripts start",
