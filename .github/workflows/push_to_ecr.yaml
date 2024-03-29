@@ -1,5 +1,8 @@
 name: Test and Push Backend to ECR
-on: push
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   test:
