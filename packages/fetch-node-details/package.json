@@ -19,12 +19,12 @@
     "lint": "eslint --fix 'src/**/*.ts'"
   },
   "peerDependencies": {
-    "@babel/runtime": "7.x"
+    "@babel/runtime": "^7.24.1"
   },
   "dependencies": {
     "@toruslabs/constants": "^13.2.0",
     "@toruslabs/fnd-base": "^13.2.0",
-    "@toruslabs/http-helpers": "^6.1.0",
+    "@toruslabs/http-helpers": "^6.1.1",
     "loglevel": "^1.9.1"
   },
   "lint-staged": {
