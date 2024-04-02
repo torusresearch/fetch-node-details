@@ -1,6 +1,8 @@
 import * as Sentry from "@sentry/node";
 import * as Tracing from "@sentry/tracing";
+import LoglevelSentryPlugin from "@toruslabs/loglevel-sentry";
 import { Express } from "express";
+import log from "loglevel";
 
 import redact from "./redactSentry";
 
@@ -36,6 +38,9 @@ export const registerSentry = (app: Express): void => {
     );
     // TracingHandler creates a trace for every incoming request
     app.use(Sentry.Handlers.tracingHandler());
+
+    const plugin = new LoglevelSentryPlugin(Sentry);
+    plugin.install(log);
   }
 };
 
@@ -44,9 +49,9 @@ export const registerSentryErrorHandler = (app: Express): void => {
   if (sentryDsn) {
     app.use(
       Sentry.Handlers.errorHandler({
-        shouldHandleError() {
-          // always send the errors to sentry, will dial down if needed
-          return true;
+        shouldHandleError(error) {
+          // Capture all 404 and 500 errors
+          return typeof error.status === "number" ? error.status >= 400 : false;
         },
       })
     );
