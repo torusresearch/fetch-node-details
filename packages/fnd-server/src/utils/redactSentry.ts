@@ -5,7 +5,7 @@ export default (event: Event): Event => {
   if (!event.request) return event;
 
   // Redact body for sentitive URLs.
-  // event.request.data = "***";
+  event.request.data = redactEventData(event.request.data);
 
   // Redact sensitive headers.
   event.request.headers = redactEventData(event.request.headers);
