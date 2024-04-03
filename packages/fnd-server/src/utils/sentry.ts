@@ -1,5 +1,5 @@
 import * as Sentry from "@sentry/node";
-import LoglevelSentryPlugin from "@toruslabs/loglevel-sentry";
+import LoglevelSentryPlugin, { redactBreadcrumbData } from "@toruslabs/loglevel-sentry";
 import { Express } from "express";
 import log from "loglevel";
 
@@ -23,10 +23,13 @@ export const registerSentry = (app: Express): void => {
           // router: someRouter,
         }),
       ],
-      tracesSampleRate: 0.01,
+      tracesSampleRate: 0.001,
       sampleRate: 0.1,
       beforeSend(event) {
         return redact(event);
+      },
+      beforeBreadcrumb(breadcrumb) {
+        return redactBreadcrumbData(breadcrumb);
       },
     });
     app.use(
