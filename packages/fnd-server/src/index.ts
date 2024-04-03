@@ -55,9 +55,9 @@ app.disable("x-powered-by");
 
 app.use("/", router);
 
-app.use(errors());
-
 registerSentryErrorHandler(app);
+
+app.use(errors());
 
 http.listen(port, () => {
   log.info("app listening on port", port);
