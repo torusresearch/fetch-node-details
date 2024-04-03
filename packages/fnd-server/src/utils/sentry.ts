@@ -48,9 +48,9 @@ export const registerSentryErrorHandler = (app: Express): void => {
   if (sentryDsn) {
     app.use(
       Sentry.Handlers.errorHandler({
-        shouldHandleError(error) {
-          // Capture all 500 errors
-          return typeof error.status === "number" ? error.status >= 500 : false;
+        shouldHandleError() {
+          // always capture errors. Will dial down later if needed
+          return true;
         },
       })
     );
