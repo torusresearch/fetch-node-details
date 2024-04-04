@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/node";
-import * as Tracing from "@sentry/tracing";
+import LoglevelSentryPlugin, { redactBreadcrumbData } from "@toruslabs/loglevel-sentry";
 import { Express } from "express";
+import log from "loglevel";
 
 import redact from "./redactSentry";
 
@@ -15,17 +16,20 @@ export const registerSentry = (app: Express): void => {
         new Sentry.Integrations.Http({ tracing: true, breadcrumbs: true }),
 
         // enable Express.js middleware tracing
-        new Tracing.Integrations.Express({
+        new Sentry.Integrations.Express({
           // to trace all requests to the default router
           app,
           // alternatively, you can specify the routes you want to trace:
           // router: someRouter,
         }),
       ],
-      tracesSampleRate: 0.01,
+      tracesSampleRate: 0.001,
       sampleRate: 0.1,
       beforeSend(event) {
         return redact(event);
+      },
+      beforeBreadcrumb(breadcrumb) {
+        return redactBreadcrumbData(breadcrumb);
       },
     });
     app.use(
@@ -36,6 +40,9 @@ export const registerSentry = (app: Express): void => {
     );
     // TracingHandler creates a trace for every incoming request
     app.use(Sentry.Handlers.tracingHandler());
+
+    const plugin = new LoglevelSentryPlugin(Sentry);
+    plugin.install(log);
   }
 };
 
@@ -44,9 +51,9 @@ export const registerSentryErrorHandler = (app: Express): void => {
   if (sentryDsn) {
     app.use(
       Sentry.Handlers.errorHandler({
-        shouldHandleError(error) {
-          // Capture all 404 and 500 errors
-          return typeof error.status === "number" ? error.status >= 400 : false;
+        shouldHandleError() {
+          // always capture errors. Will dial down later if needed
+          return true;
         },
       })
     );

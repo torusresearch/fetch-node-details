@@ -16,8 +16,8 @@
     "down": "docker-compose -f ../../docker-compose.dev.yml down"
   },
   "dependencies": {
-    "@sentry/node": "^7.105.0",
-    "@sentry/tracing": "^7.105.0",
+    "@sentry/node": "^7.109.0",
+    "@sentry/tracing": "^7.109.0",
     "@toruslabs/constants": "^13.2.0",
     "@toruslabs/fnd-base": "^13.2.0",
     "@toruslabs/http-helpers": "^6.1.1",
@@ -27,7 +27,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ethers": "^6.11.1",
-    "express": "^4.18.3",
+    "express": "^4.19.2",
     "helmet": "^7.1.0",
     "json-stable-stringify": "^1.1.1",
     "loglevel": "^1.9.1",

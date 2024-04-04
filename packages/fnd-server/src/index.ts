@@ -19,6 +19,11 @@ import router from "./router";
 import { registerSentry, registerSentryErrorHandler } from "./utils/sentry";
 
 // setup app
+process.on("uncaughtException", (err) => {
+  log.error(err, "uncaughtException");
+});
+
+// setup app
 const app = express();
 const port = process.env.PORT || process.argv[2] || 8060;
 const http = createServer(app);
@@ -50,9 +55,9 @@ app.disable("x-powered-by");
 
 app.use("/", router);
 
-app.use(errors());
-
 registerSentryErrorHandler(app);
+
+app.use(errors());
 
 http.listen(port, () => {
   log.info("app listening on port", port);
