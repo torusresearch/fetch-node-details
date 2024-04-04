@@ -16,6 +16,7 @@ dotenv.config({
 log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
 
 import router from "./router";
+import { requestIdMiddleware } from "./utils/requestId";
 import { registerSentry, registerSentryErrorHandler } from "./utils/sentry";
 
 // setup app
@@ -52,6 +53,8 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") app.use(morgan("dev")); // HTTP logging
 
 app.disable("x-powered-by");
+
+app.use(requestIdMiddleware);
 
 app.use("/", router);
 
