@@ -16,8 +16,8 @@ dotenv.config({
 log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
 
 import router from "./router";
-import { requestIdMiddleware } from "./utils/requestId";
 import { registerSentry, registerSentryErrorHandler } from "./utils/sentry";
+import { traceContextMiddleware } from "./utils/traceContext";
 
 // setup app
 process.on("uncaughtException", (err) => {
@@ -54,7 +54,7 @@ if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") 
 
 app.disable("x-powered-by");
 
-app.use(requestIdMiddleware);
+app.use(traceContextMiddleware);
 
 app.use("/", router);
 
