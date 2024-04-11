@@ -17,6 +17,7 @@ log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
 
 import router from "./router";
 import { registerSentry, registerSentryErrorHandler } from "./utils/sentry";
+import { traceContextMiddleware } from "./utils/traceContext";
 
 // setup app
 process.on("uncaughtException", (err) => {
@@ -52,6 +53,8 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "local") app.use(morgan("dev")); // HTTP logging
 
 app.disable("x-powered-by");
+
+app.use(traceContextMiddleware);
 
 app.use("/", router);
 
