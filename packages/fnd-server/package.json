@@ -16,12 +16,12 @@
     "down": "docker-compose -f ../../docker-compose.dev.yml down"
   },
   "dependencies": {
-    "@sentry/node": "^7.109.0",
-    "@sentry/tracing": "^7.109.0",
+    "@sentry/node": "^7.110.1",
+    "@sentry/tracing": "^7.110.1",
     "@toruslabs/constants": "^13.2.0",
     "@toruslabs/fnd-base": "^13.2.0",
     "@toruslabs/http-helpers": "^6.1.1",
-    "@toruslabs/loglevel-sentry": "^6.1.1",
+    "@toruslabs/loglevel-sentry": "^6.1.3",
     "celebrate": "^15.0.3",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
