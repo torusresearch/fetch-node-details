@@ -1,4 +1,4 @@
-import { TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
+import { KEY_TYPE, TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "./constants";
 
 export interface JRPCResponse<T> {
   id: number;
@@ -32,6 +32,8 @@ export type TORUS_LEGACY_NETWORK_TYPE = (typeof TORUS_LEGACY_NETWORK)[keyof type
 export type TORUS_SAPPHIRE_NETWORK_TYPE = (typeof TORUS_SAPPHIRE_NETWORK)[keyof typeof TORUS_SAPPHIRE_NETWORK];
 
 export type TORUS_NETWORK_TYPE = TORUS_LEGACY_NETWORK_TYPE | TORUS_SAPPHIRE_NETWORK_TYPE;
+
+export type WEB3AUTH_KEY_TYPE = (typeof KEY_TYPE)[keyof typeof KEY_TYPE];
 
 export type NODE = {
   address: string;

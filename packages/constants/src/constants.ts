@@ -79,3 +79,8 @@ export const METADATA_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
 
 export const FND_SERVER = "https://fnd.web3auth.io";
 export const SESSION_SERVER = "https://session.web3auth.io";
+
+export const KEY_TYPE = {
+  SECP256K1: "secp256k1",
+  ED25519: "ed25519",
+} as const;
