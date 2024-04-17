@@ -23,8 +23,8 @@ export const registerSentry = (app: Express): void => {
           // router: someRouter,
         }),
       ],
-      tracesSampleRate: 0.001,
-      sampleRate: 0.1,
+      tracesSampleRate: process.env.SENTRY_TRACES_SAMPLE_RATE ? Number(process.env.SENTRY_TRACES_SAMPLE_RATE) : 0.01,
+      sampleRate: process.env.SENTRY_SAMPLE_RATE ? Number(process.env.SENTRY_SAMPLE_RATE) : 0.1,
       beforeSend(event) {
         return redact(event);
       },
