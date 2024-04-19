@@ -20,6 +20,7 @@ describe("Fetch Node Details", function () {
     deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.MAINNET));
     strictEqual(metadataUrl, METADATA_MAP[TORUS_LEGACY_NETWORK.MAINNET]);
   });
+
   it("#should return correct values - sapphire devnet", async function () {
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET,

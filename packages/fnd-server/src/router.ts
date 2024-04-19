@@ -1,10 +1,12 @@
 import {
+  KEY_TYPE,
   MULTI_CLUSTER_NETWORKS,
   PROXY_CONTRACT_ADDRESS,
   TORUS_LEGACY_NETWORK,
   TORUS_LEGACY_NETWORK_TYPE,
   TORUS_NETWORK_TYPE,
   TORUS_SAPPHIRE_NETWORK,
+  WEB3AUTH_KEY_TYPE,
 } from "@toruslabs/constants";
 import { fetchLocalConfig } from "@toruslabs/fnd-base";
 import { celebrate, Joi } from "celebrate";
@@ -41,24 +43,27 @@ router.get(
           .allow(...Object.values(TORUS_LEGACY_NETWORK), ...Object.values(TORUS_SAPPHIRE_NETWORK)),
         verifier: Joi.string().required(),
         verifierId: Joi.string().required(),
+        keyType: Joi.string()
+          .optional()
+          .allow(...Object.values(KEY_TYPE)),
       }),
     },
     { allowUnknown: true }
   ),
   async (req: Request, res: Response) => {
     try {
-      const { network, verifier, verifierId } = req.query as Record<string, string>;
+      const { network, verifier, verifierId, keyType = "secp256k1" } = req.query as Record<string, string>;
       const finalNetwork = network.toLowerCase();
-      const cacheKey = getNetworkRedisKey(finalNetwork as TORUS_NETWORK_TYPE, verifier, verifierId);
-
-      let nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE);
+      // use static details for sapphire mainnet and testnet
+      let nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE);
       if (nodeDetails) {
         return res.status(200).json({
           nodeDetails,
           success: true,
         });
       }
-      // use static details for mainnet and testnet
+
+      const cacheKey = getNetworkRedisKey(finalNetwork as TORUS_NETWORK_TYPE, verifier, verifierId);
       try {
         const cachedInfo = await redisClient.get(cacheKey);
         if (cachedInfo) {

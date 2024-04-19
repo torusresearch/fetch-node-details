@@ -1,4 +1,11 @@
-import { LEGACY_NETWORKS_ROUTE_MAP, TORUS_LEGACY_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK, TORUS_SAPPHIRE_NETWORK_TYPE } from "@toruslabs/constants";
+import {
+  KEY_TYPE,
+  LEGACY_NETWORKS_ROUTE_MAP,
+  TORUS_LEGACY_NETWORK_TYPE,
+  TORUS_SAPPHIRE_NETWORK,
+  TORUS_SAPPHIRE_NETWORK_TYPE,
+  WEB3AUTH_KEY_TYPE,
+} from "@toruslabs/constants";
 
 export const SAPPHIRE_NETWORK_URLS: Record<TORUS_SAPPHIRE_NETWORK_TYPE, string[]> = {
   [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: [
@@ -46,17 +53,22 @@ export const getRSSEndpoints = (sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE, le
   });
 };
 
-export const getTSSEndpoints = (sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE, legacyNetwork?: TORUS_LEGACY_NETWORK_TYPE) => {
+export const getTSSEndpoints = (
+  sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE,
+  legacyNetwork?: TORUS_LEGACY_NETWORK_TYPE,
+  keyType = KEY_TYPE.SECP256K1 as WEB3AUTH_KEY_TYPE
+) => {
   const endpoints = SAPPHIRE_NETWORK_URLS[sapphireNetwork];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${sapphireNetwork}`);
   }
 
+  const tssPath = keyType === KEY_TYPE.ED25519 ? "tss-frost" : "tss";
   const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[legacyNetwork as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
     if (routeIdentifier && routeIdentifier.networkIdentifier) {
-      return `${e}/tss/${routeIdentifier.networkIdentifier}`;
+      return `${e}/${tssPath}/${routeIdentifier.networkIdentifier}`;
     }
-    return `${e}/tss`;
+    return `${e}/${tssPath}`;
   });
 };
