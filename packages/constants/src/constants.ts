@@ -27,14 +27,14 @@ export const PROXY_CONTRACT_ADDRESS = {
 
 export const MULTI_CLUSTER_NETWORKS: TORUS_LEGACY_NETWORK_TYPE[] = [
   // TORUS_LEGACY_NETWORK.AQUA,
-  TORUS_LEGACY_NETWORK.CELESTE,
+  // TORUS_LEGACY_NETWORK.CELESTE,
   // TORUS_LEGACY_NETWORK.CYAN,
 ];
 
 export const LEGACY_NETWORKS_ROUTE_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, ILegacyNetworkMigrationInfo> = {
   [TORUS_LEGACY_NETWORK.AQUA]: { migrationCompleted: true, networkIdentifier: "aqua", networkMigratedTo: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET },
   [TORUS_LEGACY_NETWORK.CELESTE]: {
-    migrationCompleted: false,
+    migrationCompleted: true,
     networkIdentifier: "celeste",
     networkMigratedTo: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
   },
