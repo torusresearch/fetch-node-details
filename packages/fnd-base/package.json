@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fnd-base",
-  "version": "13.3.0",
+  "version": "13.4.0",
   "description": "Contains details for sapphire nodes",
   "main": "dist/fndBase.cjs.js",
   "module": "dist/fndBase.esm.js",
@@ -21,7 +21,7 @@
     "@babel/runtime": "7.x"
   },
   "dependencies": {
-    "@toruslabs/constants": "^13.3.0"
+    "@toruslabs/constants": "^13.4.0"
   },
   "lint-staged": {
     "!(*d).{js,ts}": [
