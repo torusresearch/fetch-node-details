@@ -16,7 +16,7 @@
     "down": "docker-compose -f ../../docker-compose.dev.yml down"
   },
   "dependencies": {
-    "@sentry/node": "^7.113.0",
+    "@sentry/node": "^8.7.0",
     "@sentry/tracing": "^7.113.0",
     "@toruslabs/constants": "^13.4.0",
     "@toruslabs/fnd-base": "^13.4.0",
