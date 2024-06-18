@@ -2,11 +2,12 @@
   "name": "@toruslabs/fetch-node-details",
   "version": "13.4.0",
   "description": "Fetches the node details for torus nodes",
-  "main": "dist/fetchNodeDetails.cjs.js",
-  "module": "dist/fetchNodeDetails.esm.js",
+  "main": "dist/lib.cjs/index.js",
+  "module": "dist/lib.esm/index.js",
   "unpkg": "dist/fetchNodeDetails.umd.min.js",
   "jsdelivr": "dist/fetchNodeDetails.umd.min.js",
   "types": "dist/types/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
@@ -24,7 +25,7 @@
   "dependencies": {
     "@toruslabs/constants": "^13.4.0",
     "@toruslabs/fnd-base": "^13.4.0",
-    "@toruslabs/http-helpers": "^6.1.1",
+    "@toruslabs/http-helpers": "^7.0.0",
     "loglevel": "^1.9.1"
   },
   "lint-staged": {

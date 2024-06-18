@@ -2,11 +2,12 @@
   "name": "@toruslabs/fnd-base",
   "version": "13.4.0",
   "description": "Contains details for sapphire nodes",
-  "main": "dist/fndBase.cjs.js",
-  "module": "dist/fndBase.esm.js",
+  "main": "dist/lib.cjs/index.js",
+  "module": "dist/lib.esm/index.js",
   "unpkg": "dist/fndBase.umd.min.js",
   "jsdelivr": "dist/fndBase.umd.min.js",
   "types": "dist/types/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],

@@ -4,20 +4,23 @@
   "workspaces": [
     "packages/*"
   ],
+  "peerDependencies": {
+    "@babel/runtime": "^7.x"
+  },
   "devDependencies": {
-    "@babel/register": "^7.23.7",
-    "@toruslabs/config": "^2.0.2",
-    "@toruslabs/eslint-config-typescript": "^3.2.0",
-    "@toruslabs/torus-scripts": "^5.3.1",
+    "@babel/register": "^7.24.6",
+    "@toruslabs/config": "^2.1.0",
+    "@toruslabs/eslint-config-typescript": "^3.3.1",
+    "@toruslabs/torus-scripts": "^6.0.1",
     "@types/mocha": "^10.0.6",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "husky": "^9.0.11",
-    "lerna": "^8.1.2",
-    "lint-staged": "^15.2.2",
+    "lerna": "^8.1.3",
+    "lint-staged": "^15.2.7",
     "mocha": "^10.4.0",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.4.5",

@@ -1,4 +1,6 @@
-/* eslint-disable import/first */
+import "./utils/instrument";
+
+import * as Sentry from "@sentry/node";
 import { errors } from "celebrate";
 import compression from "compression";
 import cors from "cors";
@@ -16,7 +18,6 @@ dotenv.config({
 log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
 
 import router from "./router";
-import { registerSentry, registerSentryErrorHandler } from "./utils/sentry";
 import { traceContextMiddleware } from "./utils/traceContext";
 
 // setup app
@@ -31,8 +32,6 @@ const http = createServer(app);
 
 http.keepAliveTimeout = 301 * 1000;
 http.headersTimeout = 305 * 1000;
-
-registerSentry(app);
 
 app.set("trust proxy", 1);
 
@@ -58,7 +57,9 @@ app.use(traceContextMiddleware);
 
 app.use("/", router);
 
-registerSentryErrorHandler(app);
+// Add this after all routes,
+// but before any and other error-handling middlewares are defined
+Sentry.setupExpressErrorHandler(app);
 
 app.use(errors());
 
