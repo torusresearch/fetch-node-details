@@ -1,15 +1,8 @@
 version: "3"
 
 services:
-  redis:
-    restart: always
-    image: redis:6-alpine
-    ports:
-      - 6379:6379
   fnd-server:
     restart: always
-    depends_on:
-      - redis
     build:
       context: .
       dockerfile: Dockerfile.dev
