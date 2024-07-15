@@ -1,2 +1,2 @@
 export * from "./interfaces";
-export { default, default as NodeDetailManager } from "./nodeDetailManager";
+export { default as NodeDetailManager } from "./nodeDetailManager";
