@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fetch-node-details",
-  "version": "14.0.0",
+  "version": "14.0.1",
   "description": "Fetches the node details for torus nodes",
   "main": "dist/lib.cjs/index.js",
   "module": "dist/lib.esm/index.js",
