@@ -11,9 +11,6 @@ if (sentryDsn) {
     dsn: sentryDsn,
     environment: process.env.NODE_ENV,
     integrations: [
-      // enable HTTP calls
-      Sentry.httpIntegration({ breadcrumbs: true }),
-
       // application not responding detection.
       Sentry.anrIntegration({ captureStackTrace: true }),
     ],
