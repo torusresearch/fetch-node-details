@@ -15,7 +15,7 @@ if (sentryDsn) {
       Sentry.anrIntegration({ captureStackTrace: true }),
     ],
     tracesSampleRate: process.env.SENTRY_TRACES_SAMPLE_RATE ? Number(process.env.SENTRY_TRACES_SAMPLE_RATE) : 0.01,
-    sampleRate: process.env.SENTRY_SAMPLE_RATE ? Number(process.env.SENTRY_SAMPLE_RATE) : 0.1,
+    sampleRate: process.env.SENTRY_SAMPLE_RATE ? Number(process.env.SENTRY_SAMPLE_RATE) : 1,
     beforeSend(event) {
       return redact(event);
     },

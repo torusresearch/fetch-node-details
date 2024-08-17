@@ -8,14 +8,14 @@ import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import { createServer } from "http";
-import log from "loglevel";
+import log, { levels, LogLevelDesc } from "loglevel";
 import morgan from "morgan";
 
 // Setup environment
 dotenv.config({
   path: process.env.NODE_ENV === "development" ? ".env.development" : ".env",
 });
-log.setLevel((process.env.LOG_LEVEL as log.LogLevelDesc) || "DEBUG");
+log.setLevel((process.env.LOG_LEVEL as LogLevelDesc) || levels.INFO);
 
 import router from "./router";
 import { traceContextMiddleware } from "./utils/traceContext";
