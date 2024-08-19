@@ -6,7 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "serve": "nodemon --config nodemon.json",
-    "prod": "cross-env NODE_ENV=production && node dist/index.js",
+    "prod": "node dist/index.js",
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build:server",
     "build:server": "tsc",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@sentry/node": "^8.26.0",
+    "@toruslabs/config": "^2.2.0",
     "@toruslabs/constants": "^14.0.0",
     "@toruslabs/fnd-base": "^14.0.0",
     "@toruslabs/loglevel-sentry": "^7.0.1",
