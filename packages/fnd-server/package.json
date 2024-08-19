@@ -12,8 +12,8 @@
     "build:server": "tsc",
     "lint": "eslint --fix 'src/**/*.ts'",
     "pre-commit": "lint-staged --cwd .",
-    "dev": "docker-compose -f ../../docker-compose.dev.yml up --build",
-    "down": "docker-compose -f ../../docker-compose.dev.yml down"
+    "dev": "docker compose -f ../../docker-compose.dev.yml up --build",
+    "down": "docker compose -f ../../docker-compose.dev.yml down"
   },
   "dependencies": {
     "@sentry/node": "^8.26.0",
