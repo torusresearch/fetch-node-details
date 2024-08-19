@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "@toruslabs/config/tsconfig.default.json",
   "include": ["src"],
   "compilerOptions": {
     "moduleResolution": "Node16",

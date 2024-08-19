@@ -11,14 +11,11 @@ if (sentryDsn) {
     dsn: sentryDsn,
     environment: process.env.NODE_ENV,
     integrations: [
-      // enable HTTP calls
-      Sentry.httpIntegration({ breadcrumbs: true }),
-
       // application not responding detection.
       Sentry.anrIntegration({ captureStackTrace: true }),
     ],
     tracesSampleRate: process.env.SENTRY_TRACES_SAMPLE_RATE ? Number(process.env.SENTRY_TRACES_SAMPLE_RATE) : 0.01,
-    sampleRate: process.env.SENTRY_SAMPLE_RATE ? Number(process.env.SENTRY_SAMPLE_RATE) : 0.1,
+    sampleRate: process.env.SENTRY_SAMPLE_RATE ? Number(process.env.SENTRY_SAMPLE_RATE) : 1,
     beforeSend(event) {
       return redact(event);
     },
