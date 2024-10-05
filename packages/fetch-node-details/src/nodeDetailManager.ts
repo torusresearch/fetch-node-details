@@ -48,6 +48,9 @@ class NodeDetailManager {
     fndServerEndpoint,
     enableLogging = false,
   }: NodeDetailManagerParams = {}) {
+    if (network && !Object.values({ ...TORUS_LEGACY_NETWORK, ...TORUS_SAPPHIRE_NETWORK }).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
+      throw new Error("Invalid network");
+    }
     this.network = network;
     this._keyType = keyType;
     this.updated = false;
