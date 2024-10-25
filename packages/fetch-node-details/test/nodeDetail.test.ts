@@ -1,6 +1,6 @@
-import { METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
+import { METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
 import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
-import { deepStrictEqual, strictEqual } from "assert";
+import { deepStrictEqual, strictEqual, throws } from "assert";
 
 import NodeDetailManager from "../src/nodeDetailManager";
 
@@ -98,5 +98,30 @@ describe("Fetch Node Details", function () {
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, TORUS_LEGACY_NETWORK.TESTNET));
     strictEqual(metadataUrl, METADATA_MAP[TORUS_LEGACY_NETWORK.TESTNET]);
+  });
+
+  it("#should throw error for invalid network", async function () {
+    throws(
+      () => {
+        const nodeDetailManager = new NodeDetailManager({
+          network: "INVALID_NETWORK" as TORUS_NETWORK_TYPE,
+          fndServerEndpoint,
+          enableLogging: true,
+        });
+        return nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
+      },
+      Error,
+      "Invalid network"
+    );
+  });
+
+  it("#should use default network if not provided", async function () {
+    const nodeDetailManager = new NodeDetailManager({
+      fndServerEndpoint,
+      enableLogging: true,
+    });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
+    delete details.updated;
+    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET));
   });
 });
