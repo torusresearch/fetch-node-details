@@ -72,8 +72,7 @@ app.disable("x-powered-by");
 
 app.use(traceContextMiddleware);
 
-app.use("/", router);
-app.use("/fnd-service", router);
+app.use(["/fnd-service", "/"], router);
 
 // Add this after all routes,
 // but before any and other error-handling middlewares are defined
