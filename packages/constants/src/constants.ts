@@ -60,25 +60,25 @@ export const NETWORK_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
 };
 
 export const SIGNER_MAP: Record<TORUS_NETWORK_TYPE, string> = {
-  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: "https://signer.web3auth.io",
-  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: "https://signer.web3auth.io",
-  [TORUS_LEGACY_NETWORK.MAINNET]: "https://signer.web3auth.io",
-  [TORUS_LEGACY_NETWORK.TESTNET]: "https://signer.web3auth.io",
-  [TORUS_LEGACY_NETWORK.CYAN]: "https://signer-polygon.web3auth.io",
-  [TORUS_LEGACY_NETWORK.AQUA]: "https://signer-polygon.web3auth.io",
-  [TORUS_LEGACY_NETWORK.CELESTE]: "https://signer-polygon.web3auth.io",
+  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET]: "https://api.web3auth.io/signer-service",
+  [TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET]: "https://api.web3auth.io/signer-service",
+  [TORUS_LEGACY_NETWORK.MAINNET]: "https://api.web3auth.io/signer-service",
+  [TORUS_LEGACY_NETWORK.TESTNET]: "https://api.web3auth.io/signer-service",
+  [TORUS_LEGACY_NETWORK.CYAN]: "https://api.web3auth.io/signer-polygon-service",
+  [TORUS_LEGACY_NETWORK.AQUA]: "https://api.web3auth.io/signer-polygon-service",
+  [TORUS_LEGACY_NETWORK.CELESTE]: "https://api.web3auth.io/signer-polygon-service",
 };
 
 export const METADATA_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
-  [TORUS_LEGACY_NETWORK.MAINNET]: "https://metadata.web3auth.io",
-  [TORUS_LEGACY_NETWORK.TESTNET]: "https://metadata.web3auth.io",
-  [TORUS_LEGACY_NETWORK.CYAN]: "https://metadata.web3auth.io",
-  [TORUS_LEGACY_NETWORK.AQUA]: "https://metadata.web3auth.io",
-  [TORUS_LEGACY_NETWORK.CELESTE]: "https://metadata.web3auth.io",
+  [TORUS_LEGACY_NETWORK.MAINNET]: "https://api.web3auth.io/metadata-service",
+  [TORUS_LEGACY_NETWORK.TESTNET]: "https://api.web3auth.io/metadata-service",
+  [TORUS_LEGACY_NETWORK.CYAN]: "https://api.web3auth.io/metadata-service",
+  [TORUS_LEGACY_NETWORK.AQUA]: "https://api.web3auth.io/metadata-service",
+  [TORUS_LEGACY_NETWORK.CELESTE]: "https://api.web3auth.io/metadata-service",
 };
 
-export const FND_SERVER = "https://fnd.web3auth.io";
-export const SESSION_SERVER = "https://session.web3auth.io";
+export const FND_SERVER = "https://api.web3auth.io/fnd-service";
+export const SESSION_SERVER = "https://api.web3auth.io/session-service";
 
 export const KEY_TYPE = {
   SECP256K1: "secp256k1",
