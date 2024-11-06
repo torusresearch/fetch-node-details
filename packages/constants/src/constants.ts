@@ -98,10 +98,6 @@ export const DEVELOP_AUTH_SERVER_URL = "https://develop-api.web3auth.io/auth-ser
 export const WALLET_SERVER_URL = "https://api.web3auth.io/wallet-service";
 export const DEVELOP_WALLET_SERVER_URL = "https://develop-api.web3auth.io/wallet-service";
 
-// Legacy Metadata backend service
-export const LEGACY_METADATA_SERVER_URL = "https://api.web3auth.io/metadata-service";
-export const DEVELOP_LEGACY_METADATA_SERVER_URL = "https://develop-api.web3auth.io/metadata-service";
-
 // TKey Email Backend service
 export const TKEY_EMAIL_SERVER_URL = "https://api.web3auth.io/tkey-email-service";
 
