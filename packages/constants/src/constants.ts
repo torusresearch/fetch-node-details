@@ -77,8 +77,36 @@ export const METADATA_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
   [TORUS_LEGACY_NETWORK.CELESTE]: "https://api.web3auth.io/metadata-service",
 };
 
+// FND backend service
 export const FND_SERVER = "https://api.web3auth.io/fnd-service";
-export const SESSION_SERVER = "https://api.web3auth.io/session-service";
+
+// Session backend service
+export const SESSION_SERVER_API_URL = "https://api.web3auth.io/session-service";
+export const SESSION_SERVER_SOCKET_URL = "https://session.web3auth.io";
+
+// Passwordless backend service
+export const PASSWORDLESS_SERVER_API_URL = "https://api.web3auth.io/passwordless-service";
+export const PASSWORDLESS_SERVER_SOCKET_URL = "https://api-passwordless.web3auth.io";
+export const DEVELOP_PASSWORDLESS_SERVER_API_URL = "https://develop-api.web3auth.io/passwordless-service";
+export const DEVELOP_PASSWORDLESS_SERVER_SOCKET_URL = "https://api-develop-passwordless.web3auth.io";
+
+// Auth backend service
+export const AUTH_SERVER_URL = "https://api.web3auth.io/auth-service";
+export const DEVELOP_AUTH_SERVER_URL = "https://develop-api.web3auth.io/auth-service";
+
+// Wallet backend service
+export const WALLET_SERVER_URL = "https://api.web3auth.io/wallet-service";
+export const DEVELOP_WALLET_SERVER_URL = "https://develop-api.web3auth.io/wallet-service";
+
+// Legacy Metadata backend service
+export const LEGACY_METADATA_SERVER_URL = "https://api.web3auth.io/metadata-service";
+export const DEVELOP_LEGACY_METADATA_SERVER_URL = "https://develop-api.web3auth.io/metadata-service";
+
+// TKey Email Backend service
+export const TKEY_EMAIL_SERVER_URL = "https://api.web3auth.io/tkey-email-service";
+
+// Authjs backend service
+export const AUTHJS_SERVER_URL = "https://api.web3auth.io/authjs-service";
 
 export const KEY_TYPE = {
   SECP256K1: "secp256k1",
