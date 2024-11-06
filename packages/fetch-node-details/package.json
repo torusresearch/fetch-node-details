@@ -26,7 +26,7 @@
     "@toruslabs/constants": "^14.0.0",
     "@toruslabs/fnd-base": "^14.0.0",
     "@toruslabs/http-helpers": "^7.0.0",
-    "loglevel": "^1.9.1"
+    "loglevel": "^1.9.2"
   },
   "lint-staged": {
     "!(*d).{js,ts}": [

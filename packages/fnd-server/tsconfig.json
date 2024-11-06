@@ -8,8 +8,5 @@
     "module": "Node16",
     "target": "ES2022",
     "lib": ["ES2022"]
-  },
-  "ts-node": {
-    "files": true
   }
 }

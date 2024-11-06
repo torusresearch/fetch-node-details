@@ -40,8 +40,28 @@ const corsOptions = {
   //   origin: ["https://localhost:3000", /\.tor\.us$/],
   origin: true,
   credentials: true,
-  allowedHeaders: ["Content-Type", "x-api-key", "x-embed-host", "sentry-trace", "baggage", "x-web3-correlation-id"],
-  methods: "GET",
+  allowedHeaders: [
+    "Content-Type",
+    "x-api-key",
+    "x-embed-host",
+    "sentry-trace",
+    "baggage",
+    "x-web3-correlation-id",
+    "pubkeyx",
+    "pubkeyy",
+    "verifier",
+    "verifier_id",
+    "verifierId",
+    "clientId",
+    "network",
+    "enable_gating",
+    "enableGating",
+    "authorization",
+    "wallet_provider",
+    "web3auth_network",
+    "client_id",
+  ],
+  methods: "GET,PUT,PATCH,POST,DELETE",
   maxAge: 86400,
 };
 
@@ -55,7 +75,7 @@ app.disable("x-powered-by");
 
 app.use(traceContextMiddleware);
 
-app.use("/", router);
+app.use(["/fnd-service", "/"], router);
 
 // Add this after all routes,
 // but before any and other error-handling middlewares are defined
