@@ -5,7 +5,7 @@
   "private": true,
   "main": "src/index.ts",
   "scripts": {
-    "serve": "nodemon --config nodemon.json",
+    "serve": "tsx --watch src/index.ts",
     "prod": "node dist/index.js",
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm run build:server",
@@ -38,7 +38,7 @@
     "@types/morgan": "^1.9.9",
     "assert": "^2.1.0",
     "cross-env": "^7.0.3",
-    "nodemon": "^3.1.7",
+    "tsx": "^4.19.2",
     "rimraf": "^6.0.1",
     "wait-port": "^1.1.0"
   },
