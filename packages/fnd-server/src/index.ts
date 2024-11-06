@@ -56,6 +56,7 @@ const corsOptions = {
     "network",
     "enable_gating",
     "enableGating",
+    "authorization",
   ],
   methods: "GET,PUT,PATCH,POST,DELETE",
   maxAge: 86400,
