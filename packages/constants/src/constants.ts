@@ -77,8 +77,15 @@ export const METADATA_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, string> = {
   [TORUS_LEGACY_NETWORK.CELESTE]: "https://api.web3auth.io/metadata-service",
 };
 
+// FND backend service
 export const FND_SERVER = "https://api.web3auth.io/fnd-service";
-export const SESSION_SERVER = "https://api.web3auth.io/session-service";
+
+// Session backend service
+export const SESSION_SERVER_API_URL = "https://api.web3auth.io/session-service";
+export const SESSION_SERVER_SOCKET_URL = "https://session.web3auth.io";
+
+// Authjs backend service
+export const AUTHJS_SERVER_URL = "https://api.web3auth.io/authjs-service";
 
 export const KEY_TYPE = {
   SECP256K1: "secp256k1",
