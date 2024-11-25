@@ -5,11 +5,13 @@ import {
   KEY_TYPE,
   METADATA_MAP,
   MULTI_CLUSTER_NETWORKS,
+  SIG_TYPE,
   TORUS_LEGACY_NETWORK,
   TORUS_LEGACY_NETWORK_TYPE,
   TORUS_NETWORK_TYPE,
   TORUS_SAPPHIRE_NETWORK,
   WEB3AUTH_KEY_TYPE,
+  WEB3AUTH_SIG_TYPE,
 } from "@toruslabs/constants";
 import { fetchLocalConfig } from "@toruslabs/fnd-base";
 import { get } from "@toruslabs/http-helpers";
@@ -25,6 +27,8 @@ class NodeDetailManager {
   private _currentEpoch = "1";
 
   private _keyType: WEB3AUTH_KEY_TYPE;
+
+  private _sigType: WEB3AUTH_SIG_TYPE;
 
   private _torusNodeEndpoints: string[] = [];
 
@@ -45,6 +49,7 @@ class NodeDetailManager {
   constructor({
     network = TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
     keyType = KEY_TYPE.SECP256K1,
+    sigType = SIG_TYPE.ECDSA_SECP256K1,
     fndServerEndpoint,
     enableLogging = false,
   }: NodeDetailManagerParams = {}) {
@@ -53,6 +58,7 @@ class NodeDetailManager {
     }
     this.network = network;
     this._keyType = keyType;
+    this._sigType = sigType;
     this.updated = false;
     if (fndServerEndpoint) {
       this.fndServerEndpoint = fndServerEndpoint;
@@ -83,7 +89,7 @@ class NodeDetailManager {
 
       try {
         const { nodeDetails } = await get<{ nodeDetails: INodeDetails }>(
-          `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}&keyType=${this._keyType}`
+          `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}&keyType=${this._keyType}&sigType=${this._sigType}`
         );
         this.setNodeDetails(nodeDetails);
 
@@ -92,7 +98,7 @@ class NodeDetailManager {
         log.error("Failed to fetch node details from server, using local.", error);
       }
 
-      const nodeDetails = fetchLocalConfig(this.network as TORUS_NETWORK_TYPE, this._keyType);
+      const nodeDetails = fetchLocalConfig(this.network as TORUS_NETWORK_TYPE, this._keyType, this._sigType);
       if (!nodeDetails) throw new Error("Failed to fetch node details");
       this.setNodeDetails(nodeDetails);
       return this._nodeDetails;
