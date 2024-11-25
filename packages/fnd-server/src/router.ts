@@ -1,4 +1,12 @@
-import { KEY_TYPE, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK, WEB3AUTH_KEY_TYPE } from "@toruslabs/constants";
+import {
+  KEY_TYPE,
+  SIG_TYPE,
+  TORUS_LEGACY_NETWORK,
+  TORUS_NETWORK_TYPE,
+  TORUS_SAPPHIRE_NETWORK,
+  WEB3AUTH_KEY_TYPE,
+  WEB3AUTH_SIG_TYPE,
+} from "@toruslabs/constants";
 import { fetchLocalConfig } from "@toruslabs/fnd-base";
 import { celebrate, Joi } from "celebrate";
 import express, { Request, Response } from "express";
@@ -27,16 +35,19 @@ router.get(
         keyType: Joi.string()
           .optional()
           .allow(...Object.values(KEY_TYPE)),
+        sigType: Joi.string()
+          .optional()
+          .allow(...Object.values(SIG_TYPE)),
       }),
     },
     { allowUnknown: true }
   ),
   async (req: Request, res: Response) => {
     try {
-      const { network, keyType = "secp256k1" } = req.query as Record<string, string>;
+      const { network, keyType = KEY_TYPE.SECP256K1, sigType = SIG_TYPE.ECDSA_SECP256K1 } = req.query as Record<string, string>;
       const finalNetwork = network.toLowerCase();
       // use static details for sapphire mainnet and testnet
-      const nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE);
+      const nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE, sigType as WEB3AUTH_SIG_TYPE);
 
       return res.status(200).json({
         nodeDetails,
