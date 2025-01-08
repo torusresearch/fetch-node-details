@@ -1,6 +1,0 @@
-{
-  "import": "tsx",
-  "timeout": 0,
-  "exit": true,
-  "extension": "ts"
-}
