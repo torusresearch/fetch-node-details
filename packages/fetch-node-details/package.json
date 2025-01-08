@@ -61,7 +61,7 @@
   },
   "homepage": "https://github.com/torusresearch/fetch-node-details-sapphire#readme",
   "engines": {
-    "node": ">=18.x",
+    "node": ">=20.x",
     "npm": ">=9.x"
   },
   "publishConfig": {
