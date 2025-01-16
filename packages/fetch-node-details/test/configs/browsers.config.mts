@@ -7,8 +7,8 @@ export default defineConfig({
       screenshotFailures: false,
       headless: true,
       provider: "playwright",
-      name: "chromium",
       enabled: true,
+      instances: [{ browser: "chromium" }, { browser: "firefox" }, { browser: "webkit" }],
     },
     coverage: {
       reporter: ["text"],
