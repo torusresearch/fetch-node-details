@@ -10,3 +10,4 @@ services:
       - "8060:8060/tcp"
     volumes:
       - .:/app
+      - /app/node_modules/@esbuild
