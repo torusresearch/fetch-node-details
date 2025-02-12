@@ -124,4 +124,28 @@ describe("Fetch Node Details", function () {
     delete details.updated;
     deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET));
   });
+
+  it("#should use override keytype and signType if provided", async function () {
+    const nodeDetailManager = new NodeDetailManager({
+      fndServerEndpoint,
+      enableLogging: true,
+    });
+    const details = await nodeDetailManager.getNodeDetails({
+      verifier: "google",
+      verifierId: "hello@tor.us",
+      keyType: "ed25519",
+      sigType: "ed25519",
+    });
+    delete details.updated;
+    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, undefined, "ed25519", "ed25519"));
+
+    const details2 = await nodeDetailManager.getNodeDetails({
+      verifier: "google",
+      verifierId: "hello@tor.us",
+      keyType: "secp256k1",
+      sigType: "bip340",
+    });
+    delete details2.updated;
+    deepStrictEqual(details2, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, undefined, "secp256k1", "bip340"));
+  });
 });
