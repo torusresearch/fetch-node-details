@@ -12,14 +12,23 @@ import {
 
 import { getSapphireNodeDetails } from "./sapphireNetworkConfig";
 
-export function fetchLocalConfig(network: TORUS_NETWORK_TYPE, keyType: WEB3AUTH_KEY_TYPE, sigType?: WEB3AUTH_SIG_TYPE): INodeDetails | undefined {
+export function fetchLocalConfig(
+  network: TORUS_NETWORK_TYPE,
+  keyType: WEB3AUTH_KEY_TYPE,
+  sigType?: WEB3AUTH_SIG_TYPE,
+  trackingId?: string
+): INodeDetails | undefined {
   if (Object.values(TORUS_SAPPHIRE_NETWORK).includes(network as TORUS_SAPPHIRE_NETWORK_TYPE)) {
-    return getSapphireNodeDetails(network as TORUS_SAPPHIRE_NETWORK_TYPE, undefined, keyType, sigType);
+    const eps = getSapphireNodeDetails(network as TORUS_SAPPHIRE_NETWORK_TYPE, undefined, keyType, sigType, trackingId);
+    return eps;
   }
 
   if (Object.values(TORUS_LEGACY_NETWORK).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
     const legacyMap = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
-    if (legacyMap.migrationCompleted) return getSapphireNodeDetails(legacyMap.networkMigratedTo, network as TORUS_LEGACY_NETWORK_TYPE, keyType);
+    if (legacyMap.migrationCompleted) {
+      const ep = getSapphireNodeDetails(legacyMap.networkMigratedTo, network as TORUS_LEGACY_NETWORK_TYPE, keyType, sigType, trackingId);
+      return ep;
+    }
   }
 
   return undefined;

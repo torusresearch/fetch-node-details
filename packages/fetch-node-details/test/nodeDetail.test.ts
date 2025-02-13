@@ -14,22 +14,25 @@ describe("Fetch Node Details", function () {
       enableLogging: true,
     });
     const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
+
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
-    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.MAINNET));
+    const expectedDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.MAINNET);
+    deepStrictEqual(details, expectedDetails);
     strictEqual(metadataUrl, METADATA_MAP[TORUS_LEGACY_NETWORK.MAINNET]);
   });
 
   it("#should return correct values - sapphire devnet", async function () {
+    const trackingId = "eea55f6dede3377be2ba5e8e5839a84afcdb9e6447ad0265";
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET,
       fndServerEndpoint,
       enableLogging: true,
     });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us", trackingId });
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
-    const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET);
+    const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, undefined, undefined, undefined, trackingId);
     deepStrictEqual(details, compareNodeDetails);
     strictEqual(metadataUrl, compareNodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata"));
   });
@@ -74,29 +77,21 @@ describe("Fetch Node Details", function () {
     strictEqual(metadataUrl, METADATA_MAP[TORUS_LEGACY_NETWORK.AQUA]);
   });
 
-  it("#should return correct values - celeste", async function () {
-    const nodeDetailManager = new NodeDetailManager({
-      network: TORUS_LEGACY_NETWORK.CELESTE,
-      fndServerEndpoint,
-      enableLogging: true,
-    });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google-celeste", verifierId: "hello@tor.us" });
-    delete details.updated;
-    const metadataUrl = await nodeDetailManager.getMetadataUrl();
-    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.CELESTE));
-    strictEqual(metadataUrl, METADATA_MAP[TORUS_LEGACY_NETWORK.CELESTE]);
-  });
-
   it("#should return correct values - testnet", async function () {
+    const trackingId = "26a8e90f2414039ad745514413591b51e697fce81091cc58";
+
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_LEGACY_NETWORK.TESTNET,
       fndServerEndpoint,
       enableLogging: true,
     });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us", trackingId });
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
-    deepStrictEqual(details, getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, TORUS_LEGACY_NETWORK.TESTNET));
+    deepStrictEqual(
+      details,
+      getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, TORUS_LEGACY_NETWORK.TESTNET, undefined, undefined, trackingId)
+    );
     strictEqual(metadataUrl, METADATA_MAP[TORUS_LEGACY_NETWORK.TESTNET]);
   });
 

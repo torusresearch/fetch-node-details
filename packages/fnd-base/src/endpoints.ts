@@ -26,40 +26,44 @@ export const SAPPHIRE_NETWORK_URLS: Record<TORUS_SAPPHIRE_NETWORK_TYPE, string[]
   ],
 };
 
-export const getSSSEndpoints = (sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE, legacyNetwork?: TORUS_LEGACY_NETWORK_TYPE) => {
+export const getSSSEndpoints = (sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE, legacyNetwork?: TORUS_LEGACY_NETWORK_TYPE, trackingId?: string) => {
   const endpoints = SAPPHIRE_NETWORK_URLS[sapphireNetwork];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${sapphireNetwork}`);
   }
   const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[legacyNetwork as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
+    let endpoint = new URL(`${e}/sss/jrpc`);
     if (routeIdentifier && routeIdentifier.networkIdentifier) {
-      return `${e}/sss/${routeIdentifier.networkIdentifier}/jrpc`;
+      endpoint = new URL(`${e}/sss/${routeIdentifier.networkIdentifier}/jrpc`);
     }
-    return `${e}/sss/jrpc`;
+    if (trackingId) {
+      endpoint.searchParams.set("trackingId", trackingId);
+    }
+    return endpoint.href;
   });
 };
 
-export const getRSSEndpoints = (sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE, legacyNetwork?: TORUS_LEGACY_NETWORK_TYPE) => {
+export const getRSSEndpoints = (sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE, trackingId?: string) => {
   const endpoints = SAPPHIRE_NETWORK_URLS[sapphireNetwork];
   if (!endpoints || endpoints.length === 0) {
     throw new Error(`Unsupported network: ${sapphireNetwork}`);
   }
-
-  const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[legacyNetwork as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
-    if (routeIdentifier && routeIdentifier.networkIdentifier) {
-      return `${e}/rss/${routeIdentifier.networkIdentifier}`;
+    const endpoint = new URL(`${e}/rss`);
+
+    if (trackingId) {
+      endpoint.searchParams.set("trackingId", trackingId);
     }
-    return `${e}/rss`;
+    return endpoint.href;
   });
 };
 
 export const getTSSEndpoints = (
   sapphireNetwork: TORUS_SAPPHIRE_NETWORK_TYPE,
-  legacyNetwork?: TORUS_LEGACY_NETWORK_TYPE,
   keyType = KEY_TYPE.SECP256K1 as WEB3AUTH_KEY_TYPE,
-  sigType?: WEB3AUTH_SIG_TYPE
+  sigType?: WEB3AUTH_SIG_TYPE,
+  trackingId?: string
 ) => {
   const endpoints = SAPPHIRE_NETWORK_URLS[sapphireNetwork];
   if (!endpoints || endpoints.length === 0) {
@@ -95,11 +99,11 @@ export const getTSSEndpoints = (
     throw new Error("Invalid key type");
   })();
 
-  const routeIdentifier = LEGACY_NETWORKS_ROUTE_MAP[legacyNetwork as TORUS_LEGACY_NETWORK_TYPE];
   return endpoints.map((e) => {
-    if (routeIdentifier && routeIdentifier.networkIdentifier) {
-      return `${e}/${tssPath}/${routeIdentifier.networkIdentifier}`;
+    const endpoint = new URL(`${e}/${tssPath}`);
+    if (trackingId) {
+      endpoint.searchParams.set("trackingId", trackingId);
     }
-    return `${e}/${tssPath}`;
+    return endpoint.href;
   });
 };
