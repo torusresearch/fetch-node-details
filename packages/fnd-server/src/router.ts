@@ -12,6 +12,8 @@ import { celebrate, Joi } from "celebrate";
 import express, { Request, Response } from "express";
 import log from "loglevel";
 
+import { getTrackingId } from "./utils/tracking";
+
 const router = express.Router();
 
 router.get("/", (_req: Request, res: Response) => {
@@ -38,17 +40,27 @@ router.get(
         sigType: Joi.string()
           .optional()
           .allow(...Object.values(SIG_TYPE)),
+        trackingId: Joi.string().optional(),
       }),
     },
     { allowUnknown: true }
   ),
   async (req: Request, res: Response) => {
     try {
-      const { network, keyType = KEY_TYPE.SECP256K1, sigType = SIG_TYPE.ECDSA_SECP256K1 } = req.query as Record<string, string>;
+      const { network, verifier, verifierId, keyType = KEY_TYPE.SECP256K1, sigType = SIG_TYPE.ECDSA_SECP256K1 } = req.query as Record<string, string>;
       const finalNetwork = network.toLowerCase();
+      let trackingId = req.query.trackingId as string;
+      if (!trackingId || trackingId === "undefined") {
+        // check if tracking is enabled by default
+        trackingId = getTrackingId(verifier, verifierId, finalNetwork as TORUS_NETWORK_TYPE);
+      }
       // use static details for sapphire mainnet and testnet
-      const nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE, sigType as WEB3AUTH_SIG_TYPE);
-
+      const nodeDetails = fetchLocalConfig(
+        finalNetwork as TORUS_NETWORK_TYPE,
+        keyType as WEB3AUTH_KEY_TYPE,
+        sigType as WEB3AUTH_SIG_TYPE,
+        trackingId
+      );
       return res.status(200).json({
         nodeDetails,
         success: true,
