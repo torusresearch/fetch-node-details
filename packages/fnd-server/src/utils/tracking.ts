@@ -17,7 +17,11 @@ export const getTrackingId = (verifier: string, verifierId: string, network: TOR
   if (!isTrackingEnabled(verifier, network)) {
     return undefined;
   }
-  // hash the verifier and verifierId
-  const hash = crypto.createHash("sha256").update(`${verifier.toLowerCase()}:${verifierId.toLowerCase()}`).digest("hex");
-  return hash;
+  // to differentiate between requests
+  const randomId = crypto.randomBytes(16).toString("hex");
+  // user's all request can be tracked by this id
+  const userID = crypto.createHash("sha256").update(`${verifier.toLowerCase()}:${verifierId.toLowerCase()}`).digest("hex").slice(0, 16);
+  // a specific request can be tracked by this id
+  const trackingId = userID.concat(randomId);
+  return trackingId;
 };

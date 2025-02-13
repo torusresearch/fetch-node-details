@@ -23,13 +23,13 @@ describe("Fetch Node Details", function () {
   });
 
   it("#should return correct values - sapphire devnet", async function () {
-    const trackingId = "eea55f6dede3377b63c3aa3e52cfc7345553f4af7125fb51062404f285afb407";
+    const trackingId = "eea55f6dede3377be2ba5e8e5839a84afcdb9e6447ad0265";
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET,
       fndServerEndpoint,
       enableLogging: true,
     });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us", trackingId });
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, undefined, undefined, undefined, trackingId);
@@ -78,14 +78,14 @@ describe("Fetch Node Details", function () {
   });
 
   it("#should return correct values - testnet", async function () {
-    const trackingId = "26a8e90f2414039ac61398b6b3aa4bd4993f6f65cc81954c1a435b0789621343";
+    const trackingId = "26a8e90f2414039ad745514413591b51e697fce81091cc58";
 
     const nodeDetailManager = new NodeDetailManager({
       network: TORUS_LEGACY_NETWORK.TESTNET,
       fndServerEndpoint,
       enableLogging: true,
     });
-    const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us" });
+    const details = await nodeDetailManager.getNodeDetails({ verifier: "google-lrc", verifierId: "hello@tor.us", trackingId });
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     deepStrictEqual(
