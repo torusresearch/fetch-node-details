@@ -13,7 +13,7 @@ import {
   WEB3AUTH_KEY_TYPE,
   WEB3AUTH_SIG_TYPE,
 } from "@toruslabs/constants";
-import { fetchLocalConfig } from "@toruslabs/fnd-base";
+import { fetchLocalConfig, validateKeyTypeAndSigTypeForTSS } from "@toruslabs/fnd-base";
 import { get } from "@toruslabs/http-helpers";
 import logger from "loglevel";
 
@@ -99,6 +99,9 @@ class NodeDetailManager {
 
       const finalKeyType = keyType ?? this._keyType;
       const finalSigType = sigType ?? this._sigType;
+
+      // validate key type and sig type to fetch TSS endpoints
+      validateKeyTypeAndSigTypeForTSS(finalKeyType, finalSigType);
 
       try {
         const { nodeDetails } = await get<{ nodeDetails: INodeDetails }>(
