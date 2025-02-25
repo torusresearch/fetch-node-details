@@ -1,6 +1,6 @@
-import { METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
+import { METADATA_MAP, SIG_TYPE, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
 import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
-import { deepStrictEqual, strictEqual, throws } from "assert";
+import { deepStrictEqual, rejects, strictEqual, throws } from "assert";
 
 import NodeDetailManager from "../src/nodeDetailManager";
 
@@ -112,6 +112,27 @@ describe("Fetch Node Details", function () {
       },
       Error,
       "Invalid network"
+    );
+  });
+
+  it("#should throw error for invalid key type and sig type", async function () {
+    const nodeDetailManager = new NodeDetailManager({
+      network: TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
+      fndServerEndpoint,
+      enableLogging: true,
+    });
+
+    const sigType = SIG_TYPE.ED25519;
+
+    await rejects(
+      async () => {
+        await nodeDetailManager.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us", keyType: "secp256k1", sigType });
+      },
+      (err) => {
+        const error = err as Error;
+        strictEqual(error.message, `Invalid key type for ${sigType}`);
+        return true;
+      }
     );
   });
 
