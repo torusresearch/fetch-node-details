@@ -83,13 +83,26 @@ class NodeDetailManager {
     };
   }
 
-  async getNodeDetails({ verifier, verifierId }: { verifier: string; verifierId: string }): Promise<INodeDetails> {
+  async getNodeDetails({
+    verifier,
+    verifierId,
+    keyType,
+    sigType,
+  }: {
+    verifier: string;
+    verifierId: string;
+    keyType?: WEB3AUTH_KEY_TYPE;
+    sigType?: WEB3AUTH_SIG_TYPE;
+  }): Promise<INodeDetails> {
     try {
       if (this.updated && !MULTI_CLUSTER_NETWORKS.includes(this.network as TORUS_LEGACY_NETWORK_TYPE)) return this._nodeDetails;
 
+      const finalKeyType = keyType ?? this._keyType;
+      const finalSigType = sigType ?? this._sigType;
+
       try {
         const { nodeDetails } = await get<{ nodeDetails: INodeDetails }>(
-          `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}&keyType=${this._keyType}&sigType=${this._sigType}`
+          `${this.fndServerEndpoint}?network=${this.network}&verifier=${verifier}&verifierId=${verifierId}&keyType=${finalKeyType}&sigType=${finalSigType}`
         );
         this.setNodeDetails(nodeDetails);
 
@@ -98,7 +111,7 @@ class NodeDetailManager {
         log.error("Failed to fetch node details from server, using local.", error);
       }
 
-      const nodeDetails = fetchLocalConfig(this.network as TORUS_NETWORK_TYPE, this._keyType, this._sigType);
+      const nodeDetails = fetchLocalConfig(this.network as TORUS_NETWORK_TYPE, finalKeyType, finalSigType);
       if (!nodeDetails) throw new Error("Failed to fetch node details");
       this.setNodeDetails(nodeDetails);
       return this._nodeDetails;
