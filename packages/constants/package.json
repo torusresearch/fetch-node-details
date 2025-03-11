@@ -6,7 +6,7 @@
   "module": "dist/lib.esm/index.js",
   "unpkg": "dist/constants.umd.min.js",
   "jsdelivr": "dist/constants.umd.min.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/lib.cjs/types/index.d.ts",
   "sideEffects": false,
   "files": [
     "dist"
