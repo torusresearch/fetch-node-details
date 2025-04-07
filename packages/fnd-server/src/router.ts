@@ -15,11 +15,11 @@ import log from "loglevel";
 const router = express.Router();
 
 router.get("/", (_req: Request, res: Response) => {
-  return res.status(200).send("Welcome to the fnd server!!");
+  res.status(200).send("Welcome to the fnd server!!");
 });
 
 router.get("/health", (_req: Request, res: Response) => {
-  return res.status(200).send("ok!");
+  res.status(200).send("ok!");
 });
 
 router.get(
@@ -49,13 +49,13 @@ router.get(
       // use static details for sapphire mainnet and testnet
       const nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE, sigType as WEB3AUTH_SIG_TYPE);
 
-      return res.status(200).json({
+      res.status(200).json({
         nodeDetails,
         success: true,
       });
     } catch (error) {
       log.error("Error while fetching nodes details", error);
-      return res.status(500).json({
+      res.status(500).json({
         success: false,
         message: (error as Error).message || "Something went wrong",
       });
