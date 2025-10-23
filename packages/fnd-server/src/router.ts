@@ -44,10 +44,21 @@ router.get(
   ),
   async (req: Request, res: Response) => {
     try {
-      const { network, keyType = KEY_TYPE.SECP256K1, sigType = SIG_TYPE.ECDSA_SECP256K1 } = req.query as Record<string, string>;
+      const { network, keyType, sigType } = req.query as Record<string, string>;
+      if ((keyType && !sigType) || (!keyType && sigType)) {
+        res.status(400).json({
+          success: false,
+          message: "keyType and sigType must be provided together",
+        });
+        return;
+      }
       const finalNetwork = network.toLowerCase();
       // use static details for sapphire mainnet and testnet
-      const nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE, sigType as WEB3AUTH_SIG_TYPE);
+      const nodeDetails = fetchLocalConfig(
+        finalNetwork as TORUS_NETWORK_TYPE,
+        (keyType ?? KEY_TYPE.SECP256K1) as WEB3AUTH_KEY_TYPE,
+        (sigType ?? SIG_TYPE.ECDSA_SECP256K1) as WEB3AUTH_SIG_TYPE
+      );
 
       res.status(200).json({
         nodeDetails,
