@@ -4,9 +4,16 @@
   "description": "Contains constants for torus and web3auth",
   "main": "dist/lib.cjs/index.js",
   "module": "dist/lib.esm/index.js",
-  "unpkg": "dist/constants.umd.min.js",
-  "jsdelivr": "dist/constants.umd.min.js",
+  "unpkg": "dist/lib.esm/index.js",
+  "jsdelivr": "dist/lib.esm/index.js",
   "types": "dist/lib.cjs/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/lib.cjs/types/index.d.ts",
+      "import": "./dist/lib.esm/index.js",
+      "require": "./dist/lib.cjs/index.js"
+    }
+  },
   "sideEffects": false,
   "files": [
     "dist"
@@ -16,7 +23,7 @@
     "build": "torus-scripts build",
     "release": "torus-scripts release",
     "prepack": "npm run build",
-    "lint": "eslint --fix 'src/**/*.ts'"
+    "lint": "torus-scripts lint"
   },
   "peerDependencies": {
     "@babel/runtime": "7.x"
@@ -51,8 +58,8 @@
   },
   "homepage": "https://github.com/torusresearch/fetch-node-details#readme",
   "engines": {
-    "node": ">=18.x",
-    "npm": ">=9.x"
+    "node": ">=22.x",
+    "npm": ">=10.x"
   },
   "publishConfig": {
     "access": "public"

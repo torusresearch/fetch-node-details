@@ -2,10 +2,10 @@
   "extends": "@toruslabs/config/tsconfig.default.json",
   "include": ["src"],
   "compilerOptions": {
-    "moduleResolution": "Node16",
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "declarationDir": "./dist/types",
-    "module": "Node16",
+    "module": "NodeNext",
     "target": "ES2022",
     "lib": ["ES2022"]
   }
