@@ -13,7 +13,7 @@
     "@toruslabs/eslint-config-typescript": "^5.0.0",
     "@toruslabs/torus-scripts": "^8.0.0",
     "cross-env": "^10.1.0",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.2.4",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
     "lerna": "^9.0.3",
