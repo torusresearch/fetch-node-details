@@ -20,7 +20,7 @@
     "@toruslabs/config": "^4.0.0",
     "@toruslabs/constants": "^15.0.0",
     "@toruslabs/fnd-base": "^15.0.0",
-    "@toruslabs/loglevel-sentry": "^8.1.0",
+    "@toruslabs/loglevel-sentry": "^9.0.0",
     "celebrate": "^15.0.3",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
