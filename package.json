@@ -10,16 +10,15 @@
   "devDependencies": {
     "@babel/register": "^7.28.6",
     "@toruslabs/config": "^4.0.0",
-    "@toruslabs/eslint-config-typescript": "^5.0.0",
-    "@toruslabs/torus-scripts": "^8.0.0",
+    "@toruslabs/eslint-config-typescript": "^5.0.1",
+    "@toruslabs/torus-scripts": "^8.0.1",
     "cross-env": "^10.1.0",
-    "dotenv": "^17.2.4",
+    "dotenv": "^17.3.1",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
-    "lerna": "^9.0.3",
-    "lint-staged": "^16.2.7",
+    "lerna": "^9.0.5",
+    "lint-staged": "^16.3.2",
     "prettier": "^3.8.1",
-    "tsconfig-paths-webpack-plugin": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "wait-port": "^1.1.0"
@@ -47,8 +46,8 @@
     "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
   },
   "engines": {
-    "node": ">=18.x",
-    "npm": ">=9.x"
+    "node": ">=22.x",
+    "npm": ">=10.x"
   },
   "author": "",
   "license": "MIT",
