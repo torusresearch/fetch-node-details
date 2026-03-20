@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fetch-node-details",
-  "version": "16.0.0",
+  "version": "16.1.0",
   "description": "Fetches the node details for torus nodes",
   "main": "dist/lib.cjs/index.js",
   "module": "dist/lib.esm/index.js",
@@ -25,8 +25,8 @@
     "@babel/runtime": "7.x"
   },
   "dependencies": {
-    "@toruslabs/constants": "^16.0.0",
-    "@toruslabs/fnd-base": "^16.0.0",
+    "@toruslabs/constants": "^16.1.0",
+    "@toruslabs/fnd-base": "^16.1.0",
     "@toruslabs/http-helpers": "^9.0.0",
     "loglevel": "^1.9.2"
   },
