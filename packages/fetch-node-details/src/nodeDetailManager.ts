@@ -1,10 +1,11 @@
 import {
-  FND_SERVER,
+  BUILD_ENV,
+  BUILD_ENV_TYPE,
+  FND_SERVER_MAP,
   INodeDetails,
   INodePub,
   KEY_TYPE,
-  METADATA_MAP,
-  MULTI_CLUSTER_NETWORKS,
+  LEGACY_METADATA_MAP,
   SIG_TYPE,
   TORUS_LEGACY_NETWORK,
   TORUS_LEGACY_NETWORK_TYPE,
@@ -22,7 +23,7 @@ import { NodeDetailManagerParams } from "./interfaces";
 const log = logger.getLogger("fnd");
 
 class NodeDetailManager {
-  private fndServerEndpoint = `${FND_SERVER}/node-details`;
+  private fndServerEndpoint: string;
 
   private _currentEpoch = "1";
 
@@ -46,22 +47,28 @@ class NodeDetailManager {
 
   private network: TORUS_NETWORK_TYPE;
 
+  private buildEnv: BUILD_ENV_TYPE;
+
   constructor({
     network = TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET,
     keyType = KEY_TYPE.SECP256K1,
     sigType = SIG_TYPE.ECDSA_SECP256K1,
     fndServerEndpoint,
     enableLogging = false,
+    buildEnv = BUILD_ENV.PRODUCTION,
   }: NodeDetailManagerParams = {}) {
     if (network && !Object.values({ ...TORUS_LEGACY_NETWORK, ...TORUS_SAPPHIRE_NETWORK }).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
       throw new Error("Invalid network");
     }
     this.network = network;
+    this.buildEnv = buildEnv;
     this._keyType = keyType;
     this._sigType = sigType;
     this.updated = false;
     if (fndServerEndpoint) {
       this.fndServerEndpoint = fndServerEndpoint;
+    } else {
+      this.fndServerEndpoint = `${FND_SERVER_MAP[buildEnv]}/node-details`;
     }
     if (enableLogging) {
       log.enableAll();
@@ -85,7 +92,7 @@ class NodeDetailManager {
 
   async getNodeDetails({ verifier, verifierId }: { verifier: string; verifierId: string }): Promise<INodeDetails> {
     try {
-      if (this.updated && !MULTI_CLUSTER_NETWORKS.includes(this.network as TORUS_LEGACY_NETWORK_TYPE)) return this._nodeDetails;
+      if (this.updated) return this._nodeDetails;
 
       try {
         const { nodeDetails } = await get<{ nodeDetails: INodeDetails }>(
@@ -110,7 +117,7 @@ class NodeDetailManager {
 
   async getMetadataUrl(): Promise<string> {
     if (Object.values(TORUS_LEGACY_NETWORK).includes(this.network as TORUS_LEGACY_NETWORK_TYPE)) {
-      return METADATA_MAP[this.network as TORUS_LEGACY_NETWORK_TYPE];
+      return LEGACY_METADATA_MAP[this.buildEnv];
     }
     const nodeDetails = await this.getNodeDetails({ verifier: "test-verifier", verifierId: "test-verifier-id" });
     return nodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata");

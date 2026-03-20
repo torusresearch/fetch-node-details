@@ -1,4 +1,4 @@
-import { METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
+import { BUILD_ENV, LEGACY_METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
 import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
 import { describe, expect, it } from "vitest";
 
@@ -17,7 +17,7 @@ describe("Fetch Node Details", () => {
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     expect(details).toEqual(getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.MAINNET));
-    expect(metadataUrl).toBe(METADATA_MAP[TORUS_LEGACY_NETWORK.MAINNET]);
+    expect(metadataUrl).toBe(LEGACY_METADATA_MAP[BUILD_ENV.PRODUCTION]);
   });
 
   it("should return correct values - sapphire devnet", async () => {
@@ -58,7 +58,7 @@ describe("Fetch Node Details", () => {
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     expect(details).toEqual(getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.CYAN));
-    expect(metadataUrl).toBe(METADATA_MAP[TORUS_LEGACY_NETWORK.CYAN]);
+    expect(metadataUrl).toBe(LEGACY_METADATA_MAP[BUILD_ENV.PRODUCTION]);
   });
 
   it("should return correct values - aqua", async () => {
@@ -71,7 +71,7 @@ describe("Fetch Node Details", () => {
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     expect(details).toEqual(getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.AQUA));
-    expect(metadataUrl).toBe(METADATA_MAP[TORUS_LEGACY_NETWORK.AQUA]);
+    expect(metadataUrl).toBe(LEGACY_METADATA_MAP[BUILD_ENV.PRODUCTION]);
   });
 
   it("should return correct values - celeste", async () => {
@@ -84,7 +84,7 @@ describe("Fetch Node Details", () => {
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     expect(details).toEqual(getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET, TORUS_LEGACY_NETWORK.CELESTE));
-    expect(metadataUrl).toBe(METADATA_MAP[TORUS_LEGACY_NETWORK.CELESTE]);
+    expect(metadataUrl).toBe(LEGACY_METADATA_MAP[BUILD_ENV.PRODUCTION]);
   });
 
   it("should return correct values - testnet", async () => {
@@ -97,7 +97,7 @@ describe("Fetch Node Details", () => {
     delete details.updated;
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     expect(details).toEqual(getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET, TORUS_LEGACY_NETWORK.TESTNET));
-    expect(metadataUrl).toBe(METADATA_MAP[TORUS_LEGACY_NETWORK.TESTNET]);
+    expect(metadataUrl).toBe(LEGACY_METADATA_MAP[BUILD_ENV.PRODUCTION]);
   });
 
   it("should throw error for invalid network", () => {

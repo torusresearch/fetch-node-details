@@ -19,7 +19,7 @@ export function fetchLocalConfig(network: TORUS_NETWORK_TYPE, keyType: WEB3AUTH_
 
   if (Object.values(TORUS_LEGACY_NETWORK).includes(network as TORUS_LEGACY_NETWORK_TYPE)) {
     const legacyMap = LEGACY_NETWORKS_ROUTE_MAP[network as TORUS_LEGACY_NETWORK_TYPE];
-    if (legacyMap.migrationCompleted) return getSapphireNodeDetails(legacyMap.networkMigratedTo, network as TORUS_LEGACY_NETWORK_TYPE, keyType);
+    if (legacyMap.networkMigratedTo) return getSapphireNodeDetails(legacyMap.networkMigratedTo, network as TORUS_LEGACY_NETWORK_TYPE, keyType);
   }
 
   return undefined;
