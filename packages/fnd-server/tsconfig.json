@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "declarationDir": "./dist/types",
     "module": "NodeNext",
-    "target": "ES2022",
-    "lib": ["ES2022"]
+    "target": "ES2024",
+    "lib": ["ES2024"]
   }
 }
