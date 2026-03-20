@@ -1,4 +1,4 @@
-import { TORUS_NETWORK_TYPE, WEB3AUTH_KEY_TYPE, WEB3AUTH_SIG_TYPE } from "@toruslabs/constants";
+import { BUILD_ENV_TYPE, TORUS_NETWORK_TYPE, WEB3AUTH_KEY_TYPE, WEB3AUTH_SIG_TYPE } from "@toruslabs/constants";
 
 export type NodeDetailManagerParams = {
   network?: TORUS_NETWORK_TYPE;
@@ -6,4 +6,5 @@ export type NodeDetailManagerParams = {
   sigType?: WEB3AUTH_SIG_TYPE;
   fndServerEndpoint?: string;
   enableLogging?: boolean;
+  buildEnv?: BUILD_ENV_TYPE;
 };
