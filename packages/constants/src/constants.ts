@@ -37,11 +37,11 @@ export const LEGACY_NETWORKS_ROUTE_MAP: Record<TORUS_LEGACY_NETWORK_TYPE, ILegac
   },
 };
 
-export const ALLOW_MAP: Record<BUILD_ENV_TYPE, string> = {
-  [BUILD_ENV.PRODUCTION]: "https://api.web3auth.io/signer-service",
-  [BUILD_ENV.DEVELOPMENT]: "https://api-develop.web3auth.io/signer-service",
-  [BUILD_ENV.STAGING]: "https://api.web3auth.io/signer-service",
-  [BUILD_ENV.TESTING]: "https://api-develop.web3auth.io/signer-service",
+export const CITADEL_SERVER_MAP: Record<BUILD_ENV_TYPE, string> = {
+  [BUILD_ENV.PRODUCTION]: "https://api.web3auth.io/citadel-service",
+  [BUILD_ENV.DEVELOPMENT]: "https://api-develop.web3auth.io/citadel-service",
+  [BUILD_ENV.STAGING]: "https://api.web3auth.io/citadel-service",
+  [BUILD_ENV.TESTING]: "https://api-develop.web3auth.io/citadel-service",
 };
 
 export const LEGACY_METADATA_MAP: Record<BUILD_ENV_TYPE, string> = {
@@ -59,15 +59,15 @@ export const FND_SERVER_MAP: Record<BUILD_ENV_TYPE, string> = {
   [BUILD_ENV.TESTING]: "https://api-develop.web3auth.io/fnd-service",
 };
 
-// Session backend service
-export const SESSION_SERVER_MAP: Record<BUILD_ENV_TYPE, string> = {
+// Storage backend service
+export const STORAGE_SERVER_MAP: Record<BUILD_ENV_TYPE, string> = {
   [BUILD_ENV.PRODUCTION]: "https://api.web3auth.io/session-service",
   [BUILD_ENV.DEVELOPMENT]: "https://api-develop.web3auth.io/session-service",
   [BUILD_ENV.STAGING]: "https://api.web3auth.io/session-service",
   [BUILD_ENV.TESTING]: "https://api-develop.web3auth.io/session-service",
 };
 
-export const SESSION_SERVER_SOCKET_URL_MAP: Record<BUILD_ENV_TYPE, string> = {
+export const STORAGE_SERVER_SOCKET_URL_MAP: Record<BUILD_ENV_TYPE, string> = {
   [BUILD_ENV.PRODUCTION]: "https://session.web3auth.io",
   [BUILD_ENV.DEVELOPMENT]: "https://develop-session.web3auth.io",
   [BUILD_ENV.STAGING]: "https://session.web3auth.io",
