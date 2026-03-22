@@ -44,6 +44,13 @@ export const CITADEL_SERVER_MAP: Record<BUILD_ENV_TYPE, string> = {
   [BUILD_ENV.TESTING]: "https://api-develop.web3auth.io/citadel-service",
 };
 
+export const DASHBOARD_PUBLIC_API_MAP: Record<BUILD_ENV_TYPE, string> = {
+  [BUILD_ENV.PRODUCTION]: "https://api.web3auth.io/signer-service",
+  [BUILD_ENV.DEVELOPMENT]: "https://api-develop.web3auth.io/signer-service",
+  [BUILD_ENV.STAGING]: "https://api.web3auth.io/signer-service",
+  [BUILD_ENV.TESTING]: "https://api-develop.web3auth.io/signer-service",
+};
+
 export const LEGACY_METADATA_MAP: Record<BUILD_ENV_TYPE, string> = {
   [BUILD_ENV.PRODUCTION]: "https://api.web3auth.io/metadata-service",
   [BUILD_ENV.DEVELOPMENT]: "https://api-develop.web3auth.io/metadata-service",
