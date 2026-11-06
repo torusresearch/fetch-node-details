@@ -7,6 +7,16 @@ services:
     env_file:
       - ./.env.development
     ports:
-      - "8060:8060/tcp"
+      - "127.0.0.1:8060:8060/tcp"
     volumes:
       - ./packages/fnd-server/src:/app/packages/fnd-server/src
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8060/health"]
+      interval: 10s
+      timeout: 5s
+      start_period: 20s
+      retries: 5

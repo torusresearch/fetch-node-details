@@ -22,6 +22,9 @@ RUN npm run build -w @toruslabs/constants -w @toruslabs/fnd-base
 
 EXPOSE 8060
 
+HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=5 \
+  CMD wget -q -O /dev/null "http://127.0.0.1:${PORT:-8060}/health" || exit 1
+
 WORKDIR /app/packages/fnd-server
 
 CMD ["npm", "run", "serve"]

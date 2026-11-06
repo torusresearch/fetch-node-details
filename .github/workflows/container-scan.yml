@@ -62,6 +62,7 @@ jobs:
           scan-ref: .
           skip-dirs: node_modules,packages/fetch-node-details,packages/fnd-base,packages/constants
           severity: HIGH,CRITICAL
+          limit-severities-for-sarif: true
           exit-code: "1"
           format: sarif
           output: trivy-results.sarif
