@@ -15,10 +15,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@sentry/node": "^10.45.0",
+    "@sentry/node": "^11.10.0",
     "@toruslabs/constants": "^16.1.1",
     "@toruslabs/fnd-base": "^16.1.1",
-    "@toruslabs/loglevel-sentry": "^9.0.0",
+    "@toruslabs/loglevel-sentry": "^10.0.0",
     "celebrate": "^15.0.3",
     "compression": "^1.8.1",
     "cors": "^2.8.6",

@@ -48,6 +48,7 @@
   "license": "MIT",
   "description": "",
   "overrides": {
+    "glob": "^14.0.4",
     "lodash": "^4.18.1",
     "minimatch": "^11.0.5",
     "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0",
