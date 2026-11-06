@@ -69,6 +69,34 @@ jobs:
       - name: Run tests
         run: npm run test:ci
 
+  docker:
+    name: build fnd-server image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build image
+        working-directory: ./packages/fnd-server
+        run: docker build -t fnd-server:ci .
+
+      - name: Smoke test image
+        run: |
+          docker run -d --name fnd-server -p 8060:8060 fnd-server:ci
+          for i in $(seq 1 30); do curl -fsS http://localhost:8060/health && break; sleep 1; done
+          curl -fsS http://localhost:8060/health
+          test "$(docker exec fnd-server id -u)" != "0"
+          docker logs fnd-server
+          docker rm -f fnd-server
+
   release-notes:
     if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/')
     runs-on: ubuntu-latest
