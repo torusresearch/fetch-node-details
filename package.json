@@ -9,12 +9,12 @@
     "packages/fnd-server"
   ],
   "devDependencies": {
-    "@toruslabs/config": "^4.0.0",
+    "@toruslabs/config": "^5.0.0",
     "@toruslabs/oxlint-config-node": "^1.0.0",
     "@toruslabs/oxlint-config-typescript": "^1.1.0",
     "@toruslabs/torus-scripts": "^9.0.1",
     "rimraf": "^6.1.3",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "vite-plus": "1.5.0",
     "wait-port": "^1.1.0"
   },

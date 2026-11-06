@@ -31,7 +31,7 @@ describe("Fetch Node Details", () => {
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET);
     expect(details).toEqual(compareNodeDetails);
-    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata"));
+    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0]?.replace("/sss/jrpc", "/metadata"));
   });
 
   it("should return correct values - sapphire mainnet", async () => {
@@ -45,7 +45,7 @@ describe("Fetch Node Details", () => {
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET);
     expect(details).toEqual(compareNodeDetails);
-    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata"));
+    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0]?.replace("/sss/jrpc", "/metadata"));
   });
 
   it("should return correct values - cyan", async () => {

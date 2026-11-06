@@ -14,6 +14,10 @@ export default defineConfig({
   },
   lint: {
     ...baseLint,
+    options: {
+      typeAware: true,
+      typeCheck: true,
+    },
     overrides: [
       {
         files: ["packages/fnd-server/**"],
