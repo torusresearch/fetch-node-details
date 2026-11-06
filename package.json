@@ -2,37 +2,34 @@
   "name": "fnd",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/constants",
+    "packages/fnd-base",
+    "packages/fetch-node-details",
+    "packages/fnd-server"
   ],
   "devDependencies": {
     "@toruslabs/config": "^4.0.0",
     "@toruslabs/eslint-config-typescript": "^5.0.1",
     "@toruslabs/torus-scripts": "^8.0.1",
-    "cross-env": "^10.1.0",
     "eslint": "^9.39.2",
-    "lerna": "^9.0.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
+    "rimraf": "^6.1.3",
     "typescript": "^5.9.3",
     "wait-port": "^1.1.0"
   },
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "just:publish:lerna": "lerna publish",
     "wait": "wait-port 8060",
-    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel",
+    "test": "npm run test --workspaces --if-present",
     "server:dev": "docker compose -f docker-compose.dev.yml up --build",
     "server:detach": "docker compose -f docker-compose.dev.yml up --build --detach",
     "test:ci": "npm run server:detach && wait-port 8060 && sleep 20 && npm run test",
-    "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
-    "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
-    "pre-commit": "lerna run pre-commit",
-    "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev",
-    "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/"
-  },
-  "lint-staged": {
-    "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "dev": "npm run dev -w @toruslabs/fnd-server",
+    "clean": "rimraf --glob \"packages/*/dist\""
   },
   "engines": {
     "node": ">=24.22.0",
