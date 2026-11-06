@@ -11,6 +11,7 @@ Use this server to fetch node details from various web3auth's networks
 
 - Multi network support
 - Caching
+
 ## Installation
 
 - npm i

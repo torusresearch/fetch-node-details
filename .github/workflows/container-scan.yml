@@ -1,0 +1,61 @@
+name: Container config scan
+
+on:
+  pull_request:
+    paths:
+      - "Dockerfile.dev"
+      - "docker-compose.dev.yml"
+      - "packages/fnd-server/**"
+      - ".github/workflows/container-scan.yml"
+  push:
+    branches: [develop, master]
+  schedule:
+    - cron: "37 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kics:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    uses: consensys-vertical-apps/shared-services-workflows/.github/workflows/kics-scan.yml@cc196836897aa50360016621a4034fe7ff60082f # v1.19.8
+    with:
+      scan_path: .
+      fail_on: critical,high
+      sarif_report_enabled: true
+    secrets:
+      WIZ_SENSOR_TOKEN: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+  trivy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Trivy config scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          skip-dirs: node_modules,packages/fetch-node-details,packages/fnd-base,packages/constants
+          severity: HIGH,CRITICAL
+          limit-severities-for-sarif: true
+          exit-code: "1"
+          format: sarif
+          output: trivy-results.sarif
+
+      - name: Upload Trivy results
+        if: always()
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy

@@ -1,0 +1,60 @@
+name: Security code scanner
+
+# CodeQL stays on GitHub's default setup. Uploading a second CodeQL analysis
+# from the shared scanner fails while that setup is enabled, so this workflow
+# runs Semgrep and zizmor only.
+
+on:
+  pull_request:
+  push:
+    branches: [develop, master]
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Semgrep analysis
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run Semgrep
+        uses: MetaMask/action-security-code-scanner/packages/semgrep-action@becb242930b3cc271c26da0280050db9c157e291 # v2.1.1
+        with:
+          paths_ignored: |
+            **/node_modules/**
+            **/dist/**
+            **/coverage/**
+            **/.vitest/**
+
+  zizmor:
+    name: GitHub Actions security (zizmor)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Run zizmor
+        continue-on-error: true
+        uses: zizmorcore/zizmor-action@5f14fd08f7cf1cb1609c1e344975f152c7ee938d # v0.5.6
+        with:
+          inputs: .
+          persona: pedantic
+          min-severity: medium
+          advanced-security: "true"

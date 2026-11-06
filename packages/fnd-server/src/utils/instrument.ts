@@ -10,6 +10,16 @@ if (sentryDsn) {
   Sentry.init({
     dsn: sentryDsn,
     environment: process.env.NODE_ENV,
+    // Sentry 11 collects cookies, user info, headers, and bodies unless this is set.
+    // Keep the v10 behavior: do not send that data.
+    dataCollection: {
+      userInfo: false,
+      cookies: false,
+      httpHeaders: false,
+      httpBodies: [],
+      urlQueryParams: false,
+      stackFrameVariables: false,
+    },
     integrations: [
       // application not responding detection.
       Sentry.anrIntegration({ captureStackTrace: true }),

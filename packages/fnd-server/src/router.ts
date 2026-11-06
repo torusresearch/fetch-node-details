@@ -44,7 +44,11 @@ router.get(
   ),
   async (req: Request, res: Response) => {
     try {
-      const { network, keyType = KEY_TYPE.SECP256K1, sigType = SIG_TYPE.ECDSA_SECP256K1 } = req.query as Record<string, string>;
+      const {
+        network,
+        keyType = KEY_TYPE.SECP256K1,
+        sigType = SIG_TYPE.ECDSA_SECP256K1,
+      } = req.query as { network: string; keyType?: string; sigType?: string };
       const finalNetwork = network.toLowerCase();
       // use static details for sapphire mainnet and testnet
       const nodeDetails = fetchLocalConfig(finalNetwork as TORUS_NETWORK_TYPE, keyType as WEB3AUTH_KEY_TYPE, sigType as WEB3AUTH_SIG_TYPE);

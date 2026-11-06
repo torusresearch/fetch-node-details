@@ -1,12 +1,9 @@
 {
-  "extends": "@toruslabs/config/tsconfig.default.json",
+  "extends": "@toruslabs/config/tsconfig.node.json",
   "include": ["src"],
   "compilerOptions": {
-    "moduleResolution": "NodeNext",
+    "rootDir": "./src",
     "outDir": "./dist",
-    "declarationDir": "./dist/types",
-    "module": "NodeNext",
-    "target": "ES2024",
-    "lib": ["ES2024"]
+    "declarationDir": "./dist/types"
   }
 }
