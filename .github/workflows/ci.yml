@@ -47,14 +47,15 @@ jobs:
       - name: Check dependency hardening
         run: npm run harden:check
 
+      # Workspace packages resolve each other's types from dist, so build before type-aware checks.
+      - name: Build
+        run: npm run build
+
       - name: Check lint and format
         run: npm run check
 
       - name: Typecheck
         run: npm run typecheck
-
-      - name: Build
-        run: npm run build
 
       - name: Check package contents
         run: npm pack --dry-run -w @toruslabs/constants -w @toruslabs/fnd-base -w @toruslabs/fetch-node-details
