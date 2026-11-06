@@ -1,34 +1,33 @@
 # for build
 FROM node:24-alpine AS build
 
-ENV NODE_OPTIONS --max-old-space-size=4096
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 WORKDIR /app
 
-RUN apk add --no-cache --virtual .gyp \
-        python3 \
-        make \
-        g++
-
 COPY package.json ./
 
-RUN npm i
+RUN npm install --ignore-scripts --no-audit --no-fund
 
 COPY . .
 
-RUN npm run build 
+RUN npm run build
 
 # for production
 FROM node:24-alpine
 
-ENV NODE_OPTIONS --max-old-space-size=4096
+ENV NODE_OPTIONS=--max-old-space-size=4096
 
 WORKDIR /app
 
 COPY --from=build /app/package*.json ./
 
-RUN npm ci --omit=dev --ignore-scripts
+RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund && npm cache clean --force
 
 COPY --from=build /app/dist ./dist
 
-CMD npm run prod
+USER node
+
+EXPOSE 8060
+
+CMD ["node", "dist/index.js"]

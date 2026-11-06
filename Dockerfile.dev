@@ -1,21 +1,27 @@
 FROM node:24-alpine
 
-RUN apk add --no-cache tzdata
+RUN apk add --no-cache tzdata && npm install --global npm@12.2.0 && mkdir -p /app && chown node:node /app
+
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
+USER node
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY --chown=node:node package.json package-lock.json .npmrc ./
+COPY --chown=node:node packages/constants/package.json packages/constants/
+COPY --chown=node:node packages/fnd-base/package.json packages/fnd-base/
+COPY --chown=node:node packages/fetch-node-details/package.json packages/fetch-node-details/
+COPY --chown=node:node packages/fnd-server/package.json packages/fnd-server/
 
-ENV NODE_OPTIONS --max-old-space-size=4096
+RUN npm ci --no-audit --no-fund
 
-RUN apk add --no-cache --virtual .gyp \
-        python3 \
-        make \
-        g++ \
-        && npm install && apk del .gyp
+COPY --chown=node:node . .
 
-COPY . .
+RUN npm run build -w @toruslabs/constants -w @toruslabs/fnd-base
 
-RUN npm run build
+EXPOSE 8060
 
-CMD cd packages/fnd-server && npm run serve
+WORKDIR /app/packages/fnd-server
+
+CMD ["npm", "run", "serve"]

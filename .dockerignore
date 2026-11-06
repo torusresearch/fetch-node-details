@@ -1,0 +1,11 @@
+.git
+.github
+.vscode
+**/node_modules
+**/dist
+**/coverage
+**/.vitest
+**/.eslintcache
+**/*.log
+.env
+**/*.tgz
