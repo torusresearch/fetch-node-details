@@ -65,10 +65,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "@vitest/browser": "^4.1.0",
-    "@vitest/browser-playwright": "^4.1.0",
-    "@vitest/coverage-istanbul": "^4.1.0",
+    "@vitest/browser": "^4.1.12",
+    "@vitest/browser-playwright": "^4.1.12",
+    "@vitest/coverage-istanbul": "^4.1.12",
     "playwright": "^1.58.2",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.12"
   }
 }
