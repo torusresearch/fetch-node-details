@@ -1,9 +1,13 @@
 {
   "cSpell.words": ["toruslabs"],
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "[javascript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[typescript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "oxc.disableNestedConfig": true,
+  "oxc.fmt.disableNestedConfig": true,
   "editor.formatOnSave": true,
-  "eslint.format.enable": true,
-  "eslint.lintTask.enable": true,
+  "editor.formatOnSaveMode": "file",
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll.oxc": "explicit"
   }
 }

@@ -1,6 +1,6 @@
 import { BUILD_ENV, LEGACY_METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
 import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 
 import NodeDetailManager from "../src/nodeDetailManager";
 
