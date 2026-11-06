@@ -12,4 +12,4 @@ Stack 2026 Q4 upgrade.
 - Drop the `@babel/runtime` peer dependency.
 - `@toruslabs/fetch-node-details` now uses `@toruslabs/http-helpers` 10.
 - `@toruslabs/fnd-server` no longer sends `Access-Control-Allow-Credentials`.
-- `@toruslabs/fnd-server` uses `@sentry/node` 11 and `@toruslabs/loglevel-sentry` 10.
+- `@toruslabs/fnd-server` uses `@sentry/node` 11 and `@toruslabs/loglevel-sentry` 10. Automatic collection of cookies, user info, headers, and request bodies stays off.

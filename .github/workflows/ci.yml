@@ -3,6 +3,12 @@ name: Validate
 on:
   pull_request:
   workflow_call:
+    inputs:
+      ref:
+        description: Commit or branch to validate. Empty uses the calling commit.
+        required: false
+        type: string
+        default: ""
     secrets:
       WIZ_SENSOR_TOKEN:
         required: false
@@ -30,6 +36,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Use Node.js
@@ -82,6 +89,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           persist-credentials: false
 
       - name: Build image
@@ -104,6 +112,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ inputs.ref || github.sha }}
           fetch-depth: 0
           persist-credentials: false
 
