@@ -120,7 +120,9 @@ class NodeDetailManager {
       return LEGACY_METADATA_MAP[this.buildEnv];
     }
     const nodeDetails = await this.getNodeDetails({ verifier: "test-verifier", verifierId: "test-verifier-id" });
-    return nodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata");
+    const [endpoint] = nodeDetails.torusNodeEndpoints;
+    if (!endpoint) throw new Error("No torus node endpoints available");
+    return endpoint.replace("/sss/jrpc", "/metadata");
   }
 
   private setNodeDetails(nodeDetails: INodeDetails) {

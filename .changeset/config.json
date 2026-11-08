@@ -1,0 +1,13 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
+  "baseBranch": "develop",
+  "access": "public",
+  "privatePackages": {
+    "version": true,
+    "tag": false
+  },
+  "updateInternalDependencies": "patch",
+  "fixed": [["@toruslabs/constants", "@toruslabs/fnd-base", "@toruslabs/fetch-node-details", "@toruslabs/fnd-server"]],
+  "linked": [],
+  "ignore": []
+}

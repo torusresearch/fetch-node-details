@@ -6,10 +6,10 @@
   "module": "dist/lib.esm/index.js",
   "unpkg": "dist/lib.esm/index.js",
   "jsdelivr": "dist/lib.esm/index.js",
-  "types": "dist/lib.cjs/types/index.d.ts",
+  "types": "dist/lib.cjs/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/lib.cjs/types/index.d.ts",
+      "types": "./dist/lib.cjs/index.d.ts",
       "import": "./dist/lib.esm/index.js",
       "require": "./dist/lib.cjs/index.js"
     }
@@ -19,23 +19,10 @@
     "dist"
   ],
   "scripts": {
-    "start": "torus-scripts start",
-    "build": "torus-scripts build",
-    "release": "torus-scripts release",
+    "start": "vp pack --watch",
+    "build": "vp pack",
     "prepack": "npm run build",
-    "lint": "torus-scripts lint"
-  },
-  "peerDependencies": {
-    "@babel/runtime": "7.x"
-  },
-  "lint-staged": {
-    "!(*d).{js,ts}": [
-      "eslint --cache --fix",
-      "prettier --write"
-    ],
-    "*.{json, md}": [
-      "prettier --write"
-    ]
+    "typecheck": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -58,8 +45,8 @@
   },
   "homepage": "https://github.com/torusresearch/fetch-node-details#readme",
   "engines": {
-    "node": ">=22.x",
-    "npm": ">=10.x"
+    "node": ">=24.22.0",
+    "npm": ">=12"
   },
   "publishConfig": {
     "access": "public"

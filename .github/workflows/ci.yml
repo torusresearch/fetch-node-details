@@ -1,0 +1,135 @@
+name: Validate
+
+on:
+  pull_request:
+  workflow_call:
+    inputs:
+      ref:
+        description: Commit or branch to validate. Empty uses the calling commit.
+        required: false
+        type: string
+        default: ""
+    secrets:
+      WIZ_SENSOR_TOKEN:
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: run tests
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["24.22", "26"]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+
+      - name: Install npm 12
+        run: npm install --global npm@12.2.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check dependency hardening
+        run: npm run harden:check
+
+      # Workspace packages resolve each other's types from dist, so build before type-aware checks.
+      - name: Build
+        run: npm run build
+
+      - name: Check lint and format
+        run: npm run check
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Check package contents
+        run: npm pack --dry-run -w @toruslabs/constants -w @toruslabs/fnd-base -w @toruslabs/fetch-node-details
+
+      - name: Install playwright webkit dependencies
+        run: npm exec -- playwright install-deps webkit
+
+      - name: Install browsers
+        run: npm exec -- playwright install
+
+      - name: Run tests
+        run: npm run test:ci
+
+  docker:
+    name: build fnd-server image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          persist-credentials: false
+
+      - name: Build image
+        run: docker build -t fnd-server:ci .
+
+      - name: Smoke test image
+        run: |
+          docker run -d --name fnd-server -p 8060:8060 fnd-server:ci
+          for i in $(seq 1 30); do curl -fsS http://localhost:8060/health && break; sleep 1; done
+          curl -fsS http://localhost:8060/health
+          test "$(docker exec fnd-server id -u)" != "0"
+          docker logs fnd-server
+          docker rm -f fnd-server
+
+  release-notes:
+    if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24.22"
+          cache: "npm"
+
+      - name: Install npm 12
+        run: npm install --global npm@12.2.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check release notes
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin "${BASE_REF}:refs/remotes/origin/${BASE_REF}"
+          npm exec -- changeset status --since="origin/${BASE_REF}"
