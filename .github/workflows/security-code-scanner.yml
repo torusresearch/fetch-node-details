@@ -1,13 +1,9 @@
 name: Security code scanner
 
-# CodeQL stays on GitHub's default setup. Uploading a second CodeQL analysis
-# from the shared scanner fails while that setup is enabled, so this workflow
-# runs Semgrep and zizmor only.
-
 on:
   pull_request:
   push:
-    branches: [develop, master]
+    branches: [main]
   schedule:
     - cron: "17 4 * * 1"
   workflow_dispatch:
@@ -16,42 +12,16 @@ permissions:
   contents: read
 
 jobs:
-  run-security-scan:
-    runs-on: ubuntu-latest
+  security-scan:
+    uses: MetaMask/action-security-code-scanner/.github/workflows/security-scan.yml@becb242930b3cc271c26da0280050db9c157e291 # v2.1.1
     permissions:
       actions: read
       contents: read
       security-events: write
-    steps:
-      - name: Wiz sensor
-        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
-        with:
-          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
-          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
-      - name: MetaMask Security Code Scanner
-        uses: MetaMask/action-security-code-scanner@234d72bd10c689bdf09a58bcc96b367fb00f9ee8 # v1.1.0
-        with:
-          repo: ${{ github.repository }}
-          paths_ignored: |
-            .storybook/
-            '**/__snapshots__/'
-            '**/*.snap'
-            '**/*.stories.js'
-            '**/*.stories.tsx'
-            '**/*.test.browser.ts*'
-            '**/*.test.js*'
-            '**/*.test.ts*'
-            '**/fixtures/'
-            '**/jest.config.js'
-            '**/jest.environment.js'
-            '**/mocks/'
-            '**/test*/'
-            docs/
-            e2e/
-            merged-packages/
-            node_modules
-            storybook/
-            test*/
-          rules_excluded: example
-          project_metrics_token: ${{ secrets.SECURITY_SCAN_METRICS_TOKEN }}
-          slack_webhook: ${{ secrets.APPSEC_BOT_SLACK_WEBHOOK }}
+    with:
+      scanner-ref: becb242930b3cc271c26da0280050db9c157e291 # v2.1.1
+      paths-ignored: |
+        **/node_modules/**
+        **/dist/**
+        **/build/**
+        **/coverage/**
