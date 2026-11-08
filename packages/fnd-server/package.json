@@ -19,14 +19,14 @@
     "@toruslabs/constants": "^16.1.1",
     "@toruslabs/fnd-base": "^16.1.1",
     "@toruslabs/loglevel-sentry": "^10.0.0",
-    "celebrate": "^15.0.3",
-    "compression": "^1.8.1",
+    "celebrate": "^16.0.0",
+    "compression": "^1.8.2",
     "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1",
-    "helmet": "^8.1.0",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
     "loglevel": "^1.9.2",
-    "morgan": "^1.10.1"
+    "morgan": "^1.12.1"
   },
   "devDependencies": {
     "@toruslabs/config": "^5.0.0",

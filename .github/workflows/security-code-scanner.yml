@@ -16,26 +16,45 @@ permissions:
   contents: read
 
 jobs:
-  semgrep:
-    name: Semgrep analysis
+  run-security-scan:
     runs-on: ubuntu-latest
     permissions:
+      actions: read
       contents: read
       security-events: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
         with:
-          persist-credentials: false
-
-      - name: Run Semgrep
-        uses: MetaMask/action-security-code-scanner/packages/semgrep-action@becb242930b3cc271c26da0280050db9c157e291 # v2.1.1
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+      - name: MetaMask Security Code Scanner
+        uses: MetaMask/action-security-code-scanner@234d72bd10c689bdf09a58bcc96b367fb00f9ee8 # v1.1.0
         with:
+          repo: ${{ github.repository }}
           paths_ignored: |
-            **/node_modules/**
-            **/dist/**
-            **/coverage/**
-            **/.vitest/**
+            .storybook/
+            '**/__snapshots__/'
+            '**/*.snap'
+            '**/*.stories.js'
+            '**/*.stories.tsx'
+            '**/*.test.browser.ts*'
+            '**/*.test.js*'
+            '**/*.test.ts*'
+            '**/fixtures/'
+            '**/jest.config.js'
+            '**/jest.environment.js'
+            '**/mocks/'
+            '**/test*/'
+            docs/
+            e2e/
+            merged-packages/
+            node_modules
+            storybook/
+            test*/
+          rules_excluded: example
+          project_metrics_token: ${{ secrets.SECURITY_SCAN_METRICS_TOKEN }}
+          slack_webhook: ${{ secrets.APPSEC_BOT_SLACK_WEBHOOK }}
 
   zizmor:
     name: GitHub Actions security (zizmor)
