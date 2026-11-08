@@ -1,5 +1,4 @@
-# for build
-FROM node:24.22.1-alpine AS build
+FROM node:24.22.1-alpine AS base
 
 RUN apk add --no-cache tzdata && npm install --global npm@12.2.0 && mkdir -p /app && chown node:node /app
 
@@ -14,6 +13,9 @@ COPY --chown=node:node packages/constants/package.json packages/constants/
 COPY --chown=node:node packages/fnd-base/package.json packages/fnd-base/
 COPY --chown=node:node packages/fetch-node-details/package.json packages/fetch-node-details/
 COPY --chown=node:node packages/fnd-server/package.json packages/fnd-server/
+
+# for build
+FROM base AS build
 
 RUN npm ci --no-audit --no-fund
 
@@ -23,21 +25,7 @@ RUN npm run build -w @toruslabs/constants -w @toruslabs/fnd-base \
  && npm run build -w @toruslabs/fnd-server
 
 # for production
-FROM node:24.22.1-alpine
-
-RUN apk add --no-cache tzdata && npm install --global npm@12.2.0 && mkdir -p /app && chown node:node /app
-
-ENV NODE_OPTIONS=--max-old-space-size=4096
-
-USER node
-
-WORKDIR /app
-
-COPY --chown=node:node package.json package-lock.json .npmrc ./
-COPY --chown=node:node packages/constants/package.json packages/constants/
-COPY --chown=node:node packages/fnd-base/package.json packages/fnd-base/
-COPY --chown=node:node packages/fetch-node-details/package.json packages/fetch-node-details/
-COPY --chown=node:node packages/fnd-server/package.json packages/fnd-server/
+FROM base
 
 RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 

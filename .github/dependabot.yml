@@ -12,7 +12,6 @@ updates:
   - package-ecosystem: "docker"
     directories:
       - "/"
-      - "/packages/fnd-server"
     schedule:
       interval: "weekly"
     cooldown:
