@@ -3,6 +3,7 @@ name: Container config scan
 on:
   pull_request:
     paths:
+      - "Dockerfile"
       - "Dockerfile.dev"
       - "docker-compose.dev.yml"
       - "packages/fnd-server/**"

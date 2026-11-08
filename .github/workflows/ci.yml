@@ -93,7 +93,6 @@ jobs:
           persist-credentials: false
 
       - name: Build image
-        working-directory: ./packages/fnd-server
         run: docker build -t fnd-server:ci .
 
       - name: Smoke test image
