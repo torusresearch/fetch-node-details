@@ -35,6 +35,8 @@ COPY --chown=node:node --from=build /app/packages/fnd-server/dist packages/fnd-s
 
 WORKDIR /app/packages/fnd-server
 
+USER node
+
 EXPOSE 8060
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
