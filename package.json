@@ -1,55 +1,65 @@
 {
   "name": "fnd",
   "private": true,
+  "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/constants",
+    "packages/fnd-base",
+    "packages/fetch-node-details",
+    "packages/fnd-server"
   ],
-  "peerDependencies": {
-    "@babel/runtime": "^7.x"
-  },
   "devDependencies": {
-    "@babel/register": "^7.28.6",
-    "@toruslabs/config": "^4.0.0",
-    "@toruslabs/eslint-config-typescript": "^5.0.1",
-    "@toruslabs/torus-scripts": "^8.0.1",
-    "cross-env": "^10.1.0",
-    "dotenv": "^17.3.1",
-    "eslint": "^9.39.2",
-    "husky": "^9.1.7",
-    "lerna": "^9.0.7",
-    "lint-staged": "^16.4.0",
-    "prettier": "^3.8.1",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "@changesets/cli": "^3.0.3",
+    "@lavamoat/harden": "0.8.1",
+    "@toruslabs/config": "^5.0.0",
+    "@toruslabs/oxlint-config-node": "^1.0.0",
+    "@toruslabs/oxlint-config-typescript": "^1.1.0",
+    "@toruslabs/torus-scripts": "^9.0.1",
+    "rimraf": "^6.1.3",
+    "typescript": "^7.0.2",
+    "vite-plus": "1.5.0",
     "wait-port": "^1.1.0"
   },
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "just:publish:lerna": "lerna publish",
     "wait": "wait-port 8060",
-    "test": "cross-env FORCE_COLOR=1 lerna run test --parallel",
+    "test": "npm run test --workspaces --if-present",
     "server:dev": "docker compose -f docker-compose.dev.yml up --build",
     "server:detach": "docker compose -f docker-compose.dev.yml up --build --detach",
     "test:ci": "npm run server:detach && wait-port 8060 && sleep 20 && npm run test",
-    "build": "cross-env FORCE_COLOR=1 lerna run --stream build",
-    "pack:lerna": "lerna exec -- rimraf toruslabs-*.tgz && lerna exec -- yarn pack",
-    "bootstrap": "lerna bootstrap",
-    "publish:lerna": "yarn clean && yarn bootstrap && lerna publish",
-    "lint": "cross-env FORCE_COLOR=1 lerna run lint --parallel",
-    "pre-commit": "lerna run pre-commit",
-    "dev": "cross-env FORCE_COLOR=1 lerna run --stream dev",
-    "clean": "lerna clean --yes && lerna exec -- rimraf package-lock.json yarn.lock dist/ .rts2_cache_{cjs,esm}/",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "*": "lerna run --concurrency 1 --stream --since HEAD --exclude-dependents pre-commit -- "
+    "build": "npm run build --workspaces --if-present",
+    "lint": "vp lint",
+    "dev": "npm run dev -w @toruslabs/fnd-server",
+    "clean": "rimraf --glob \"packages/*/dist\"",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
+    "check": "vp check",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "harden:check": "harden check -p npm -l moderate",
+    "changeset": "changeset",
+    "version-packages": "changeset version && npm install --package-lock-only --ignore-scripts"
   },
   "engines": {
-    "node": ">=22.x",
-    "npm": ">=10.x"
+    "node": ">=24.22.0",
+    "npm": ">=12"
   },
   "author": "",
   "license": "MIT",
-  "description": ""
+  "description": "",
+  "overrides": {
+    "glob": "^14.0.4",
+    "lodash": "^4.18.1",
+    "minimatch": "^11.0.5",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0",
+    "vitest": "5.1.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.17.0",
+      "onFail": "error"
+    }
+  },
+  "allowScripts": {}
 }

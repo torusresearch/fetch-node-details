@@ -1,6 +1,6 @@
 import { BUILD_ENV, LEGACY_METADATA_MAP, TORUS_LEGACY_NETWORK, TORUS_NETWORK_TYPE, TORUS_SAPPHIRE_NETWORK } from "@toruslabs/constants";
 import { getSapphireNodeDetails } from "@toruslabs/fnd-base";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vite-plus/test";
 
 import NodeDetailManager from "../src/nodeDetailManager";
 
@@ -31,7 +31,7 @@ describe("Fetch Node Details", () => {
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_DEVNET);
     expect(details).toEqual(compareNodeDetails);
-    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata"));
+    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0]?.replace("/sss/jrpc", "/metadata"));
   });
 
   it("should return correct values - sapphire mainnet", async () => {
@@ -45,7 +45,7 @@ describe("Fetch Node Details", () => {
     const metadataUrl = await nodeDetailManager.getMetadataUrl();
     const compareNodeDetails = getSapphireNodeDetails(TORUS_SAPPHIRE_NETWORK.SAPPHIRE_MAINNET);
     expect(details).toEqual(compareNodeDetails);
-    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0].replace("/sss/jrpc", "/metadata"));
+    expect(metadataUrl).toBe(compareNodeDetails.torusNodeEndpoints[0]?.replace("/sss/jrpc", "/metadata"));
   });
 
   it("should return correct values - cyan", async () => {

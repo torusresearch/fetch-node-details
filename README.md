@@ -11,7 +11,6 @@ It has following pacakges:-
 - @toruslabs/fetch-node-details
 - @toruslabs/fnd-server
 
-
 ## Installation
 
 - npm i
@@ -23,7 +22,6 @@ It has following pacakges:-
 ## Run test cases
 
 - npm run test:ci
-
 
 ## Build packages
 
