@@ -79,8 +79,7 @@ fetchNodeDetails.getNodeDetails({ verifier: "google", verifierId: "hello@tor.us"
 
 ## Requirements
 
-- This package requires a peer dependency of `@babel/runtime`
-- Node 20+
+- Node 24.22+
 
 ## Local Development
 
