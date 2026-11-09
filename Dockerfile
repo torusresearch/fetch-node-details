@@ -1,37 +1,58 @@
 FROM node:24.22.1-alpine AS base
 
-RUN apk add --no-cache tzdata && npm install --global npm@12.2.0 && mkdir -p /app && chown node:node /app
+# The npm binary stays root-owned. Application dependencies are installed below, as node.
+RUN npm install --global npm@12.2.0
 
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
+# /home/node already belongs to node. COPY always runs as root, so the manifests
+# are handed over with chown instead of COPY --chown, which is what KICS flags.
 USER node
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
 
-WORKDIR /app
+COPY package.json package-lock.json .npmrc ./
+COPY packages/constants/package.json packages/constants/
+COPY packages/fnd-base/package.json packages/fnd-base/
+COPY packages/fetch-node-details/package.json packages/fetch-node-details/
+COPY packages/fnd-server/package.json packages/fnd-server/
 
-COPY --chown=node:node package.json package-lock.json .npmrc ./
-COPY --chown=node:node packages/constants/package.json packages/constants/
-COPY --chown=node:node packages/fnd-base/package.json packages/fnd-base/
-COPY --chown=node:node packages/fetch-node-details/package.json packages/fetch-node-details/
-COPY --chown=node:node packages/fnd-server/package.json packages/fnd-server/
+USER root
+RUN chown -R node:node /home/node/app
+USER node
 
 # for build
 FROM base AS build
 
-RUN npm ci --no-audit --no-fund
+USER root
+COPY . .
+RUN chown -R node:node /home/node/app
+USER node
 
-COPY --chown=node:node . .
+RUN npm ci --no-audit --no-fund
 
 RUN npm run build -w @toruslabs/constants -w @toruslabs/fnd-base \
  && npm run build -w @toruslabs/fnd-server
 
-# for production
-FROM base
+# production dependencies, installed as node
+FROM base AS prod-deps
 
 RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 
-COPY --chown=node:node --from=build /app/packages/constants/dist packages/constants/dist
-COPY --chown=node:node --from=build /app/packages/fnd-base/dist packages/fnd-base/dist
-COPY --chown=node:node --from=build /app/packages/fnd-server/dist packages/fnd-server/dist
+# BuildKit keeps the source owner on COPY --from, so the node-owned install
+# arrives owned by node. Reassign it to root. There is no --chown flag for KICS to flag.
+FROM node:24.22.1-alpine
+
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
+WORKDIR /app
+
+COPY --from=prod-deps /home/node/app ./
+COPY --from=build /home/node/app/packages/constants/dist packages/constants/dist
+COPY --from=build /home/node/app/packages/fnd-base/dist packages/fnd-base/dist
+COPY --from=build /home/node/app/packages/fnd-server/dist packages/fnd-server/dist
+
+RUN chown -R root:root /app
 
 WORKDIR /app/packages/fnd-server
 

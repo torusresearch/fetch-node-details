@@ -1,6 +1,6 @@
 FROM node:24.22.1-alpine
 
-RUN apk add --no-cache tzdata && npm install --global npm@12.2.0 && mkdir -p /app && chown node:node /app
+RUN npm install --global npm@12.2.0 && mkdir -p /app && chown node:node /app
 
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
