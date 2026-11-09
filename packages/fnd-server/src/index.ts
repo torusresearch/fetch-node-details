@@ -1,4 +1,5 @@
 import "./utils/instrument";
+import { createServer } from "http";
 
 import * as Sentry from "@sentry/node";
 import { errors } from "celebrate";
@@ -7,7 +8,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
-import { createServer } from "http";
 import log, { levels, LogLevelDesc } from "loglevel";
 import morgan from "morgan";
 
@@ -39,7 +39,7 @@ app.set("trust proxy", 1);
 const corsOptions = {
   //   origin: ["https://localhost:3000", /\.tor\.us$/],
   origin: true,
-  credentials: true,
+  credentials: false,
   allowedHeaders: [
     "Content-Type",
     "x-api-key",
