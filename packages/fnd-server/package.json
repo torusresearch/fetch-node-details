@@ -1,6 +1,6 @@
 {
   "name": "@toruslabs/fnd-server",
-  "version": "16.1.1",
+  "version": "17.0.0",
   "description": "",
   "private": true,
   "main": "src/index.ts",
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@sentry/node": "^11.10.0",
-    "@toruslabs/constants": "^16.1.1",
-    "@toruslabs/fnd-base": "^16.1.1",
+    "@toruslabs/constants": "^17.0.0",
+    "@toruslabs/fnd-base": "^17.0.0",
     "@toruslabs/loglevel-sentry": "^10.0.0",
     "celebrate": "^16.0.0",
     "compression": "^1.8.2",
