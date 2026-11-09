@@ -12,7 +12,8 @@ concurrency:
 
 jobs:
   release-pr:
-    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    # Releases are cut from master. The repository default branch stays develop.
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -54,6 +55,6 @@ jobs:
     if: needs.release-pr.outputs.pr-number != ''
     uses: ./.github/workflows/ci.yml
     with:
-      ref: ${{ format('changeset-release/{0}', github.event.repository.default_branch) }}
+      ref: changeset-release/master
     secrets:
       WIZ_SENSOR_TOKEN: ${{ secrets.WIZ_SENSOR_TOKEN }}
