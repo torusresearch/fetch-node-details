@@ -39,6 +39,7 @@ app.set("trust proxy", 1);
 const corsOptions = {
   //   origin: ["https://localhost:3000", /\.tor\.us$/],
   origin: true,
+  credentials: false,
   allowedHeaders: [
     "Content-Type",
     "x-api-key",
