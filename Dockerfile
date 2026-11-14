@@ -1,4 +1,4 @@
-FROM node:24.22.1-alpine AS base
+FROM node:26.13.0-alpine AS base
 
 # The npm binary stays root-owned. Application dependencies are installed below, as node.
 RUN npm install --global npm@12.2.0
@@ -41,7 +41,7 @@ RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 
 # BuildKit keeps the source owner on COPY --from, so the node-owned install
 # arrives owned by node. Reassign it to root. There is no --chown flag for KICS to flag.
-FROM node:24.22.1-alpine
+FROM node:26.13.0-alpine
 
 ENV NODE_OPTIONS=--max-old-space-size=4096
 
