@@ -1,0 +1,173 @@
+name: deploy
+
+# Every push to master deploys LRC.
+# The same run writes the changelog, then waits for admin approval before production.
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+    secrets:
+      WIZ_SENSOR_TOKEN: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+  deploy-lrc:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: lrc
+    concurrency:
+      group: deploy-lrc
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION_SING }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd # v2.1.7
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: fetch-node-details-lrc
+          IMAGE_TAG: latest
+        run: |
+          docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" -t "$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA" .
+          echo "Pushing image to ECR..."
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA"
+
+      - name: Deploy Testing env
+        timeout-minutes: 10
+        run: |
+          aws ecs update-service --cluster "$ECS_CLUSTER_FND" --service "$ECS_SERVICE_FND" --force-new-deployment
+          aws ecs wait services-stable --cluster "$ECS_CLUSTER_FND" --service "$ECS_SERVICE_FND"
+        env:
+          ECS_CLUSTER_FND: lrc-microservices
+          ECS_SERVICE_FND: fnd-server-lrc
+
+  prd-changelog:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    permissions:
+      contents: read
+      deployments: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Generate prd changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          DEPLOYMENTS=$(gh api "/repos/${{ github.repository }}/deployments?environment=production&per_page=10")
+          PREV_SHA=""
+          while IFS= read -r id; do
+            STATE=$(gh api "/repos/${{ github.repository }}/deployments/${id}/statuses?per_page=1" \
+              | jq -r '.[0].state // empty')
+            if [[ "$STATE" == "success" ]]; then
+              PREV_SHA=$(echo "$DEPLOYMENTS" | jq -r --argjson id "$id" '.[] | select(.id == $id) | .sha')
+              break
+            fi
+          done < <(echo "$DEPLOYMENTS" | jq -r '.[].id')
+
+          echo "## Changes queued for production" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -n "$PREV_SHA" ]; then
+            echo "Comparing \`${PREV_SHA:0:7}\` → \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            git diff --name-only --diff-filter=A "${PREV_SHA}".."${GITHUB_SHA}" -- .changeset \
+              | grep -E '^\.changeset/.+\.md$' >> "$GITHUB_STEP_SUMMARY" || true
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "_No previous production deployment found — showing last 20 commits_" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            git log --oneline -20 >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  deploy-production:
+    name: release to ${{ matrix.name }} region
+    needs: prd-changelog
+    runs-on: ubuntu-latest
+    environment: production
+    concurrency:
+      group: deploy-production-${{ matrix.name }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [sg, us]
+    steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ matrix.name == 'us' && secrets.AWS_REGION_US || secrets.AWS_REGION_SING }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd # v2.1.7
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: fnd-server
+          IMAGE_TAG: latest
+        run: |
+          docker build -t "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" -t "$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA" .
+          echo "Pushing image to ECR..."
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker push "$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_SHA"
+
+      - name: Deploy Production env
+        timeout-minutes: 10
+        run: |
+          aws ecs update-service --cluster "$ECS_CLUSTER_FND" --service "$ECS_SERVICE_FND" --force-new-deployment
+          aws ecs wait services-stable --cluster "$ECS_CLUSTER_FND" --service "$ECS_SERVICE_FND"
+        env:
+          ECS_CLUSTER_FND: prod-microservices
+          ECS_SERVICE_FND: fnd-server-service
