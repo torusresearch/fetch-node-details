@@ -104,8 +104,10 @@ jobs:
             echo "Comparing \`${PREV_SHA:0:7}\` → \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
-            git diff --name-only --diff-filter=A "${PREV_SHA}".."${GITHUB_SHA}" -- .changeset \
-              | grep -E '^\.changeset/.+\.md$' >> "$GITHUB_STEP_SUMMARY" || true
+            # Walk the commits, not the two end points: `changeset version` deletes entries in a release PR,
+            # and an entry added and deleted inside the range does not show in a diff of the end points.
+            git log --reverse --diff-filter=A --name-only --format= "${PREV_SHA}..${GITHUB_SHA}" -- .changeset \
+              | grep -E '^\.changeset/.+\.md$' | awk '!seen[$0]++' >> "$GITHUB_STEP_SUMMARY" || true
             echo '```' >> "$GITHUB_STEP_SUMMARY"
           else
             echo "_No previous production deployment found — showing last 20 commits_" >> "$GITHUB_STEP_SUMMARY"
