@@ -37,4 +37,4 @@ jobs:
         env:
           BASE_REF: ${{ github.base_ref }}
           # Allowlist: files that never change what ships. Every other file needs a changeset.
-          NO_CHANGESET_PATHS: '^(\.github/|\.vscode/|docs/|README\.md$|CHANGELOG\.md$|vitest\.config\.mts$)|(^|/)(__tests__|test)/|\.test\.([cm]?[jt]s|sh)$|(^|/)(releaseCheck|changesetCheck)\.sh$'
+          NO_CHANGESET_PATHS: '^(\.github/|\.vscode/|docs/|test/|README\.md$|CHANGELOG\.md$)|(^|/)(__tests__|test)/|\.test\.([cm]?[jt]s|sh)$|(^|/)(changesetCheck|prdChangelog)\.sh$'

@@ -68,57 +68,36 @@ jobs:
           ECS_SERVICE_FND: fnd-server-lrc
 
   prd-changelog:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    needs: test
+    # Runs after LRC. Production waits for this job, so the approver sees the changelog first.
+    needs: deploy-lrc
     runs-on: ubuntu-latest
     permissions:
       contents: read
       deployments: read
+    outputs:
+      prev: ${{ steps.changelog.outputs.prev }}
     steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Generate prd changelog
+      - name: Write the production changelog
+        id: changelog
         # On the step, not the job: the job then succeeds, so a GitHub API error never skips production.
-        # The step then writes the last 20 commits, because PREV_SHA stays empty.
+        # The release then shows the last 20 commits, because prev stays empty.
         continue-on-error: true
+        run: ./scripts/prdChangelog.sh "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          # A failed API call must not stop the script before the fallback is written.
-          DEPLOYMENTS=$(gh api "/repos/${{ github.repository }}/deployments?environment=production&per_page=10" || echo '[]')
-          PREV_SHA=""
-          while IFS= read -r id; do
-            STATE=$(gh api "/repos/${{ github.repository }}/deployments/${id}/statuses?per_page=1" \
-              | jq -r '.[0].state // empty' || true)
-            if [[ "$STATE" == "success" ]]; then
-              PREV_SHA=$(echo "$DEPLOYMENTS" | jq -r --argjson id "$id" '.[] | select(.id == $id) | .sha')
-              break
-            fi
-          done < <(echo "$DEPLOYMENTS" | jq -r '.[].id')
-
-          echo "## Changes queued for production" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-
-          if [ -n "$PREV_SHA" ]; then
-            echo "Comparing \`${PREV_SHA:0:7}\` → \`${GITHUB_SHA:0:7}\`" >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
-            # Walk the commits, not the two end points: `changeset version` deletes entries in a release PR,
-            # and an entry added and deleted inside the range does not show in a diff of the end points.
-            git log --reverse --diff-filter=A --name-only --format= "${PREV_SHA}..${GITHUB_SHA}" -- .changeset \
-              | grep -E '^\.changeset/.+\.md$' | awk '!seen[$0]++' >> "$GITHUB_STEP_SUMMARY" || true
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "_No previous production deployment found — showing last 20 commits_" >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
-            git log --oneline -20 >> "$GITHUB_STEP_SUMMARY"
-            echo '```' >> "$GITHUB_STEP_SUMMARY"
-          fi
+          PROD_ENVIRONMENT: production
 
   deploy-production:
     name: release to ${{ matrix.name }} region
@@ -176,3 +155,31 @@ jobs:
         env:
           ECS_CLUSTER_FND: prod-microservices
           ECS_SERVICE_FND: fnd-server-service
+
+  release:
+    needs: [prd-changelog, deploy-production]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Wiz sensor
+        uses: Web3Auth/.github/.github/actions/wiz-sensor@545f7c255313f85d38a02dc36c4ad01387d03149 # v1.0.0
+        with:
+          enabled: ${{ vars.WIZ_SENSOR_ENABLED }}
+          token: ${{ secrets.WIZ_SENSOR_TOKEN }}
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # PREV_SHA comes from before the deploy; a lookup now would find this deploy.
+      - name: Create the GitHub Release
+        run: |
+          tag="prod-$(date -u +%Y%m%d)-${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          TITLE="Production deploy ${tag}" ./scripts/prdChangelog.sh "$GITHUB_SHA" > notes.md
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "$tag" --notes-file notes.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PREV_SHA: ${{ needs.prd-changelog.outputs.prev }}

@@ -76,6 +76,12 @@ jobs:
       - name: Run tests
         run: npm run test:ci
 
+      - name: Test changeset check
+        run: ./scripts/changesetCheck.test.sh
+
+      - name: Test changelog
+        run: ./scripts/prdChangelog.test.sh
+
   docker:
     name: build fnd-server image
     runs-on: ubuntu-latest
