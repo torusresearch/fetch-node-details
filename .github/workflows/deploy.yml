@@ -71,7 +71,6 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     needs: test
     runs-on: ubuntu-latest
-    continue-on-error: true
     permissions:
       contents: read
       deployments: read
@@ -83,14 +82,18 @@ jobs:
           persist-credentials: false
 
       - name: Generate prd changelog
+        # On the step, not the job: the job then succeeds, so a GitHub API error never skips production.
+        # The step then writes the last 20 commits, because PREV_SHA stays empty.
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          DEPLOYMENTS=$(gh api "/repos/${{ github.repository }}/deployments?environment=production&per_page=10")
+          # A failed API call must not stop the script before the fallback is written.
+          DEPLOYMENTS=$(gh api "/repos/${{ github.repository }}/deployments?environment=production&per_page=10" || echo '[]')
           PREV_SHA=""
           while IFS= read -r id; do
             STATE=$(gh api "/repos/${{ github.repository }}/deployments/${id}/statuses?per_page=1" \
-              | jq -r '.[0].state // empty')
+              | jq -r '.[0].state // empty' || true)
             if [[ "$STATE" == "success" ]]; then
               PREV_SHA=$(echo "$DEPLOYMENTS" | jq -r --argjson id "$id" '.[] | select(.id == $id) | .sha')
               break
